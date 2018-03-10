@@ -2,10 +2,12 @@
 /config/services.yaml
 /config/packages/security.yaml
 /config/packages/ecommerce.yaml
+/config/packages/pense-bête
 /config/routes/
 
 
 ###> symfony/framework-bundle ###
+
 .env
 /public/bundles/
 /var/
@@ -25,3 +27,4 @@
 ###> symfony/web-server-bundle ###
 .web-server-pid
 ###< symfony/web-server-bundle ###
+
