@@ -1,0 +1,52 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Générale</li>
+        <li>Licenciés</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fa fa-cogs"></i>
+        Générale
+        <span>> Modifier un Licencié</span></h1>
+{% endblock %}
+
+{% block body %}
+    <h1>Edition du licencié {{ licencie.prenom }} {{ licencie.nom }}</h1>
+
+    <div class="well">
+        {{ form_start(edit_form) }}
+        {{ form_widget(edit_form) }}
+        <button type="submit" class="btn btn-labeled btn-success"><span class="btn-label"><i
+                        class="glyphicon glyphicon-ok"></i></span>Editer
+        </button>
+        {{ form_end(edit_form) }}
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="btn-group pull-left">
+                <a href="{{ path('admin_core_licencie_index') }}" class="btn btn-labeled btn-default">
+        <span class="btn-label">
+          <i class="glyphicon glyphicon-chevron-left"></i>
+        </span>Retour
+                </a>
+            </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6">
+            <div class="btn-group pull-right">
+                {{ form_start(delete_form) }}
+                <button class="btn btn-danger" type="submit">Supprimer</button>
+                {{ form_end(delete_form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

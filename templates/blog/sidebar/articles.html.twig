@@ -1,0 +1,19 @@
+<ul class="list-unstyled g-font-size-13 mb-0">
+    {% for article in articles %}
+    <li>
+        <article class="media g-mb-35">
+            {% if article.image is not null %}
+            <img class="d-flex g-width-40 g-height-40 rounded-circle mr-3" src="{{ article.image.webPath| imagine_filter('blogSidebar') }}" alt="{{article.image.alt}}">
+            {% else %}
+
+            {% endif %}
+            <div class="media-body">
+                <h4 class="h6 g-color-black g-font-weight-600">
+                    <a class="u-link-v5 g-color-black g-color-primary--hover" href="{{ path('view_blog', { 'id': article.id, 'slug': article.slug }) }}">{{ article.titre }}</a>
+                </h4>
+                <p class="g-color-gray-dark-v4">{{ article.contenu|truncate(80, true, ' ...')|md2html }}</p>
+            </div>
+        </article>
+    </li>
+    {% endfor %}
+</ul>

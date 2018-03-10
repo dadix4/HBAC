@@ -1,0 +1,136 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Matchs</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fas fa-users"></i>
+        Matchs
+        <span>> Import des Matchs depuis base de donnée GestHand</span></h1>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <article class="col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+
+            <div class="jarviswidget jarviswidget-sortable" id="wid-id-7" data-widget-editbutton="false" data-widget-custombutton="false" role="widget">
+                <header role="heading"><div class="jarviswidget-ctrls" role="menu">    <a href="javascript:void(0);" class="button-icon jarviswidget-fullscreen-btn" rel="tooltip" title="" data-placement="bottom" data-original-title="Fullscreen"><i class="fa fa-expand "></i></a> </div>
+                    <h2><i class="fas fa-download"></i> <i>Import du fichier match au format</i> <strong>.csv</strong></h2>
+
+                    <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
+
+                <!-- widget div-->
+                <div role="content">
+
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+
+                    </div>
+                    <!-- end widget edit box -->
+
+                    <!-- widget content -->
+                    {{ render(controller('App\\Controller\\Admin\\Import\\ImportMatchController:newAction')) }}
+
+                    <!-- end widget content -->
+
+                </div>
+                <!-- end widget div -->
+
+            </div>
+        </article>
+
+        <article class="col-sm-12 col-md-12 col-lg-7 sortable-grid ui-sortable">
+            <div
+                    class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable"
+                    data-widget-colorbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-deletebutton="false"
+                    style=""
+                    role="widget">
+                <header role="heading">
+    <span class="widget-icon">
+      <i class="fa fa-arrow-down"></i>
+    </span>
+                    <h2><strong>Liste</strong> des fichier d'import</h2>
+                    <div class="widget-toolbar" role="menu">
+
+                    </div>
+                    <span class="jarviswidget-loader">
+    <i class="fa fa-refresh fa-spin"></i></span></header>
+
+                <!-- widget div-->
+                <div role="content">
+
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+                    </div>
+                    <!-- end widget edit box -->
+
+                    <!-- widget content -->
+                    <div class="widget-body no-padding">
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Nom Fichier</th>
+                                    <th><i class="fa fa-user"></i> CreatedAt</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for fichierMatch in fichierMatchs %}
+                                    <tr>
+                                        <td>{{ fichierMatch.name }}</td>
+                                        <td>
+                                             {{ fichierMatch.createdBy.username }} le {{ fichierMatch.createdAt|date('d/m/Y') }} à {{ fichierMatch.createdAt|date('H:i') }} </br>
+                                        </td>
+                                        <td>
+                                            <div class="btn-group-vertical">
+                                                {% if fichierMatch.import == 0 %}
+                                                    <a href="{{ path('admin_import_match_importation', {'id': fichierMatch.id}) }}" class="btn btn-xs bg-color-purple txt-color-white">
+                                                        <i class="fas fa-cloud-upload-alt"></i>
+                                                        importer</a>
+                                                {% endif %}
+                                                <form action="{{ path('admin_import_match_delete', {'id':fichierMatch.id}) }}" method="post">
+                                                    <input type="hidden" name="form[_token]" value="{{ csrf_token('form') }}" />
+                                                    <input type="hidden" name="_method" value="DELETE" />
+                                                    <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Supprimer</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% else %}
+                                    <p>
+                                        Pas de fichier matchs uploadé
+                                    </p>
+                                {% endfor %}
+
+                                </tbody>
+                            </table>
+
+                        </div>
+
+                    </div>
+                    <!-- end widget content -->
+
+                </div>
+                <!-- end widget div -->
+
+            </div>
+        </article>
+    </div>
+
+{% endblock %}

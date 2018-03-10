@@ -1,0 +1,60 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+  <div class="row justify-content-between">
+    <div class="col-lg-8 g-mb-80">
+      <div class="g-pr-20--lg">
+        {% block bodyBlog %}
+        {% endblock %}
+      </div>
+    </div>
+
+  <!-- End Content -->
+  {% block sidebar %}
+    <div class="col-lg-4 g-brd-left--lg g-brd-gray-light-v4 g-mb-80">
+      <div class="g-pl-20--lg">
+
+        <!-- Tags -->
+        <div class="g-mb-20">
+          <h3 class="h5 g-color-black g-font-weight-600 mb-4">Catégorie</h3>
+          {{ render(controller('App\\Controller\\Blog\\CategorieController:CategoriesSidebarAction')) }}
+
+        </div>
+        <!-- End Tags -->
+
+        <hr class="g-brd-gray-light-v4">
+
+        <div class="g-mb-20">
+          <!-- Facebook -->
+          <div class="g-mb-20">
+            <div class="headline">
+              <div class="fb-page" data-href="https://www.facebook.com/HBACSaintePazanne/"
+                   data-tabs="timeline"
+                   data-small-header="false"
+                   data-adapt-container-width="true"
+                   data-hide-cover="false"
+                   data-show-facepile="false">
+                <div class="fb-xfbml-parse-ignore">
+                  <blockquote cite="https://www.facebook.com/HBACSaintePazanne/">
+                    <a href="https://www.facebook.com/HBACSaintePazanne/">HBAC SAINTE PAZANNE</a>
+                  </blockquote>
+                </div>
+              </div>
+            </div>
+          </div>
+          <!-- End Facebook -->
+
+          <hr class="g-brd-gray-light-v4">
+
+          <!-- Publications -->
+          <div class="g-mb-20">
+            <h3 class="h5 g-color-black g-font-weight-600 mb-4">Publications</h3>
+            {{ render(controller('App\\Controller\\Blog\\ActualiteController:ArticlesSidebarAction')) }}
+          </div>
+          <!-- End Publications -->
+        </div>
+      </div>
+    </div>
+  {% endblock %}
+  </div>
+{% endblock %}

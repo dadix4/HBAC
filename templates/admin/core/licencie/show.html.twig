@@ -1,0 +1,60 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Licencie</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ licencie.id }}</td>
+            </tr>
+            <tr>
+                <th>Prenom</th>
+                <td>{{ licencie.prenom }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ licencie.nom }}</td>
+            </tr>
+            <tr>
+                <th>Birthday</th>
+                <td>{% if licencie.birthday %}{{ licencie.birthday|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Mail</th>
+                <td>{{ licencie.mail }}</td>
+            </tr>
+            <tr>
+                <th>Tel</th>
+                <td>{{ licencie.tel }}</td>
+            </tr>
+            <tr>
+                <th>Portable</th>
+                <td>{{ licencie.portable }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{% if licencie.createdAt %}{{ licencie.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{% if licencie.updatedAt %}{{ licencie.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_core_licencie_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_core_licencie_edit', { 'id': licencie.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

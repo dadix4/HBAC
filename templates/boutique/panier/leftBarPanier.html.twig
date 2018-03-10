@@ -1,0 +1,32 @@
+<div class="g-mb-30">
+    <h3 class="h5 mb-3"><i class="fa fa-shopping-cart" aria-hidden="true"></i> Panier</h3>
+    {% if produits|length == 0 %}
+
+    <p>Aucun articles dans votre panier</p>
+
+    {% else %}
+    <ul class="list-unstyled">
+        {% set totalTTC = 0 %}
+        {% for produit in produits %}
+        {% set totalTTC = totalTTC + (produit.prix * panier[produit.id]) | tva(produit.tva.multiplicate) %}
+            <li class="my-3">
+                <span class="d-block ">
+                    <a class="u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="{{ path('boutique_presentation', { 'id' : produit.id ,'slug': produit.slug }) }}">{{ produit.nom }}
+                    </a>
+                    <span class="float-right g-font-size-12">
+                        <small class="g-color-primary g-font-size-12">{{ (produit.prix * panier[produit.id])|tva(produit.tva.multiplicate) }}€</small>
+                        <a class="g-color-gray-dark-v4 g-color-black--hover g-cursor-pointer" href="{{ path('boutique_panier_supprimer', { 'id': produit.id }) }}">
+                            <i class="fa fa-times " aria-hidden="true"></i>
+                        </a>
+                    </span>
+                </span>
+            </li>
+        {% endfor %}
+        <li class="my-3">
+            <a class="d-block g-py-10 text-uppercase g-color-main g-font-weight-500 g-py-10"> <strong>TOTAL</strong>
+                <span class="float-right g-color-primary g-font-size-13"><strong>{{totalTTC}} €</strong></span></a>
+        </li>
+    </ul>
+    <a href="{{ path('boutique_panier') }}" class="btn btn-sm btn-block btn-secondary g-mb-10">Mon Panier <i class="fa fa-shopping-cart" aria-hidden="true"></i> </a>
+    {% endif %}
+</div>

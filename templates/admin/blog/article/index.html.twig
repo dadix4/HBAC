@@ -1,0 +1,115 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Blog</li>
+        <li>Articles</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="far fa-newspaper"></i>
+        Blog
+        <span>> Les Actualités</span></h1>
+{% endblock %}
+
+
+{% block body %}
+<div
+        class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable"
+        data-widget-colorbutton="false"
+        data-widget-togglebutton="false"
+        data-widget-editbutton="false"
+        data-widget-fullscreenbutton="false"
+        data-widget-deletebutton="false"
+        style=""
+        role="widget">
+    <header role="heading">
+    <span class="widget-icon">
+      <i class="fa fa-arrow-down"></i>
+    </span>
+        <h2><strong>Liste</strong> des Actualités</h2>
+        <div class="widget-toolbar" role="menu">
+
+            <div class="btn-group">
+                <a href="{{ path('admin_blog_article_new') }}" class="btn dropdown-toggle btn-xs btn-primary">
+                    <i class="fa fa-plus"></i>
+                    <strong>Ajouter une Actualité</strong>
+                </a>
+            </div>
+        </div>
+        <span class="jarviswidget-loader">
+    <i class="fa fa-refresh fa-spin"></i></span></header>
+
+    <!-- widget div-->
+    <div role="content">
+
+        <!-- widget edit box -->
+        <div class="jarviswidget-editbox">
+            <!-- This area used as dropdown edit box -->
+        </div>
+        <!-- end widget edit box -->
+
+        <!-- widget content -->
+        <div class="widget-body no-padding">
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+            <tr>
+                <th>Image</th>
+                <th>Titre</th>
+                <th>Categories</th>
+                <th>Contenu</th>
+                <th>Commentaires</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for article in articles %}
+            <tr>
+                <td> {% if article.image is not null %}<img src="{{ article.image.webPath| imagine_filter('produitThumb') }}" alt="{{article.image.alt}}" width="50px">{% endif %}</td>
+                <td><strong>{{ article.titre }}</strong></td>
+                <td>
+                    {% for categorie in article.categories %}<span class="label label-default">{{ categorie.nom }}</span>{% if not loop.last %}  {% endif %}{% endfor %}
+                </td>
+                <td>{{ article.contenu|raw }}</td>
+                <td>
+                    {{ article.commentaires|length  }}
+                </td>
+                <td>{% if article.createdAt %}{{ article.createdAt|date('d-m-Y H:i') }} par {{ article.createdBy.username }}{% endif %}</td>
+                <td>{% if article.updatedAt != article.createdAt %}{{ article.updatedAt|date('d-m-Y H:i') }} par {{ article.createdBy.username }}{% endif %}</td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <a href="{{ path('admin_blog_article_show', { 'id': article.id }) }}" class="btn btn-default btn-xs">
+                            <i class="fa fa-eye"></i>
+                            voir</a>
+                        <a href="{{ path('admin_blog_article_edit', { 'id': article.id }) }}" class="btn btn-xs bg-color-teal txt-color-white">
+                            <i class="fas fa-edit"></i>
+                            editer</a>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+                </table>
+
+            </div>
+
+        </div>
+        <!-- end widget content -->
+
+    </div>
+    <!-- end widget div -->
+
+</div>
+    {{ knp_pagination_render(articles) }}
+
+{% endblock %}

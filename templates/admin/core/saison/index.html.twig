@@ -1,0 +1,181 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Générale</li>
+        <li>Saisons</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fa fa-cogs"></i>
+        Générale
+        <span>> Gestion des Saisons</span></h1>
+{% endblock %}
+
+{% block body %}
+    <!-- row -->
+    <div class="row">
+
+    <!-- NEW WIDGET START -->
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
+
+        <!-- Widget ID (each widget will need unique ID)-->
+        <div    class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable"
+                data-widget-colorbutton="false"
+                data-widget-togglebutton="false"
+                data-widget-editbutton="false"
+                data-widget-fullscreenbutton="false"
+                data-widget-deletebutton="false"
+                style=""
+                role="widget">
+            <header role="heading">
+                <span class="widget-icon"><i class="fa fa-arrow-down"></i></span>
+                <h2>
+                    <strong>Liste</strong>
+                    Des Saisons</i>
+                </h2>
+
+                <span class="jarviswidget-loader">
+    <i class="fa fa-refresh fa-spin"></i></span></header>
+
+            <!-- widget div-->
+            <div>
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
+                </div>
+                <!-- end widget edit box -->
+
+                <!-- widget content -->
+                <div class="widget-body">
+                    <div class="alert alert-info no-margin fade in">
+                        <button class="close" data-dismiss="alert">
+                            ×
+                        </button>
+                        <i class="fa-fw fa fa-info"></i> L'activation d'une saison permet d'enregistrer les équipes, les membres du bureau, les entraînements etc.. liés à cette saison.  <br/><br/>
+                        <i class="fa-fw fa fa-warning"></i> Une seule saison doit être activée pour avoir un bon rendu sur le site !
+                    </div>
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>Saison</th>
+                                <th>Date Début</th>
+                                <th>Date Fin</th>
+                                <th>Active</th>
+                                <th><i class="fa fa-user"></i> AddBy</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for saison in saisons %}
+                                <tr>
+                                    <td>{{ saison.nomSaison }}</td>
+                                    <td>{% if saison.saisonDebut is not null %}{{ saison.saisonDebut|date('d-m-Y')}}{% endif %}</td>
+                                    <td>{% if saison.saisonFin is not null %}{{ saison.saisonFin|date('d-m-Y')}}{% endif %}</td>
+                                    <td>
+                                        {% if saison.active == true %}
+                                        <form action="{{ path('admin_saison_active', {'id': saison.id}) }}" method="post">
+                                            <button href="" class="btn bg-color-green txt-color-white btn-xs"><i class="fa fa-check"></i></button>
+                                        </form>
+                                        {% else %}
+                                        <form action="{{ path('admin_saison_active', {'id': saison.id}) }}" method="post">
+                                             <button href="" class="btn btn-default btn-xs"><i class="fa fa-times"></i></button>
+                                        </form>
+                                        {% endif %}
+                                    </td>
+                                    <td>
+                                        <i class="far fa-plus-square"></i> {{ saison.createdBy.username }} le {{ saison.createdAt|date('d/m/Y') }} à {{ saison.createdAt|date('H:i') }} </br>
+                                        {% if saison.updatedBy is not null and  saison.updatedAt > saison.createdAt %}<i class="fas fa-wrench"></i> {{ saison.updatedBy.username }} le {{ saison.updatedAt|date('d/m/Y') }} à {{ saison.updatedAt|date('H:i') }}{% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="btn-group-vertical">
+                                            <a href="{{ path('admin_saison_edit', { 'id': saison.id }) }}"
+                                               class="btn btn-xs bg-color-teal txt-color-white">
+                                                <i class="fas fa-edit"></i>
+                                                Editer</a>
+                                            <form action="{{ path('admin_saison_delete', {'id': saison.id}) }}" method="post">
+                                                <input type="hidden" name="form[_token]" value="{{ csrf_token('form') }}" />
+                                                <input type="hidden" name="_method" value="DELETE" />
+                                                <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Supprimer</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </article>
+        <article class="col-sm-12 col-md-12 col-lg-3">
+
+            <div
+                    class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable"
+                    data-widget-colorbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-deletebutton="false"
+                    style=""
+                    role="widget">
+                <header role="heading">
+    <span class="widget-icon">
+      <i class="fa fa-plus"></i>
+    </span>
+                    <h2>
+                        <strong>Ajouter | Modifier</strong>
+                        une Saison</i>
+                    </h2>
+                    <div class="widget-toolbar" role="menu">
+
+                    </div>
+                    <span class="jarviswidget-loader">
+    <i class="fa fa-refresh fa-spin"></i></span>
+                </header>
+
+                <!-- widget div-->
+                <div role="content">
+                    <div class="widget-body">
+                        <div class="widget-body">
+                            {{ form_start(form, {'method': 'POST', 'attr' : {'class' : ''} }) }}
+                            {{ form_errors(form) }}
+                            <fieldset>
+                                <div class="form-group">
+                                    <label>Saison</label>
+                                    {{ form_widget(form.nomSaison, {'attr': {'placeholder': 'Saison (ex: 2017 - 2018)'}}) }}
+                                    {{ form_errors(form.nomSaison) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Début Saison</label>
+                                    {{ form_widget(form.saisonDebut) }}
+                                    {{ form_errors(form.saisonDebut) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Fin Saison</label>
+                                    {{ form_widget(form.saisonFin) }}
+                                    {{ form_errors(form.saisonFin) }}
+                                </div>
+                            </fieldset>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success">Sauvegarder</button>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </article>
+    </div>
+{% endblock %}

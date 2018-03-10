@@ -1,0 +1,81 @@
+getVilles:
+    path:    /villes/{cp}
+    defaults: { _controller: App:Utilisateurs\Utilisateurs:villes }
+    options:
+        expose: true
+
+routingBlog:
+    resource: "../config/routes/routingBlog.yml"
+    prefix: /
+
+routingProduits:
+    resource: "../config/routes/routingProduits.yml"
+    prefix: /boutique
+
+routingPanier:
+    resource: "../config/routes/routingPanier.yml"
+    prefix: /panier
+
+routingCommandes:
+    resource: "../config/routes/routingCommandes.yml"
+    prefix: /
+
+routingUtilisateurs:
+    resource: "../config/routes/routingUtilisateurs.yml"
+    prefix: /mon_compte
+
+routingAdminProduits:
+    resource: "../config/routes/admin/ecommerce/routingAdminProduits.yml"
+    prefix:   /admin/ecommerce/produits
+
+routingAdminCategories:
+    resource: "../config/routes/admin/ecommerce/routingAdminCategories.yml"
+    prefix:   /admin/ecommerce/categories
+
+routingAdminCommades:
+    resource: "../config/routes/admin/ecommerce/routingAdminCommandes.yml"
+    prefix:   /admin/ecommerce/commandes
+
+routingAdminUtilisateurs:
+    resource: "../config/routes/admin/routingAdminUtilisateurs.yml"
+    prefix:   /admin/utilisateurs
+
+routingAdminArticles:
+    resource: "../config/routes/admin/blog/routingAdminArticle.yml"
+    prefix:   /admin/blog
+
+routingAdminLicencie:
+    resource: "../config/routes/admin/core/routingAdminLicencie.yml"
+    prefix:   /admin/licencie
+
+routingAdminImportLicencie:
+    resource: "../config/routes/admin/import/adminImportMatch.yml"
+    prefix:   /admin/import
+
+routingAdminImportMatch:
+    resource: "../config/routes/admin/import/routingAdminImportFichier.yml"
+    prefix:   /admin/import
+
+routingAdminEquipe:
+    resource: "../config/routes/admin/equipe/AdminEquipe.yml"
+    prefix:   /admin/equipe
+
+routingAdminSaison:
+    resource: "../config/routes/admin/core/AdminSaison.yml"
+    prefix:   /admin/saison
+
+routingAdminSalle:
+    resource: "../config/routes/admin/core/adminSalle.yml"
+    prefix:   /admin/salle
+
+routingAdminEntrainement:
+    resource: "../config/routes/admin/core/adminEntrainement.yml"
+    prefix:   /admin/entrainement
+
+routingAdminClub:
+    resource: "../config/routes/admin/core/adminClub.yml"
+    prefix:   /admin/club
+
+routingAdminMatch:
+    resource: "../config/routes/admin/match/adminMatch.yml"
+    prefix:   /admin/matchs

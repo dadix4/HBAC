@@ -1,0 +1,180 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Equipe</li>
+        <li>Categorie</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fas fa-futbol"></i>
+        Equipe
+        <span>> Les catégories d'équipes</span></h1>
+{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <article class="col-sm-12 col-md-12 col-lg-8">
+
+            <div
+                    class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable"
+                    data-widget-colorbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-deletebutton="false"
+                    style=""
+                    role="widget">
+                <header role="heading">
+    <span class="widget-icon">
+      <i class="fa fa-arrow-down"></i>
+    </span>
+                    <h2>
+                        <strong>Liste</strong>
+                        Des Catégories</i>
+                    </h2>
+                    <div class="widget-toolbar" role="menu">
+
+                        <div class="btn-group">
+                            <a href="{{ path('admin_equipe_categorie_hierarchie') }}"
+                               class="btn dropdown-toggle btn-xs btn-primary">
+                                <i class="fas fa-sort-numeric-down" aria-hidden="true"></i> Modifier la hiérarchie
+                            </a>
+                        </div>
+                    </div>
+
+                    <span class="jarviswidget-loader">
+    <i class="fa fa-refresh fa-spin"></i></span></header>
+
+                <!-- widget div-->
+                <div role="content">
+
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+                    </div>
+                    <!-- end widget edit box -->
+
+                    <!-- widget content -->
+                    <div class="widget-body">
+                        <div class="alert alert-info fade in">
+                            <button class="close" data-dismiss="alert">
+                                ×
+                            </button>
+                            <i class="fa-fw fa fa-info"></i>
+                            La case hiérarchie permet d'afficher les équipes dans un ordre précis dans le menu des
+                            équipes.
+                        </div>
+                        <div class="table-responsive">
+                            <table class="table table-bordered table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Catégorie</th>
+                                    <th>Hiérarchie</th>
+                                    <th>Createdat</th>
+                                    <th>Updatedat</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for categorie in categories %}
+                                    <tr>
+                                        <td>{{ categorie.categorieEquipe }}</td>
+                                        <td>{{ categorie.hierarchie }}</td>
+                                        <td>{% if categorie.createdAt %}{{ categorie.createdBy.username }} | <span class="font-xs">{{ categorie.createdAt|date('d-m-Y H:i') }}</span> {% endif %}</td>
+                                        <td>{% if categorie.updatedAt > categorie.createdAt %}{{ categorie.updatedBy.username }} | <span class="font-xs">{{ categorie.updatedAt|date('d-m-Y H:i') }}</span> {% endif %}</td>
+                                        <td>
+                                            <div class="btn-group-vertical">
+                                                <a href="{{ path('admin_equipe_categorie_edit', { 'id': categorie.id }) }}"
+                                                   class="btn btn-xs bg-color-teal txt-color-white">
+                                                    <i class="fas fa-edit"></i>
+                                                    Editer</a>
+                                                <form action="{{ path('admin_equipe_categorie_delete', {'id': categorie.id}) }}" method="post">
+                                                    <input type="hidden" name="form[_token]" value="{{ csrf_token('form') }}" />
+                                                    <input type="hidden" name="_method" value="DELETE" />
+                                                    <button type="submit" class="btn btn-danger btn-xs"><i class="fas fa-trash"></i> Supprimer</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+
+                    </div>
+                    <!-- end widget content -->
+
+                </div>
+                <!-- end widget div -->
+
+            </div>
+        </article>
+        <article class="col-sm-12 col-md-12 col-lg-4">
+
+            <div
+                    class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable"
+                    data-widget-colorbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-deletebutton="false"
+                    style=""
+                    role="widget">
+                <header role="heading">
+    <span class="widget-icon">
+      <i class="fa fa-plus"></i>
+    </span>
+                    <h2>
+                        <strong>Ajouter | Modifier</strong>
+                        une Catégorie</i>
+                    </h2>
+                    <div class="widget-toolbar" role="menu">
+
+                    </div>
+                    <span class="jarviswidget-loader">
+    <i class="fa fa-refresh fa-spin"></i></span>
+                </header>
+
+                <!-- widget div-->
+                <div role="content">
+                    <div class="widget-body no-padding">
+                        {{ form_start(form, {'action': path('admin_equipe_categorie_index'), 'method': 'POST', 'attr' : {'class' : 'smart-form'} }) }}
+                        {{ form_errors(form) }}
+                        <fieldset>
+                        <section>
+                            <label class="label">Catégorie de l'équipe</label>
+                            <label class="input">
+                                <i class="icon-append far fa-address-card"></i>
+                                {{ form_widget(form.categorieEquipe) }}
+                                {{ form_errors(form.categorieEquipe) }}
+                            </label>
+                        </section>
+                        <section>
+                            <label class="label">Hierarchie</label>
+                            <label class="input">
+                                <i class="icon-append fa fa-list-ol"></i>
+                                {{ form_widget(form.hierarchie) }}
+                                {{ form_errors(form.hierarchie) }}
+                            </label>
+                        </section>
+                        </fieldset>
+                        <footer>
+                            <button type="submit" class="btn btn-success">Ajouter</button>
+                        </footer>
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+
+
+                </div>
+            </article>
+    </div>
+{% endblock %}

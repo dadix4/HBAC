@@ -1,0 +1,21 @@
+services:
+    _defaults:
+        public: false
+        autowire: true
+        autoconfigure: true
+
+    markdown:
+        class: App\Utils\Markdown
+
+    app.twig.intl_extension:
+        public: false
+        class:  Twig_Extensions_Extension_Intl
+        tags:
+            - { name: twig.extension }
+
+    app.twig.text_extension:
+        class: Twig_Extensions_Extension_Text
+        tags:
+            - { name: twig.extension }
+
+

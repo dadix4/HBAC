@@ -1,0 +1,122 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Générale</li>
+        <li>Entrainements</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fa fa-cogs"></i>
+        Générale
+        <span>> Gestion des Entrainements: Modification d'un Planning</span></h1>
+{% endblock %}
+
+{% block body %}
+    <!-- row -->
+    <div class="row">
+
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-8 col-lg-9">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div    class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable"
+                    data-widget-colorbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-deletebutton="false"
+                    style=""
+                    role="widget">
+                <header role="heading">
+                    <span class="widget-icon"><i class="fa fa-arrow-down"></i></span>
+                    <h2>
+                        <strong>Edition</strong>
+                        D'un Créneau D'entrainement</i>
+                    </h2>
+                </header>
+                <!-- widget div-->
+                <div role="content">
+
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+                    </div>
+                    <!-- end widget edit box -->
+
+                    <!-- widget content -->
+                    <div class="widget-body no-padding">
+                        {{ form_start(form, {'action': path('admin_entrainement_edit', {'saison':saison.id, 'slug': saison.slug, 'id':entrainement.id }), 'method': 'POST', 'attr' : {'class' : 'smart-form'} }) }}
+
+                        {{ form_errors(form) }}
+                        <fieldset>
+                            <section>
+                                <label class="label">Equipes<strong class="text-danger"> *</strong></label>
+                                <label class="input">
+                                    {{ form_widget(form.equipes) }}
+                                    {{ form_errors(form.equipes) }}
+                                </label>
+                            </section>
+                            <div class="row">
+                                <section class="col col-4">
+                                    <label class="label">Jour d'entrainement<strong class="text-danger">*</strong></label>
+                                    <label class="input">
+                                        {{ form_widget(form.jourEntrainement) }}
+                                        {{ form_errors(form.jourEntrainement) }}
+                                    </label>
+                                </section>
+                                <section class="col col-4">
+                                    <label class="label">Horaire début de l'entrainement</label>
+                                    <label class="input">
+                                        {{ form_widget(form.horaireDebut, {'attr': {'placeholder': ""}}) }}
+                                        {{ form_errors(form.horaireDebut) }}
+                                    </label>
+                                </section>
+                                <section class="col col-4">
+                                    <label class="label">Horaire fin de l'entrainement</label>
+                                    <label class="input">
+                                        {{ form_widget(form.horaireFin, {'attr': {'placeholder': ""}}) }}
+                                        {{ form_errors(form.horaireFin) }}
+                                    </label>
+                                </section>
+                            </div>
+                            <section>
+                                <label class="label">Encadrants</label>
+                                <label class="input">
+                                    {{ form_widget(form.encadrants) }}
+                                    {{ form_errors(form.encadrants) }}
+                                </label>
+                            </section>
+                            <section>
+                                <label class="label">Salle<strong class="text-danger"> *</strong></label>
+                                <label class="select">
+                                    {{ form_widget(form.salle) }}
+                                    {{ form_errors(form.salle) }}
+                                </label>
+                            </section>
+                        </fieldset>
+                        <footer>
+                            <button type="submit" class="btn btn-success">
+                                Modifier
+                            </button>
+                        </footer>
+
+                        {{ form_end(form) }}
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <a href="{{ path('admin_entrainement_bySaison',{'id':saison.id, 'slug':saison.slug}) }}" class="btn btn-labeled btn-default">
+  <span class="btn-label">
+    <i class="glyphicon glyphicon-chevron-left"></i>
+  </span>Retour
+    </a>
+{% endblock %}

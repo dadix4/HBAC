@@ -1,0 +1,37 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Générale</li>
+        <li>Licenciés</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fa fa-cogs"></i>
+        Générale
+        <span>> Ajouter un Licencié</span></h1>
+{% endblock %}
+
+{% block body %}
+<div class="well">
+    <h1>Création d'un licencié</h1>
+
+    {{ form_start(form) }}
+        {{ form_widget(form) }}
+    <button type="submit" class="btn btn-labeled btn-success"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Ajouter </button>
+    {{ form_end(form) }}
+</div>
+
+    <a href="{{ path('admin_core_licencie_index') }}" class="btn btn-labeled btn-default">
+  <span class="btn-label">
+    <i class="glyphicon glyphicon-chevron-left"></i>
+  </span>Retour
+    </a>
+
+{% endblock %}

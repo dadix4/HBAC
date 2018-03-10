@@ -1,0 +1,8 @@
+<ul class="u-list-inline mb-0">
+    {% for categorie in categories %}
+    <li class="list-inline-item g-mb-5">
+        <a class="u-tags-v1 g-color-gray-dark-v4 g-color-white--hover g-bg-gray-light-v5 g-bg-primary--hover g-font-size-11 g-rounded-50 g-py-4 g-px-15"
+           href="{{ path('categorie_blog', {'slug': categorie.slug}) }}">{{ categorie.nom }}</a>
+    </li>
+    {% endfor %}
+</ul>

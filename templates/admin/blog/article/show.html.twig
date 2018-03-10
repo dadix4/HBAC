@@ -1,0 +1,72 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Blog</li>
+        <li>Articles</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="far fa-newspaper"></i>
+        Blog
+        <span>> {{ article.titre }}</span></h1>
+{% endblock %}
+
+{% block body %}
+<div class="well padding-10">
+    <div class="row">
+        <div class="col-md-4">
+            <img src="{{ article.image.webPath| imagine_filter('produitThumb') }}" alt="{{article.image.alt}}" class="img-responsive">
+            <ul class="list-inline padding-10">
+                <li>
+                    <i class="fa fa-calendar"></i>
+                    <a href=""> {{ article.createdAt|date('d-m-Y') }} </a>
+                </li>
+                <li>
+                    <i class="fa fa-comments"></i>
+                    <a href=""> {{ article.commentaires|length  }} {% if article.commentaires|length <= 0 %}commentaire{% else %}commentaires{% endif %}</a>
+                </li>
+            </ul>
+        </div>
+        <div class="col-md-8 padding-left-0">
+            <h3 class="margin-top-0"><a href="">{{ article.titre }} </a><br>
+                <small class="font-xs"><i>Publier par <a href="">{{ article.createdBy.username }}</a></i></small>
+            </h3>
+            <p>
+                {{ article.contenu|raw }}
+            </p>
+
+            <div class="row">
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <div class="btn-group pull-left">
+                        <a class="btn bg-color-teal txt-color-white"
+                           href="{{ path('admin_blog_article_edit', { 'id': article.id }) }}">
+                            <i class="fas fa-edit"></i> Editer </a>
+                    </div>
+                </div>
+                <div class="col-sm-12 col-md-6 col-lg-6">
+                    <div class="btn-group pull-right">
+                        {{ form_start(delete_form) }}
+                        <button class="btn btn-danger" type="submit"><i class="fa fa-trash"></i> Supprimer</button>
+                        {{ form_end(delete_form) }}
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+    <a href="{{ path('admin_blog_article_index') }}" class="btn btn-labeled btn-default">
+  <span class="btn-label">
+    <i class="glyphicon glyphicon-chevron-left"></i>
+  </span>Retour
+    </a>
+
+{% endblock %}

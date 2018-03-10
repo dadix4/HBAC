@@ -1,0 +1,174 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Générale</li>
+        <li>Salles</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fa fa-cogs"></i>
+        Générale
+        <span>> Gestion des Salles</span></h1>
+{% endblock %}
+
+{% block body %}
+    <!-- row -->
+    <div class="row">
+
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div    class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable"
+                    data-widget-colorbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-deletebutton="false"
+                    style=""
+                    role="widget">
+                <header role="heading">
+                    <span class="widget-icon"><i class="fa fa-arrow-down"></i></span>
+                    <h2>
+                        <strong>Liste</strong>
+                        De nos Salles</i>
+                    </h2>
+
+                    <span class="jarviswidget-loader">
+    <i class="fa fa-refresh fa-spin"></i></span></header>
+
+                <!-- widget div-->
+                <div>
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+                    </div>
+                    <!-- end widget edit box -->
+
+                    <!-- widget content -->
+                    <div class="widget-body">
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Salle</th>
+                                    <th>Adresse</th>
+                                    <th>Complément Adresse</th>
+                                    <th>Code Postal</th>
+                                    <th>Ville</th>
+                                    <th><i class="fa fa-user"></i> AddBy</th>
+                                    <th><i class="fa fa-user"></i> UpdatedBy</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for salle in salles %}
+                                    <tr>
+                                        <td>{{ salle.nomSalle }}</td>
+                                        <td>{{ salle.adresse }}</td>
+                                        <td>{{ salle.cpltAdresse }}</td>
+                                        <td>{{ salle.codePostal }}</td>
+                                        <td>{{ salle.ville }}</td>
+                                        <td>{% if salle.createdAt %}{{ salle.createdBy.username }} | <span class="font-xs">{{ salle.createdAt|date('d-m-Y H:i') }}</span> {% endif %}</td>
+                                        <td>{% if salle.updatedAt > salle.createdAt %}{{ salle.updatedBy.username }} | <span class="font-xs">{{ salle.updatedAt|date('d-m-Y H:i') }}</span> {% endif %}</td>
+                                        <td>
+                                            <div class="btn-group-vertical">
+                                                <a href="{{ path('admin_salle_edit', { 'id': salle.id }) }}"
+                                                   class="btn btn-xs bg-color-teal txt-color-white">
+                                                    <i class="fas fa-edit"></i>
+                                                    Editer</a>
+                                                <form action="{{ path('admin_salle_delete', {'id': salle.id}) }}" method="post">
+                                                    <input type="hidden" name="form[_token]" value="{{ csrf_token('form') }}" />
+                                                    <input type="hidden" name="_method" value="DELETE" />
+                                                    <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Supprimer</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </article>
+        <article class="col-sm-12 col-md-12 col-lg-3">
+
+            <div
+                    class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable"
+                    data-widget-colorbutton="false"
+                    data-widget-togglebutton="false"
+                    data-widget-editbutton="false"
+                    data-widget-fullscreenbutton="false"
+                    data-widget-deletebutton="false"
+                    style=""
+                    role="widget">
+                <header role="heading">
+    <span class="widget-icon">
+      <i class="fa fa-plus"></i>
+    </span>
+                    <h2>
+                        <strong>Ajouter | Modifier</strong>
+                        une Salle</i>
+                    </h2>
+                    <div class="widget-toolbar" role="menu">
+
+                    </div>
+                    <span class="jarviswidget-loader">
+    <i class="fa fa-refresh fa-spin"></i></span>
+                </header>
+
+                <!-- widget div-->
+                <div role="content">
+                    <div class="widget-body">
+                        <div class="widget-body">
+                            {{ form_start(form, {'method': 'POST', 'attr' : {'class' : ''} }) }}
+                            {{ form_errors(form) }}
+                            <fieldset>
+                                <div class="form-group">
+                                    <label>Nom de la Salle</label>
+                                    {{ form_widget(form.nomSalle, {'attr': {'placeholder': ''}}) }}
+                                    {{ form_errors(form.nomSalle) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Adresse</label>
+                                    {{ form_widget(form.adresse) }}
+                                    {{ form_errors(form.adresse) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Complément Adresse</label>
+                                    {{ form_widget(form.cpltAdresse) }}
+                                    {{ form_errors(form.cpltAdresse) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Code Postal</label>
+                                    {{ form_widget(form.codePostal) }}
+                                    {{ form_errors(form.codePostal) }}
+                                </div>
+                                <div class="form-group">
+                                    <label>Ville</label>
+                                    {{ form_widget(form.ville) }}
+                                    {{ form_errors(form.ville) }}
+                                </div>
+                            </fieldset>
+                            <div class="form-actions">
+                                <button type="submit" class="btn btn-success">Sauvegarder</button>
+                            </div>
+                            {{ form_end(form) }}
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </article>
+    </div>
+{% endblock %}

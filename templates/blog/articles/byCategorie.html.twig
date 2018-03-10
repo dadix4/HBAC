@@ -1,0 +1,40 @@
+{% extends 'blog/layout/layoutBlog.html.twig' %}
+
+{% block titre %} {% for categorie in categorie %}{{ categorie.nom }}{% endfor %} | {{ parent() }} {% endblock %}
+
+{% block body %}
+    <div class="masonry-grid row g-mb-70">
+    {% for article in articles %}
+        <div class="masonry-grid-item col-sm-6 col-lg-4 g-mb-30">
+            <!-- Blog Classic Blocks -->
+            <article class="u-shadow-v11">
+                <img class="img-fluid w-100" src="{{ article.image.webPath| imagine_filter('blog') }}" alt="{{article.image.alt}}">
+                <div class="g-bg-white g-pa-30">
+                    <span class="d-block g-color-gray-dark-v4 g-font-weight-600 g-font-size-12 text-uppercase mb-2">{{ article.createdAt|localizeddate("full", "none")|capitalize }}</span>
+                    <h2 class="h5 g-color-black g-font-weight-600 mb-3">
+                        <a class="u-link-v5 g-color-black g-color-primary--hover g-cursor-pointer" href="{{ path('view_blog', { 'id': article.id, 'slug': article.slug }) }}">{{ article.titre }}</a>
+                    </h2>
+                    <p class="g-color-gray-dark-v4 g-line-height-1_8">{{ article.contenu|truncate(300, true, ' ...')|md2html }}</p>
+                    <a class="g-font-size-13" href="{{ path('view_blog', { 'id': article.id, 'slug': article.slug }) }}">Read more...</a>
+
+                    <hr class="g-my-20">
+
+                    <ul class="list-inline d-flex justify-content-between mb-0">
+                        <li class="list-inline-item g-color-gray-dark-v4">
+                            <a class="d-inline-block g-color-gray-dark-v4 g-font-size-13 g-cursor-pointer g-text-underline--none--hover" >
+                                <i class="align-middle g-font-size-default mr-1 icon-finance-206 u-line-icon-pro"></i>
+                                {% if article.commentaires|length <= 1 %}{{ article.commentaires|length }} Commentaire{% else %}{{ article.commentaires|length }} Commentaires{% endif %}
+                            </a>
+                        </li>
+                        <li class="list-inline-item g-color-gray-dark-v4">
+                            <i class="fa fa-user-o"></i>
+                            <a class="d-inline-block g-color-gray-dark-v4 g-font-size-13 g-cursor-pointer g-text-underline--none--hover" >{{ article.createdBy.username }}</a>
+                        </li>
+                    </ul>
+                </div>
+            </article>
+            <!-- End Blog Classic Blocks -->
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

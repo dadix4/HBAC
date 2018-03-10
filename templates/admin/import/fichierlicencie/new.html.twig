@@ -1,0 +1,16 @@
+<div class="widget-body">
+    <h6 class="alert alert-info semi-bold"> Format de fichier accepté : <strong>.csv</strong> <br>
+        Organisé comme ceci :  <br>
+        Nom | Prenom | Numero Licence | Né(e) le | Email | Portable | Domicile
+    </h6>
+    <div class="row">
+        {{ form_start(form, {'action': path('admin_import_fichierlicencie_new'), 'method': 'POST'}) }}
+        <div class="col-lg-10">
+            {{ form_widget(form) }}
+        </div>
+        <div class="col-lg-2">
+            <button type="submit" class="btn btn-xs btn-success"> Télécharger </button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>

@@ -1,0 +1,78 @@
+<!-- Left panel : Navigation area -->
+<!-- Note: This width of the aside area can be adjusted through LESS variables -->
+<aside id="left-panel">
+
+  <!-- User info -->
+  <div class="login-info">
+    <span> <!-- User image size is adjusted inside CSS, it should stay as it -->
+
+      <a href="" id="show-shortcut" data-action="toggleShortcut">
+        <img src="{{ asset('assets/backend/img/avatar.png') }}" alt="me" class="online" />
+        <span>
+          {{app.user.username}}
+        </span>
+        <i class="fa fa-angle-down"></i>
+      </a>
+
+    </span>
+  </div>
+  <!-- end user info -->
+
+  <!-- NAVIGATION : This navigation is also responsive-->
+  <nav>
+    <ul>
+      <li>
+        <a href="#"><i class="fas fa-lg fa-fw fa-table"></i> <span class="menu-item-parent"> Matchs</span></a>
+        <ul>
+          <li {% if app.request.attributes.get('_route') == 'admin_match_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_match_index') }}">Gestion des Matchs</a></li>
+          <li {% if app.request.attributes.get('_route') == 'admin_import_match' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_import_match') }}">Import Matchs</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fas fa-lg fa-fw fa-rss"></i> <span class="menu-item-parent"> Blog</span></a>
+        <ul>
+          <li {% if app.request.attributes.get('_route') == 'admin_blog_article_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_blog_article_index') }}">Ajouter une Actualité</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fas fa-lg fa-fw fa-futbol"></i> <span class="menu-item-parent"> Equipes</span></a>
+        <ul>
+          <li {% if app.request.attributes.get('_route') == 'admin_equipe_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_equipe_index') }}">Gestion des Equipes</a></li>
+          <li {% if app.request.attributes.get('_route') == 'admin_equipe_categorie_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_equipe_categorie_index') }}">Catégorie d'équipe</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fas fa-lg fa-fw fa-cogs"></i> <span class="menu-item-parent"> Générale</span></a>
+        <ul>
+          <li {% if app.request.attributes.get('_route') == 'admin_saison_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_saison_index') }}">Saisons</a></li>
+          <li {% if app.request.attributes.get('_route') == 'admin_club_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_club_index') }}">Clubs</a></li>
+          <li {% if app.request.attributes.get('_route') == 'admin_salle_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_salle_index') }}">Salles</a></li>
+          <li {% if app.request.attributes.get('_route') == 'admin_entrainement_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_entrainement_index') }}">Entrainements</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fa fa-lg fa-fw fa-shopping-cart"></i> <span class="menu-item-parent"> Boutique</span></a>
+        <ul>
+          <li {% if app.request.attributes.get('_route') == 'admin_ecommerce_commandes_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_ecommerce_commandes_index') }}">Commandes</a></li>
+          <li {% if app.request.attributes.get('_route') == 'admin_ecommerce_produits_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_ecommerce_produits_index') }}">Produits</a></li>
+          <li {% if app.request.attributes.get('_route') == 'admin_ecommerce_categories_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_ecommerce_categories_index')}}">Categories</a></li>
+          <li {% if app.request.attributes.get('_route') == 'admin_utilisateurs_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_utilisateurs_index') }}">Clients</a></li>
+          <li {% if app.request.attributes.get('_route') == 'admin_ecommerce_produits_corbeille' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_ecommerce_produits_corbeille')}}">Archive Delete</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fas fa-lg fa-fw fa-users"></i> <span class="menu-item-parent"> Adhérents</span></a>
+        <ul>
+          <li {% if app.request.attributes.get('_route') == 'admin_core_licencie_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_core_licencie_index') }}">Licenciés</a></li>
+          <li {% if app.request.attributes.get('_route') == 'admin_import_fichierlicencie' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_import_fichierlicencie') }}">Import Licenciés</a></li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+
+  <span class="minifyme" data-action="minifyMenu">
+    <i class="fa fa-arrow-circle-left hit"></i>
+  </span>
+
+</aside>
+<!-- END NAVIGATION -->

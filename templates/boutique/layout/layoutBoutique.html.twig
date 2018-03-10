@@ -1,0 +1,17 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+  <div class="row">
+    <!-- Content -->
+    <div class="col-md-9 order-md-2">
+      {% block bodyProduit %}
+      {% endblock %}
+    </div>
+    <!-- End Content -->
+    {% block navigation %}
+      <!-- Navigation -->
+      {{ render(controller('App\\Controller\\Ecommerce\\CategoriesController:navigationAction')) }}
+      <!-- End Navigation -->
+    {% endblock %}
+  </div>
+{% endblock %}

@@ -1,0 +1,103 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Utilisateurs</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fa fa-users"></i>
+        Utilisateurs
+        <span>> Les utilisateurs</span></h1>
+{% endblock %}
+
+{% block body %}
+<div
+        class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable"
+        data-widget-colorbutton="false"
+        data-widget-togglebutton="false"
+        data-widget-editbutton="false"
+        data-widget-fullscreenbutton="false"
+        data-widget-deletebutton="false"
+        style=""
+        role="widget">
+    <header role="heading">
+    <span class="widget-icon">
+      <i class="fa fa-arrow-down"></i>
+    </span>
+        <h2>
+            <strong>Liste</strong>
+            Des Produits</i>
+        </h2>
+        <div class="widget-toolbar" role="menu">
+
+            <div class="btn-group">
+                <a href="{{ path('admin_ecommerce_produits_new') }}" class="btn dropdown-toggle btn-xs btn-primary">
+                    <i class="fa fa-plus"></i>
+                    <strong>Ajouter un Produit</strong>
+                </a>
+            </div>
+        </div>
+
+        <span class="jarviswidget-loader">
+    <i class="fa fa-refresh fa-spin"></i></span></header>
+
+    <!-- widget div-->
+    <div role="content">
+
+        <!-- widget edit box -->
+        <div class="jarviswidget-editbox">
+            <!-- This area used as dropdown edit box -->
+        </div>
+        <!-- end widget edit box -->
+
+        <!-- widget content -->
+        <div class="widget-body no-padding">
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Nom</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {% for user in utilisateurs %}
+                        <tr>
+                            <td>{{ user.username }}</td>
+                            <td>
+                                <div class="btn-group-vertical">
+                                    {% if user.adresses|length != 0 %}
+                                        <a href="{{ path('admin_utilisateurs_adresses', { 'id': user.id }) }}" class="btn btn-xs bg-color-purple txt-color-white">
+                                            <i class="icon-book"></i> Adresses</a>
+                                    {% else %}
+                                        <a href="" class="btn btn-xs bg-color-purple txt-color-blueDark">
+                                            <i class="icon-book"></i><strike> Adresses</strike></a>
+                                    {% endif %}
+                                    {% if user.commandes|length != 0 %}
+                                    <a href="{{ path('admin_utilisateurs_commandes', { 'id': user.id }) }}" class="btn btn-xs bg-color-teal txt-color-white">
+                                        <i class="icon-book"></i> Commandes</a>
+                                    {% else %}
+                                        <a href="" class="btn btn-xs bg-color-teal txt-color-blueDark">
+                                            <i class="icon-book"></i><strike> Commandes</strike></a>
+                                    {% endif %}
+                                </div>
+
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    </tbody>
+                </table>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

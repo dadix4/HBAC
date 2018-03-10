@@ -1,0 +1,112 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Equipe</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fas fa-futbol"></i>
+        Equipe
+        <span>> Les équipes</span></h1>
+{% endblock %}
+
+{% block body %}
+
+    {{ render(controller('App\\Controller\\Admin\\Equipe\\EquipeController::selectSaisonAction')) }}
+<!-- row -->
+<div class="row">
+    <!-- NEW WIDGET START -->
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+<div
+        class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable"
+        data-widget-colorbutton="false"
+        data-widget-togglebutton="false"
+        data-widget-editbutton="false"
+        data-widget-fullscreenbutton="false"
+        data-widget-deletebutton="false"
+        style=""
+        role="widget">
+    <header role="heading">
+    <span class="widget-icon">
+      <i class="fa fa-arrow-down"></i>
+    </span>
+        <h2>
+            <strong>Liste</strong>
+            Des Equipes pour la Saison <strong class="txt-color-blueLight">{{ saison.nomSaison }}</strong>
+        </h2>
+
+        <span class="jarviswidget-loader">
+    <i class="fa fa-refresh fa-spin"></i></span></header>
+
+    <!-- widget div-->
+    <div role="content">
+
+        <!-- widget edit box -->
+        <div class="jarviswidget-editbox">
+            <!-- This area used as dropdown edit box -->
+        </div>
+        <!-- end widget edit box -->
+
+        <!-- widget content -->
+        <div class="widget-body no-padding">
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                <th><i class="far fa-image text-align-center"></i></th>
+                <th>Equipe</th>
+                <th>Saison</th>
+                <th>Convention</th>
+                <th>Division</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for equipe in equipes %}
+            <tr>
+                <td>{% if equipe.image %}<img width="80px" src="{{ asset(equipe.image.webPath) }}" alt="{{ equipe.image.alt }}"/>{% endif %}</td>
+                <td>{{ equipe.nomEquipe }}</td>
+                <td>{{ equipe.saison.nomSaison }} </td>
+                <td>{{ equipe.convention }}</td>
+                <td>{{ equipe.division }}</td>
+                <td>{% if equipe.createdAt %}{{ equipe.createdBy.username }} | <span class="font-xs">{{ equipe.createdAt|date('d-m-Y H:i') }}</span>{% endif %}</td>
+                <td>{% if equipe.updatedAt > equipe.createdAt %}{{ equipe.updatedBy.username }} | <span class="font-xs">{{ equipe.updatedAt|date('d-m-Y H:i') }}</span>{% endif %}</td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <a href="{{ path('admin_equipe_edit', { 'saison':equipe.saison.id, 'slug':equipe.saison.slug, 'id':equipe.id})  }}"
+                           class="btn btn-xs bg-color-teal txt-color-white">
+                            <i class="far fa-edit"></i>
+                            Editer</a>
+                        <form action="{{ path('admin_equipe_delete', {'id': equipe.id, 'saison':equipe.saison.id}) }}" method="post">
+                            <input type="hidden" name="form[_token]" value="{{ csrf_token('form') }}" />
+                            <input type="hidden" name="_method" value="DELETE" />
+                            <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Supprimer</button>
+                        </form>
+                    </div>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+            </div>
+
+        </div>
+        <!-- end widget content -->
+
+    </div>
+    <!-- end widget div -->
+
+</div>
+        </article>
+    </div>
+{% endblock %}

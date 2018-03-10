@@ -1,0 +1,10 @@
+<form action="{{ path('boutique_recherche') }}" method="POST" id="searchform-6" class="u-searchform-v1 g-bg-black g-box-shadow-none g-pa-10 g-mt-10">
+  <div class="input-group g-brd-primary--focus">
+    {{ form_widget(form.recherche, { 'attr': {  } }) }}
+    {{ form_errors(form.recherche) }}
+    <div class="input-group-addon p-0">
+      <button type="submit" class="btn rounded-0 btn-primary btn-md g-font-size-14 g-px-18">Go</button>
+    </div>
+    {{ form_widget(form) }}
+  </div>
+</form>

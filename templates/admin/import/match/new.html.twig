@@ -1,0 +1,16 @@
+<div class="widget-body">
+    <p class="alert alert-info">
+        Format de fichier accepté : <strong>.csv</strong>   <br>
+        Organisé comme ceci : <code>| Semaine | num poule | competition | poule | date | horaire | club receveur | club visiteur | nom salle | adresse | CP | Ville | num receveur | num visiteur |</code>
+    </p>
+    <div class="row">
+        {{ form_start(form, {'action': path('admin_import_match_new'), 'method': 'POST'}) }}
+        <div class="col-lg-10">
+            {{ form_widget(form) }}
+        </div>
+        <div class="col-lg-2">
+            <button type="submit" class="btn btn-xs btn-success"> Télécharger </button>
+        </div>
+        {{ form_end(form) }}
+    </div>
+</div>

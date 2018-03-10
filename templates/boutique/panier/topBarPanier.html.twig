@@ -1,0 +1,73 @@
+<div class="g-pos-rel">
+    <a href="#" id="basket-bar-invoker" class="g-font-size-14 g-color-white g-color-primary--hover g-ml-5"
+       aria-controls="basket-bar"
+       aria-haspopup="true"
+       aria-expanded="false"
+       data-dropdown-event="hover"
+       data-dropdown-target="#basket-bar"
+       data-dropdown-type="css-animation"
+       data-dropdown-duration="300"
+       data-dropdown-hide-on-scroll="false"
+       data-dropdown-animation-in="fadeIn"
+       data-dropdown-animation-out="fadeOut">
+        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
+    </a>
+
+    <!-- Search Form -->
+    <div id="basket-bar" class="u-basket__bar u-dropdown--css-animation u-dropdown--hidden g-text-transform-none g-bg-white g-brd-around g-brd-gray-light-v4"
+         aria-labelledby="basket-bar-invoker">
+        <div class="g-brd-bottom g-brd-gray-light-v4 g-pa-15 g-mb-10">
+               {% if articles == 0 %}
+                  <span class="d-block h6 text-center text-muted text-uppercase mb-0 g-font-size-12"> Aucun article dans votre panier</span>
+               {% elseif articles == 1 %}
+                   <span class="d-block h6 text-center text-muted text-uppercase mb-0">1 article dans votre panier</span>
+               {% else %}
+                   <span class="d-block h6 text-center text-muted text-uppercase mb-0">{{ articles }} articles dans votre panier</span>
+               {% endif %}
+        </div>
+        {% if produits|length != 0 %}
+        <div class="js-scrollbar g-height-200">
+          {% set totalTTC = 0 %}
+          {% for produit in produits %}}
+          {% set totalTTC = totalTTC + (produit.prix * panier[produit.id]) | tva(produit.tva.multiplicate) %}
+            <!-- Product -->
+            <div class="u-basket__product g-brd-none g-px-20">
+                <div class="row no-gutters g-pb-5">
+                    <div class="col-3 pr-3">
+                        <a class="u-basket__product-img" href="#">
+                            <img class="img-fluid" src="{{ asset(produit.image.webPath) }}" alt="{{produit.image.alt}}">
+                        </a>
+                    </div>
+
+                    <div class="col-9">
+                        <h6 class="g-font-weight-400 g-font-size-default">
+                            <a class="g-color-black g-color-primary--hover g-text-underline--none--hover" href="{{ path('boutique_presentation', { 'id' : produit.id ,'slug': produit.slug }) }}">{{produit.nom}}</a>
+                        </h6>
+                        <small class="g-color-primary g-font-size-12">{{panier[produit.id]}} x {{produit.prix}} €</small>
+                    </div>
+                </div>
+                <a href="{{ path('boutique_panier_supprimer', { 'id': produit.id }) }}" class="u-basket__product-remove"><i class="fa fa-trash g-font-size-13"></i></a>
+            </div>
+            <!-- End Product -->
+            {% endfor %}
+        </div>
+
+        <div class="clearfix g-px-15">
+            <div class="row align-items-center text-center g-brd-y g-brd-gray-light-v4 g-font-size-default">
+                <div class="col g-brd-right g-brd-gray-light-v4">
+                    <strong class="d-block g-py-10 text-uppercase g-color-main g-font-weight-500 g-py-10">Total</strong>
+                </div>
+                <div class="col">
+                    <strong class="d-block g-py-10 g-color-main g-font-weight-500 g-py-10">{{totalTTC}} €</strong>
+                </div>
+            </div>
+        </div>
+
+        <div class="g-pa-20">
+            <a class="btn btn-block u-btn-blue g-brd-primary--hover g-bg-primary--hover g-font-size-12 text-uppercase rounded g-py-10" href="{{ path('boutique_panier') }}">Mon Panier <i class="fa fa-shopping-basket" aria-hidden="true"></i></a>
+        </div>
+        {% endif %}
+    </div>
+
+    <!-- End Search Form -->
+</div>

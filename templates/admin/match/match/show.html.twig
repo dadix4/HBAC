@@ -1,0 +1,92 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Match</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ match.id }}</td>
+            </tr>
+            <tr>
+                <th>Semaine</th>
+                <td>{{ match.semaine }}</td>
+            </tr>
+            <tr>
+                <th>Numpoule</th>
+                <td>{{ match.numPoule }}</td>
+            </tr>
+            <tr>
+                <th>Competition</th>
+                <td>{{ match.competition }}</td>
+            </tr>
+            <tr>
+                <th>Poule</th>
+                <td>{{ match.poule }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{% if match.date %}{{ match.date|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Heure</th>
+                <td>{% if match.heure %}{{ match.heure|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Clubreceveur</th>
+                <td>{{ match.clubReceveur }}</td>
+            </tr>
+            <tr>
+                <th>Clubvisiteur</th>
+                <td>{{ match.clubVisiteur }}</td>
+            </tr>
+            <tr>
+                <th>Nomsalle</th>
+                <td>{{ match.nomSalle }}</td>
+            </tr>
+            <tr>
+                <th>Adressesalle</th>
+                <td>{{ match.adresseSalle }}</td>
+            </tr>
+            <tr>
+                <th>Cpsalle</th>
+                <td>{{ match.cpSalle }}</td>
+            </tr>
+            <tr>
+                <th>Ville</th>
+                <td>{{ match.ville }}</td>
+            </tr>
+            <tr>
+                <th>Numreceveur</th>
+                <td>{{ match.numReceveur }}</td>
+            </tr>
+            <tr>
+                <th>Numvisiteur</th>
+                <td>{{ match.numVisiteur }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{% if match.createdAt %}{{ match.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{% if match.updatedAt %}{{ match.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_match_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_match_edit', { 'id': match.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

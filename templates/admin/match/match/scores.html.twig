@@ -1,0 +1,155 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Matchs</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fas fa-users"></i>
+        Matchs
+        <span>> Résultats des Matchs</span></h1>
+{% endblock %}
+
+
+{% block body %}
+    <!-- row -->
+    <div class="row">
+        <article class="col-sm-12 col-md-12 col-lg-12 sortable-grid ui-sortable">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-darken" id="wid-id-1" data-widget-editbutton="false" data-widget-custombutton="false">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa fa-shield"></i> </span>
+                    <h2>Ajout des scores des matchs</h2>
+                </header>
+
+                <!-- widget div-->
+                <div>
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+                    </div>
+                    <!-- end widget edit box -->
+                    <!-- widget content -->
+                    <div class="widget-body">
+
+                        <div class="widget-body-toolbar bg-color-white">
+
+                            <form class="form-inline" role="form">
+
+                                <div class="row">
+
+                                    <div class="col-sm-12 col-md-6">
+
+
+                                        <div class="btn-group btn-group-justified">
+                                            <a href="" class="btn bg-color-blue txt-color-white disabled">
+                                                <i class="fas fa-trophy"></i> Résultats
+                                            </a>
+                                            <a href="{{ path('admin_match_editmatchs', {'semaine':semaine}) }}" class="btn bg-color-purple txt-color-white">
+                                                <i class="fas fa-edit"></i> Modifier les matchs
+                                            </a>
+                                            <a href="{{ path('admin_match_new') }}"
+                                               class="btn bg-color-orange txt-color-white">
+                                                <span class="fa fa-plus"></span> Ajouter un matchs
+                                            </a>
+                                        </div>
+
+                                    </div>
+                                    <div class="col-sm-12 col-md-4"></div>
+
+                                    <div class="col-sm-12 col-md-2 text-align-right">
+
+                                        <a href="{{ path('admin_match_bysemaine', {'semaine':semaine }) }}" class="btn btn-labeled btn-default">
+                                            <span class="btn-label"><i class="glyphicon glyphicon-chevron-left"></i></span>Retour </a>
+
+                                    </div>
+
+                                </div>
+
+                            </form>
+
+                        </div>
+
+                        {{ form_errors(form) }}
+
+                        {{ form_start(form, {'action': path('admin_match_scores', {'semaine':semaine }), 'method': 'POST', 'attr' : {'class' : 'form-horizontal'} }) }}
+
+                            <fieldset>
+                                {% for match in form.matchs %}
+                                    <div class="row">
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    {{ form_widget(match.local) }}
+                                                    {{ form_errors(match.local) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    {{ form_widget(match.scoreLocal) }}
+                                                    {{ form_errors(match.scoreLocal) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-1">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    {{ form_widget(match.scoreVisiteur) }}
+                                                    {{ form_errors(match.scoreVisiteur) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-4">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    {{ form_widget(match.visiteur) }}
+                                                    {{ form_errors(match.visiteur) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="col-md-2">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    {{ form_widget(match.competition) }}
+                                                    {{ form_errors(match.competition) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <hr>
+
+                                {% endfor %}
+
+
+                            </fieldset>
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        {{ form_widget(form.save,{'attr': {'class': 'btn btn-primary'}}) }}
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_rest(form) }}
+                        </form>
+
+                    </div>
+                    <!-- end widget content -->
+                </div>
+                <!-- end widget div -->
+            </div>
+            <!-- end widget -->
+        </article>
+    </div>
+
+{% endblock %}
+

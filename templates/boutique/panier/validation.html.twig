@@ -1,0 +1,147 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+  <div class="row">
+    <div class="col-md-12 g-mb-30 g-pt-60">
+      <!-- Products Block -->
+      <div class="g-overflow-x-scroll g-overflow-x-visible--lg">
+        <table class="text-center w-100">
+          <thead class="h6 g-brd-bottom g-brd-gray-light-v3 g-color-black text-uppercase">
+            <tr>
+              <th class="g-font-weight-400 text-left g-pb-20">produit</th>
+              <th class="g-font-weight-400 g-width-130 g-pb-20">Prix Unitaire</th>
+              <th class="g-font-weight-400 g-width-50 g-pb-20">Quantité</th>
+              <th class="g-font-weight-400 g-width-130 g-pb-20">Total</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% for produit in commande.commandes.produit %}
+              <!-- Item-->
+              <tr class="g-brd-bottom g-brd-gray-light-v3">
+                <td class="text-left g-py-25">
+                  <img class="d-inline-block g-width-100 mr-4" src="" alt="">
+                  <div class="d-inline-block align-middle">
+                    <h4 class="h6 g-color-black">
+                      <a class="u-link-v5 g-color-black g-color-primary--hover" href="">{{produit.reference}}</a>
+                    </h4>
+                  </div>
+                </td>
+                <td class="g-color-gray-dark-v2 g-font-size-13">{{produit.prixTTC}}
+                  €</td>
+                <td>
+
+                  {{produit.quantite}}
+
+                </td>
+                <td class="text-right g-color-black">
+                  <span class="g-color-gray-dark-v2 g-font-size-13 mr-4">{{ produit.quantite * produit.prixTTC }}
+                    €</span>
+                </td>
+              </tr>
+            {% endfor %}
+            <!-- End Item-->
+          </tbody>
+        </table>
+      </div>
+      <!-- End Products Block -->
+    </div>
+  </div>
+
+
+    <div class="row">
+      <div class="col-md-9 g-bg-gray-light-v5 g-pa-20 g-pb-20">
+        <div class="row">
+          <div class="col-md-6">
+            <ul class="list-unstyled">
+              <li>
+                <h4 class="h6 text-uppercase mb-3">Adresse de livraison</h4>
+              </li>
+              <li class="g-color-black">{{ commande.commandes.livraison.prenom }}
+                {{ commande.commandes.livraison.nom }}</li>
+              <li class="g-color-black">{{ commande.commandes.livraison.adresse }}</li>
+              <li class="g-color-black">{{ commande.commandes.livraison.cp }}
+                {{ commande.commandes.livraison.ville }}
+                -
+                {{ commande.commandes.livraison.pays }}</li>
+            </ul>
+
+          </div>
+          <div class="col-md-6">
+            <ul class="list-unstyled">
+              <li>
+                <h4 class="h6 text-uppercase mb-3">Adresse de facturation</h4>
+              </li>
+              <li class="g-color-black">{{ commande.commandes.facturation.prenom }}
+                {{ commande.commandes.facturation.nom }}</li>
+              <li class="g-color-black">{{ commande.commandes.facturation.adresse }}</li>
+              <li class="g-color-black">{{ commande.commandes.facturation.cp }}
+                {{ commande.commandes.facturation.ville }}
+                -
+                {{ commande.commandes.facturation.pays }}</li>
+            </ul>
+
+          </div>
+        </div>
+      </div>
+      <div class="col-md-3">
+        <!-- Summary -->
+        <div class="g-bg-gray-light-v5 g-pa-20 g-pb-20">
+          <h4 class="h6 text-uppercase mb-3">Sous Total</h4>
+
+          <div class="d-flex justify-content-between">
+            <span class="g-color-black">Total HT</span>
+            <span class="g-color-black g-font-weight-300">{{commande.commandes.prixHT}}
+              €</span>
+          </div>
+          {% for key, tva in commande.commandes.tva %}
+            <div class="d-flex justify-content-between">
+              <span class="g-color-black">TVA
+                {{key}}</span>
+              <span class="g-color-black g-font-weight-300">{{tva}}
+                €</span>
+            </div>
+          {% endfor %}
+          <div class="d-flex justify-content-between mb-2">
+            <span class="g-color-black">Prix TTC</span>
+            <span class="g-color-black g-font-weight-300">{{commande.commandes.prixTTC}}
+              €</span>
+          </div>
+        </div>
+        <!-- End Summary -->
+      </div>
+    </div>
+    <div class="row">
+  <div class="col-md-2">
+    <a href="{{path('boutique_panier_livraison')}}" class="btn u-btn-darkgray g-mr-10 g-mb-15"><i class="fa fa-arrow-left g-mr-5"></i> Retour</a>
+  </div>
+  <div class="col-md-8"></div>
+  <div class="col-md-2">
+
+
+    <form action="{{ path('boutique_panier_validationCommande', { 'id' : commande.id }) }}" method="POST">
+      <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+              data-key="pk_test_UtAFAk3s4TzUx31bp7LMckI5"
+              data-amount="{{commande.commandes.prixTTC * 100}}"
+              data-name="Handball Atlantique Club Sainte Pazanne"
+              data-description="Widget"
+              data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+              data-locale="auto"
+              data-zip-code="true"
+              data-currency="eur">
+      </script>
+      <script>
+        // Hide default stripe button, be careful there if you
+        // have more than 1 button of that class
+        document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
+      </script>
+      <button type="submit" class="btn u-btn-primary g-mr-10 g-mb-15"><i class="fa fa-check-circle g-mr-5"></i> Payer</button>
+    </form>
+
+</div>
+    </div>
+
+
+{% endblock %}

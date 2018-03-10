@@ -1,0 +1,267 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Clubs</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fas fa-futbol"></i>
+        Clubs
+        <span>> Edition du Club {{ club.nomClub }}</span></h1>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <article class="col-sm-12 col-md-12 col-lg-10">
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-custombutton="false">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                    <h2>Modification d'un Club</h2>
+
+                </header>
+
+                <!-- widget div-->
+                <div>
+
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+
+                    </div>
+                    <!-- end widget edit box -->
+
+                    <!-- widget content -->
+                    <div class="widget-body">
+                        {{ form_start(form, {'action': path('admin_club_edit' , {'id': club.id}), 'method': 'POST', 'attr' : {'class' : 'form-horizontal'} }) }}
+
+                        {{ form_errors(form) }}
+                        <fieldset>
+                            <legend> <i class="fa fa-id-card" aria-hidden="true"></i> Identification Club</legend>
+
+                            <div class="form-group">
+                                <div class="col-md-8">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="far fa-caret-square-right"></i></span>
+                                                {{ form_widget(form.nomClub, {'class':'', 'attr': {'placeholder': 'Nom du club*'}}) }}
+                                                {{ form_errors(form.nomClub) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label class="checkbox-inline">
+                                                {{ form_errors(form.convention) }}
+                                                {{ form_widget(form.convention, { 'attr': {'class': 'style-0' } }) }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-2">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <label class="checkbox-inline">
+                                                {{ form_errors(form.monclub) }}
+                                                {{ form_widget(form.monclub, { 'attr': {'class': 'style-0' } }) }}
+                                            </label>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="far fa-caret-square-right"></i></span>
+                                                {{ form_widget(form.abreviation, {'class':'', 'attr': {'placeholder': 'Abréviation*'}}) }}
+                                                {{ form_errors(form.abreviation) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fas fa-barcode"></i></span>
+                                                {{ form_widget(form.numeroFederal, {'class':'', 'attr': {'placeholder': ' Numéro fédéral*'}}) }}
+                                                {{ form_errors(form.numeroFederal) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fas fa-shield-alt"></i></span>
+                                                {{ form_widget(form.couleur1, {'id': 'colorpicker-1', 'attr': {'placeholder': 'Couleur 1'}}) }}
+                                                {{ form_errors(form.couleur1) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fas fa-shield-alt"></i></span>
+                                                {{ form_widget(form.couleur2, {'id': 'colorpicker-2', 'attr': {'placeholder': 'Couleur 2'}}) }}
+                                                {{ form_errors(form.couleur2) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend><i class="fas fa-shield-alt" aria-hidden="true"></i> Nouveau Logo</legend>
+
+                            <div class="form-group">
+                                <div class="col-md-3">
+                                    {% if club.logo is not null %}
+                                        <img class="img-responsive" src="{{ asset(club.logo.webPath) }}" alt="{{ club.logo.alt }}" />
+                                    {% endif %}
+                                </div>
+                                <div class="col-md-9">
+                                    <div class="btn btn-default">
+                                        {{ form_errors(form.logo) }}
+                                        {{ form_widget(form.logo) }}
+                                    </div>
+                                    <p class="help-block">
+                                        Taille recommandée : 200 x 200px | Taille maximale du fichier : 1 Mo.
+                                    </p>
+                                </div>
+                            </div>
+
+                        </fieldset>
+
+                        <fieldset>
+                            <legend><i class="fa fa-desktop" aria-hidden="true"></i> Communications</legend>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fas fa-globe"></i></span>
+                                                {{ form_widget(form.siteInternet, {'class':'', 'attr': {'placeholder': 'Site Internet'}}) }}
+                                                {{ form_errors(form.siteInternet) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            <div class="input-group">
+                                                <span class="input-group-addon"><i class="fab fa-facebook-square"></i></i></span>
+                                                {{ form_widget(form.facebook, {'class':'', 'attr': {'placeholder': 'Facebook'}}) }}
+                                                {{ form_errors(form.facebook) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <fieldset>
+                            <legend><i class="fa fa-map-marker" aria-hidden="true"></i> Adresse Gymnase</legend>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            {{ form_widget(form.nomGymnase, {'class':'', 'attr': {'placeholder': 'Nom de la salle'}}) }}
+                                            {{ form_errors(form.nomGymnase) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            {{ form_widget(form.ville, {'class':'', 'attr': {'placeholder': 'Ville'}}) }}
+                                            {{ form_errors(form.ville) }}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            {{ form_widget(form.codePostale, {'class':'', 'attr': {'placeholder': 'Code Postale'}}) }}
+                                            {{ form_errors(form.codePostale) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            {{ form_widget(form.adresse1, {'class':'', 'attr': {'placeholder': 'Adresse'}}) }}
+                                            {{ form_errors(form.adresse1) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
+                                <div class="col-md-12">
+                                    <div class="row">
+                                        <div class="col-sm-12">
+                                            {{ form_widget(form.adresse2, {'class':'', 'attr': {'placeholder': 'Complément adresse'}}) }}
+                                            {{ form_errors(form.adresse2) }}
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </fieldset>
+
+                        <div class="form-actions">
+                            <div class="row">
+                                <div class="col-md-12">
+                                    <button type="submit" class="btn btn-success">
+                                        <i class="fas fa-check"></i> Modifier
+                                    </button>
+                                </div>
+                            </div>
+                        </div>
+                        {{ form_rest(form) }}
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+
+
+
+    <a href="{{ path('admin_club_index') }}" class="btn btn-labeled btn-default">
+  <span class="btn-label">
+    <i class="glyphicon glyphicon-chevron-left"></i>
+  </span>Retour
+    </a>
+
+
+{% endblock %}

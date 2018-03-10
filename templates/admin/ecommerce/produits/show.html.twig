@@ -1,0 +1,128 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+  <!-- breadcrumb -->
+  <ol class="breadcrumb">
+    <li>Home</li>
+    <li>Dashboard</li>
+    <li>Ecommerce</li>
+    <li>Produit</li>
+  </ol>
+  <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+<h1 class="page-title txt-color-blueDark">
+  <i class="fa fa-shopping-cart"></i>
+  Ecommerce
+  <span>
+    >
+    {{produit.nom}}</span></h1>
+{% endblock %}
+
+{% block body %}
+<div class="product-content product-wrap clearfix product-deatil">
+  <div class="row">
+    <div class="col-md-5 col-sm-12 col-xs-12 ">
+      <div class="product-image">
+        <div id="myCarousel-2" class="carousel slide">
+          <ol class="carousel-indicators">
+            <li data-target="#myCarousel-2" data-slide-to="0" class=""></li>
+            <li data-target="#myCarousel-2" data-slide-to="1" class=""></li>
+            <li data-target="#myCarousel-2" data-slide-to="2" class="active"></li>
+          </ol>
+          <div class="carousel-inner">
+            <!-- Slide 1 -->
+            <div class="item">
+              <img src="{{ produit.image.webPath| imagine_filter('produit') }}" alt="{{produit.image.alt}}">
+            </div>
+            <!-- Slide 2 -->
+            <div class="item">
+              <img src="{{ produit.image.webPath| imagine_filter('produit') }}" alt="{{produit.image.alt}}">
+            </div>
+            <!-- Slide 3 -->
+            <div class="item active">
+              <img src="{{ produit.image.webPath| imagine_filter('produit') }}" alt="{{produit.image.alt}}">
+            </div>
+          </div>
+          <a class="left carousel-control" href="#myCarousel-2" data-slide="prev">
+            <span class="glyphicon glyphicon-chevron-left"></span>
+          </a>
+          <a class="right carousel-control" href="#myCarousel-2" data-slide="next">
+            <span class="glyphicon glyphicon-chevron-right"></span>
+          </a>
+        </div>
+      </div>
+    </div>
+    <div class="col-md-7 col-sm-12 col-xs-12">
+
+      <h2 class="name">
+        {{produit.nom}}
+        <small>Catégorie
+          <a href="javascript:void(0);">{{produit.categorie.nom}}</a>
+        </small>
+      </h2>
+      <hr>
+      <h3 class="price-container">
+        {{produit.prix|tva(produit.tva.multiplicate)}}
+        €
+        <small>*
+          {{produit.tva.nom}}</small>
+      </h3>
+
+      <hr>
+      <div class="description description-tabs">
+
+        <ul id="myTab" class="nav nav-pills">
+          <li class="active">
+            <a href="#more-information" data-toggle="tab" class="no-margin">Description
+            </a>
+          </li>
+          <li class="">
+            <a href="#specifications" data-toggle="tab">...</a>
+          </li>
+          <li class="">
+            <a href="#reviews" data-toggle="tab">...</a>
+          </li>
+        </ul>
+        <div id="myTabContent" class="tab-content">
+          <div class="tab-pane fade active in" id="more-information">
+            <br>
+            <strong>Description</strong>
+            <p>{{produit.description|raw}}</p>
+          </div>
+          <div class="tab-pane fade" id="specifications"></div>
+          <div class="tab-pane fade" id="reviews"></div>
+        </div>
+
+      </div>
+      <hr>
+      <div class="row">
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <div class="btn-group pull-left">
+            <a href="{{ path('admin_ecommerce_produits_edit', { 'id': produit.id }) }}" class="btn bg-color-teal txt-color-white">
+              <i class="fas fa-edit"></i>
+              Editer
+            </a>
+          </div>
+        </div>
+        <div class="col-sm-12 col-md-6 col-lg-6">
+          <div class="btn-group pull-right">
+            {{ form_start(delete_form) }}
+            <button class="btn btn-danger" type="submit"><i class="fas fa-trash"></i> Supprimer</button>
+            {{ form_end(delete_form) }}
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</div>
+
+<a href="{{ path('admin_ecommerce_produits_index') }}" class="btn btn-labeled btn-default">
+  <span class="btn-label">
+    <i class="glyphicon glyphicon-chevron-left"></i>
+  </span>Retour
+</a>
+
+{% endblock %}

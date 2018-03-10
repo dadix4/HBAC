@@ -1,0 +1,109 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Utilisateurs</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fa fa-users"></i>
+        Utilisateurs
+        <span>> commandes</span></h1>
+{% endblock %}
+
+{% block body %}
+    <div
+            class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable"
+            data-widget-colorbutton="false"
+            data-widget-togglebutton="false"
+            data-widget-editbutton="false"
+            data-widget-fullscreenbutton="false"
+            data-widget-deletebutton="false"
+            style=""
+            role="widget">
+        <header role="heading">
+    <span class="widget-icon">
+      <i class="fa fa-arrow-down"></i>
+    </span>
+            <h2>
+                <strong>Liste</strong>
+                Des Commandes</i>
+            </h2>
+            <div class="widget-toolbar" role="menu">
+
+
+            </div>
+
+            <span class="jarviswidget-loader">
+    <i class="fa fa-refresh fa-spin"></i></span></header>
+
+        <!-- widget div-->
+        <div role="content">
+
+            <!-- widget edit box -->
+            <div class="jarviswidget-editbox">
+                <!-- This area used as dropdown edit box -->
+            </div>
+            <!-- end widget edit box -->
+
+            <!-- widget content -->
+            <div class="widget-body no-padding">
+
+                <div class="table-responsive">
+                    <table class="table table-bordered table-hover">
+                        <thead>
+                        <tr>
+                            <th>Reference</th>
+                            <th>Client</th>
+                            <th>Date</th>
+                            <th>Valider</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for commande in utilisateur.commandes %}
+                            <tr>
+                                <td>{{ commande.reference }}</td>
+                                <td>{{ commande.utilisateur.username }}</td>
+                                <td>{% if commande.date %}{{ commande.date|date('d-m-Y \à\ H:i:s') }}{% endif %}</td>
+                                <td>
+                                    {% if commande.valider %}
+                                        <span class="label label-success">Oui <i class="fa fa-check" aria-hidden="true"></i></span>
+                                    {% else %}
+                                        <span class="label label-danger">Non <i class="fa fa-exclamation" aria-hidden="true"></i></span>
+                                    {% endif %}
+                                </td>
+                                <td>
+                                    <div class="btn-group-vertical">
+                                        {% if commande.valider %}
+                                            <a href="{{ path('admin_ecommerce_commandes_show', { 'id': commande.id }) }}" class="btn btn-xs bg-color-purple txt-color-white">
+                                                <i class="fa fa-file-text-o" aria-hidden="true"></i>
+                                                Facture</a>
+                                        {% else %}{% endif %}
+                                        <a href="{{ path('admin_ecommerce_commandes_edit', { 'id': commande.id }) }}" class="btn btn-xs bg-color-teal txt-color-white">
+                                            <i class="fa fa-pencil-square-o"></i>
+                                            Editer</a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
+
+    </div>
+
+    <a href="{{ path('admin_utilisateurs_index') }}" class="btn btn-labeled btn-default">
+  <span class="btn-label">
+    <i class="glyphicon glyphicon-chevron-left"></i>
+  </span>Retour
+    </a>
+{% endblock %}

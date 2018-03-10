@@ -1,0 +1,49 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+  <!-- breadcrumb -->
+  <ol class="breadcrumb">
+    <li>Home</li>
+    <li>Dashboard</li>
+    <li>Ecommerce</li>
+  </ol>
+  <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+<h1 class="page-title txt-color-blueDark">
+  <i class="fa fa-tag"></i>
+  Ecommerce
+  <span>> Categorie: {{ category.nom }}</span></h1>
+{% endblock %}
+
+{% block body %}
+    <h1>Category</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ category.id }}</td>
+            </tr>
+            <tr>
+                <th>Nom</th>
+                <td>{{ category.nom }}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_ecommerce_categories_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_ecommerce_categories_edit', { 'id': category.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

@@ -1,0 +1,52 @@
+framework:
+    secret: '%env(APP_SECRET)%'
+    csrf_protection: { enabled: true }
+    http_method_override: true
+    trusted_hosts: ~
+    session:
+        # With this config, PHP's native session handling is used
+        handler_id: ~
+    # When using the HTTP Cache, ESI allows to render page fragments separately
+    # and with different cache configurations for each fragment
+    # https://symfony.com/doc/current/book/http_cache.html#edge-side-includes
+    esi: { enabled: true }
+    fragments: { enabled: true }
+    templating:
+        engines:                     ['twig']
+    php_errors:
+        log: true
+    cache:
+        # this value is used as part of the "namespace" generated for the cache item keys
+        # to avoid collisions when multiple apps share the same cache backend (e.g. a Redis server)
+        # See https://symfony.com/doc/current/reference/configuration/framework.html#prefix-seed
+        prefix_seed: hbac
+    # The 'ide' option turns all of the file paths in an exception page
+    # into clickable links that open the given file using your favorite IDE.
+    # When 'ide' is set to null the file is opened in your web browser.
+    # See https://symfony.com/doc/current/reference/configuration/framework.html#ide
+    ide: ~
+    validation: { enable_annotations: true }
+
+fos_user:
+    db_driver:                       orm
+    firewall_name:                   main
+    user_class:                      App\Entity\Utilisateurs\User
+    service:
+        mailer: fos_user.mailer.twig_swift
+    from_email:
+        address:                     '%mailer_user%'
+        sender_name:                 '%mailer_user%'
+
+knp_paginator:
+    page_range: 5                       # number of links showed in the pagination menu (e.g: you have 10 pages, a page_range of 3, on the 5th page you'll see links to page 4, 5, 6)
+    default_options:
+        page_name:                   page                 # page query parameter name
+        sort_field_name:             sort           # sort field query parameter name
+        sort_direction_name:         direction  # sort direction query parameter name
+        distinct:                    true                  # ensure distinct results, useful when ORM queries are using GROUP BY statements
+        filter_field_name:           filterField  # filter field query parameter name
+        filter_value_name:           filterValue  # filter value query paameter name
+    template:
+        pagination:                  'pagination/twitter_bootstrap_v4_pagination.html.twig' #template perso pour boostrap4
+        sortable:                    '@KnpPaginator/Pagination/sortable_link.html.twig' # sort link template
+        filtration:                  '@KnpPaginator/Pagination/filtration.html.twig'  # filters template

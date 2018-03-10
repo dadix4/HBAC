@@ -1,0 +1,26 @@
+<div class="col-md-3 order-md-1 g-brd-right--lg g-brd-gray-light-v4 g-pt-40">
+  <div class="g-pr-15--lg g-pt-60">
+    <!-- Categories -->
+    <div class="g-mb-30">
+      <h3 class="h5 mb-3"><i class="fa fa-tags" aria-hidden="true"></i> Categories</h3>
+
+      <ul class="list-unstyled">
+        {% for categorie in categories %}
+          {% if categorie.produits|length != 0 %}
+          <li class="my-3">
+            <a class="d-block u-link-v5 g-color-gray-dark-v4 g-color-primary--hover" href="{{ path('boutique_categorieProduits', {'categorie' : categorie.id }) }}">{{categorie.nom}}
+              <span class="float-right g-font-size-12">{{ categorie.produits|length }}</span></a>
+          </li>
+        {% endif %}
+        {% endfor %}
+      </ul>
+    </div>
+    <!-- End Categories -->
+    <a class="btn btn-sm btn-block btn-secondary g-mb-10" type="button" href="{{ path('boutique_produit')}}">All Products</a>
+
+    <hr>
+
+    {{ render(controller('App\\Controller\\Ecommerce\\PanierController:leftBarPanierAction')) }}
+
+  </div>
+</div>

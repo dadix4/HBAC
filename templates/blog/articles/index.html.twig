@@ -1,0 +1,73 @@
+{% extends 'blog/layout/layoutBlog.html.twig' %}
+
+{% block titre %} Accueil | {{ parent() }} {% endblock %}
+
+{% block bodyBlog %}
+    {% for article in articles %}
+    <article class="g-mb-100">
+        {% if article.image is not null %}
+        <img class="img-fluid g-rounded-5 g-mb-25" src="{{ article.image.webPath| imagine_filter('blog') }}" alt="{{article.image.alt}}">
+        {% else %}
+
+        {% endif %}
+
+        <div class="px-4">
+            <ul class="d-flex justify-content-start align-items-end list-inline g-color-gray-dark-v5 g-font-size-13 g-mt-minus-45 g-mb-25">
+                <li class="list-inline-item mr-5">
+                    <img class="g-width-40 g-height-40 g-brd-around g-brd-2 g-brd-white rounded-circle mb-2" src="{{ asset ('assets/frontend/img/user_no_img.png')}}" alt="Image profil user">
+                    <h4 class="h6 g-font-weight-600 g-font-size-13 mb-0">
+                        <a class="g-color-gray-dark-v4" href="#"><i class="fa fa-user-o"></i>  {{ article.createdBy.username }}</a>
+                    </h4>
+                </li>
+                <li class="list-inline-item">
+                    <a class="g-color-gray-dark-v5 g-color-primary--hover g-font-size-default g-transition-0_3 g-text-underline--none--hover">
+                        <i class="fa fa-calendar-o"></i>
+                    </a>
+                    <span class="g-font-size-12">{{ article.createdAt|localizeddate("full", "none")|capitalize }}</span>
+                </li>
+                <li class="list-inline-item ml-auto">
+                    <div class="fb-share-button"
+                         data-href="{{ path('view_blog', { 'id': article.id, 'slug': article.slug }) }}"
+                         data-layout="button_count"
+                         data-size="small"
+                         data-mobile-iframe="true">
+                        <a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Fdevelopers.facebook.com%2Fdocs%2Fplugins%2F&amp;src=sdkpreparse">
+                            Partager
+                        </a>
+                    </div>
+                </li>
+                <li class="list-inline-item ml-auto">
+                    <a class="g-color-gray-dark-v5 g-color-primary--hover g-font-size-default g-transition-0_3 g-text-underline--none--hover" >
+                        <i class="fa fa-folder-open-o"></i>
+                    </a>
+                    <span class="g-color-gray-dark-v5">
+                    {% for categorie in article.categories %}
+                        <a href="{{ path('categorie_blog', {'slug': categorie.slug}) }}" class="g-color-gray-dark-v5 g-color-primary--hover g-font-size-default g-transition-0_3 g-text-underline--none--hover ">{{ categorie.nom }}</a>{% if not loop.last %},  {% endif %}
+                    {% endfor %}
+                    </span>
+                </li>
+
+                <li class="list-inline-item ml-3">
+                    <a class="g-color-gray-dark-v5 g-color-primary--hover g-font-size-default g-transition-0_3 g-text-underline--none--hover">
+                        <i class="fa fa-comments-o"></i>
+                    </a>
+                    <span class="g-color-gray-dark-v5">{{ article.commentaires|length  }}</span>
+                </li>
+            </ul>
+
+            <h2 class="h5 g-color-black g-font-weight-600">
+                <a class="u-link-v5 g-color-black g-color-primary--hover" href="{{ path('view_blog', { 'id': article.id, 'slug': article.slug }) }}">{{ article.titre }}</a>
+            </h2>
+            <p class="g-color-gray-dark-v4">{{ article.contenu|truncate(300, true, ' ...')|md2html }}</p>
+            <a class="g-font-weight-700 g-font-size-13" href="{{ path('view_blog', {'id':article.id, 'slug':article.slug }) }}">read more</a>
+        </div>
+    </article>
+{% endfor %}
+
+    <div class="container g-pb-20">
+        <nav class="text-center" aria-label="Page Navigation">
+        {{ knp_pagination_render(articles) }}
+        </nav>
+    </div>
+
+{% endblock %}

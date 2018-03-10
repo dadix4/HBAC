@@ -1,0 +1,157 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Matchs</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fas fa-users"></i>
+        Matchs
+        <span>> Gestion des Matchs</span></h1>
+{% endblock %}
+
+{% block body %}
+
+    {{ render(controller('App\\Controller\\Admin\\Match\\MatchController:selectFormSemaineAction', {'semaine' : semaine})) }}
+
+    <div class="row">
+        <!-- NEW WIDGET START -->
+        <article class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable"
+                 data-widget-colorbutton="false"
+                 data-widget-togglebutton="false"
+                 data-widget-editbutton="false"
+                 data-widget-fullscreenbutton="false"
+                 data-widget-deletebutton="false"
+                 style=""
+                 role="widget">
+                <header role="heading">
+                    <span class="widget-icon"><i class="fa fa-arrow-down"></i></span>
+                    <h2>
+                        {% set currentSemaineTitre = null %}
+                        {% for match in matchs %}
+                            {% if match.date|date('Y-W') != currentSemaineTitre %}
+                                {% set currentSemaineTitre = match.date|date('Y-W') %}
+                                {% set day = match.date|date('W') %}
+                                <strong>Matchs</strong> de la Semaine du <strong
+                                    class="txt-color-blueLight">{{ match.date|date_modify('Monday this week')|localizeddate('none', 'none', null, null, 'd MMMM Y') }}
+                                au {{ match.date|date_modify('Sunday this week')|localizeddate('none', 'none', null, null, 'd MMMM Y') }}</strong>
+                            {% endif %}
+                        {% endfor %}
+                    </h2>
+                    <div class="widget-toolbar" role="menu">
+
+
+                    </div>
+                    <span class="jarviswidget-loader"><i class="fa fa-refresh fa-spin"></i></span></header>
+                <!-- widget div-->
+                <div role="content">
+
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+                    </div>
+                    <!-- end widget edit box -->
+
+                    {% if matchs|length != 0 %}
+                    <!-- widget content -->
+                    <div class="widget-body no-padding">
+                        <div class="widget-body-toolbar bg-color-white">
+                            <form class="form-inline" role="form">
+                                <div class="row">
+                                           <div class="col-sm-12 col-md-6">
+                                                <div class="btn-group btn-group-justified">
+                                                    <a href="{{ path('admin_match_scores', {'semaine':semaine}) }}" class="btn bg-color-blue txt-color-white">
+                                                        <i class="fas fa-trophy"></i> Résultats
+                                                    </a>
+                                                    <a href="{{ path('admin_match_editmatchs', {'semaine':semaine}) }}" class="btn bg-color-purple txt-color-white">
+                                                        <i class="fas fa-edit"></i> Modifier les matchs
+                                                    </a>
+                                                    <a  href="{{ path('admin_match_new') }}" class="btn bg-color-orange txt-color-white">
+                                                        <span class="fa fa-plus"></span> Ajouter un match
+                                                    </a>
+                                                </div>
+                                            </div>
+                                            <div class="col-sm-12 col-md-4"></div>
+
+                                            <div class="col-sm-12 col-md-2 text-align-right">
+                                                <a href="" class="btn btn-labeled btn-danger disabled">
+                                                    <span class="btn-label"><i class="glyphicon glyphicon-trash"></i></span>Supprimer </a>
+                                            </div>
+                                </div>
+                            </form>
+                        </div>
+
+                        <div class="table-responsive">
+                            <table class="table table-striped table-hover">
+                                <thead>
+                                <tr>
+                                    <th>Date</th>
+                                    <th>Heure</th>
+                                    <th>Numpoule</th>
+                                    <th>Competition</th>
+                                    <th>Poule</th>
+                                    <th>Clubreceveur</th>
+                                    <th>Clubvisiteur</th>
+                                    <th>Score</th>
+                                    <th>Numreceveur</th>
+                                    <th>Numvisiteur</th>
+                                    <th>Createdat</th>
+                                    <th>Actions</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                {% for match in matchs %}
+                                    <tr class="font-xs">
+                                        <td>{% if match.date %}{{ match.date|date('d/m') }}{% endif %}</td>
+                                        <td>{% if match.heure %}{{ match.heure|date('H:i') }}{% endif %}</td>
+                                        <td>{{ match.numPoule }}</td>
+                                        <td>{{ match.competition }}</td>
+                                        <td>{{ match.poule }}</td>
+                                        <td>{{ match.local }}</td>
+                                        <td>{{ match.visiteur }}</td>
+                                        <td>{{ match.scoreLocal }} - {{ match.scoreVisiteur }}</td>
+                                        <td>{{ match.numReceveur }}</td>
+                                        <td>{{ match.numVisiteur }}</td>
+                                        <td>
+                                            <i class="far fa-plus-square"></i> {{ match.createdBy.username }} le {{ match.createdAt|date('d/m/Y') }} à {{ match.createdAt|date('H:i') }} </br>
+                                            {% if match.updatedBy is not null and  match.updatedAt > match.createdAt %}<i class="fas fa-wrench"></i> {{ match.updatedBy.username }} le {{ match.updatedAt|date('d/m/Y') }} à {{ match.updatedAt|date('H:i') }}{% endif %}
+                                        </td>
+                                        <td>
+                                            <div class="btn-group-vertical">
+                                                <a href="{{ path('admin_match_edit', { 'id': match.id }) }}"
+                                                   class="btn btn-xs bg-color-teal txt-color-white">
+                                                    <i class="fas fa-edit"></i>
+                                                    Editer</a>
+                                                <form action="{{ path('admin_match_delete', { 'id': match.id }) }}" method="post">
+                                                    <input type="hidden" name="form[_token]" value="{{ csrf_token('form') }}" />
+                                                    <input type="hidden" name="_method" value="DELETE" />
+                                                    <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Supprimer</button>
+                                                </form>
+                                            </div>
+                                        </td>
+                                    </tr>
+                                {% endfor %}
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+                    {% else %}
+                        <div class="widget-body">
+                            <h4 class="txt-color-orange text-align-center semi-bold">Pô de matchs cette semaine {{ semaine }}</h4>
+                        </div>
+                    {% endif %}
+                </div>
+            </div>
+        </article>
+    </div>
+{% endblock %}

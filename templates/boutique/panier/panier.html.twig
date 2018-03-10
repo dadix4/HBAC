@@ -1,0 +1,106 @@
+{% extends 'boutique/layout/layoutBoutique.html.twig' %}
+
+{% set totalHT = 0 %}
+{% set totalTTC = 0 %}
+{% set refTva = {} %}
+
+{% for produit in produits %}
+  {% set totalHT = totalHT + (produit.prix * panier[produit.id]) %}
+  {% set totalTTC = totalTTC + (produit.prix * panier[produit.id]) | tva(produit.tva.multiplicate) %}
+
+  {% set refTva = refTva | merge({(produit.tva.valeur ~ '%'): 0}) %}
+  {% set refTva = refTva | merge({(produit.tva.valeur ~ '%'): refTva[produit.tva.valeur ~ '%'] + (produit.prix * panier[produit.id]) | montantTva(produit.tva.multiplicate)}) %}
+{% endfor %}
+
+{% block bodyProduit %}
+  <div class="row">
+    <div class="col-md-12 g-mb-30 g-pt-60">
+      <!-- Products Block -->
+      <div class="g-overflow-x-scroll g-overflow-x-visible--lg">
+        <table class="text-center w-100">
+          <thead class="h6 g-brd-bottom g-brd-gray-light-v3 g-color-black text-uppercase">
+            <tr>
+              <th class="g-font-weight-400 text-left g-pb-20">produit</th>
+              <th class="g-font-weight-400 g-width-130 g-pb-20">Prix Unitaire</th>
+              <th class="g-font-weight-400 g-width-50 g-pb-20">Quantité</th>
+              <th class="g-font-weight-400 g-width-130 g-pb-20">Total</th>
+              <th></th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% if produits|length == 0 %}
+            <tr class="g-brd-bottom g-brd-gray-light-v3">
+              <td class="g-color-gray-dark-v2 g-font-size-13" colspan="4">Aucun articles dans votre panier</td>
+            </tr>
+            {% endif %}
+            {% for produit in produits %}
+              <!-- Item-->
+              <tr class="g-brd-bottom g-brd-gray-light-v3">
+                <td class="text-left g-py-25">
+                  <img class="d-inline-block g-width-100 mr-4" src="{{ asset(produit.image.webPath) }}" alt="{{produit.image.alt}}">
+                  <div class="d-inline-block align-middle">
+                    <h4 class="h6 g-color-black">
+                      <a class="u-link-v5 g-color-black g-color-primary--hover" href="{{ path('boutique_presentation', { 'id' : produit.id ,'slug': produit.slug }) }}">{{produit.nom}}</a>
+                    </h4>
+                  </div>
+                </td>
+                <td class="g-color-gray-dark-v2 g-font-size-13">{{produit.prix|tva(produit.tva.multiplicate)}}
+                  €</td>
+                <td>
+                  <form action="{{ path('boutique_panier_ajout', { 'id' : produit.id }) }}" method="get">
+                    <select name="qte" onchange="this.form.submit()" class="">
+                      {% for i in 1..30 %}
+                        <option value="{{ i }}" {% if i == panier[produit.id] %} selected="selected" {% endif %}>{{ i }}</option>
+                      {% endfor %}
+                    </select>
+                  </form>
+                </td>
+                <td class="text-right g-color-black">
+                  <span class="g-color-gray-dark-v2 g-font-size-13 mr-4">{{ (produit.prix * panier[produit.id])|tva(produit.tva.multiplicate) }}
+                    €</span>
+                  <a href="{{ path('boutique_panier_supprimer', { 'id': produit.id }) }}" class="g-color-gray-dark-v4 g-color-black--hover g-cursor-pointer">
+                    <i class="mt-auto fa fa-trash"></i>
+                  </a>
+                </td>
+              </tr>
+            {% endfor %}
+            <!-- End Item-->
+          </tbody>
+        </table>
+      </div>
+      <!-- End Products Block -->
+    </div>
+  </div>
+
+{% if produits|length != 0 %}
+  <div class="row">
+    <div class="col-md-8"></div>
+    <div class="col-md-4 g-mb-80">
+      <!-- Summary -->
+      <div class="g-bg-gray-light-v5 g-pa-20 g-pb-20">
+        <h4 class="h6 text-uppercase mb-3">Sous Total</h4>
+
+        <div class="d-flex justify-content-between">
+          <span class="g-color-black">Total HT</span>
+          <span class="g-color-black g-font-weight-300">{{totalHT}} €</span>
+        </div>
+        {% for key, tva in refTva %}
+          <div class="d-flex justify-content-between">
+            <span class="g-color-black">TVA {{key}}</span>
+            <span class="g-color-black g-font-weight-300">{{tva}} €</span>
+          </div>
+        {% endfor %}
+        <div class="d-flex justify-content-between mb-2">
+          <span class="g-color-black">Prix TTC</span>
+          <span class="g-color-black g-font-weight-300">{{totalTTC}} €</span>
+        </div>
+      </div>
+      <!-- End Summary -->
+
+      <a href="{{ path('boutique_panier_livraison') }}" class="btn btn-xl btn-block u-btn-primary text-uppercase g-font-size-13 g-mb-10">livraison</a>
+
+    </div>
+  </div>
+{% endif %}
+{% endblock %}

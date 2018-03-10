@@ -1,0 +1,93 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Blog</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="far fa-newspaper"></i>
+        Blog
+        <span>> Ajouter une Actualité</span></h1>
+{% endblock %}
+
+{% block body %}
+<div class="well">
+    <h1>Création d'une Actualité</h1>
+
+
+
+    <form class="form-horizontal" action="{{ path('admin_blog_article_new') }}" method="POST">
+        {{ form_start(form) }}
+        <fieldset>
+            <div class="form-group">
+                <div class="input-group">
+                    <div class="input-group-btn">
+                        <button href="#newCategory" data-toggle="modal" class="btn btn-default btn-primary" type="button">
+                            <i class="fa fa-plus" aria-hidden="true"></i> Catégorie
+                        </button>
+                    </div>
+                    {{ form_widget(form.categories, { 'attr': {'placeholder': '' , 'id':'appendbutton'} }) }}
+                    {{ form_errors(form.categories) }}
+                </div>
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.titre, { 'attr': {'placeholder': 'Titre'} }) }}
+                {{ form_errors(form.titre) }}
+            </div>
+            <div class="form-group">
+                {{ form_widget(form.contenu, { 'attr': {'placeholder': ''} }) }}
+                {{ form_errors(form.contenu) }}
+            </div>
+
+            <div class="form-group">
+                {{ form_widget(form.image, { 'attr': {'class': 'form-control' } }) }}
+                {{ form_errors(form.image) }}
+            </div>
+        </fieldset>
+
+        <div class="form-group">
+            <button type="submit" href="{{ path('admin_blog_article_index') }}" class="btn btn-labeled btn-success"> <span class="btn-label"><i class="glyphicon glyphicon-ok"></i></span>Ajouter </button>
+        </div>
+
+        {{ form_rest(form) }}
+        {{ form_end(form) }}
+    </form>
+
+</div>
+
+    <!-- #modal-dialog -->
+    <div class="modal fade" id="newCategory" tabindex="-1" role="dialog" aria-labelledby="newCategory-label" aria-hidden="true">
+        <div class="modal-dialog">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-hidden="true">
+                        &times;
+                    </button>
+                    <h4 class="modal-title" id="myModalLabel">Nouvelle Catégorie </h4>
+                </div>
+                <div class="modal-body">
+                    {{ render(controller('App\\Controller\\Admin\\Blog\\ArticleController:newCategorieAction')) }}
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- end #modal-dialog -->
+
+<a href="{{ path('admin_blog_article_index') }}" class="btn btn-labeled btn-default">
+  <span class="btn-label">
+    <i class="glyphicon glyphicon-chevron-left"></i>
+  </span>Retour
+</a>
+
+
+{% endblock %}

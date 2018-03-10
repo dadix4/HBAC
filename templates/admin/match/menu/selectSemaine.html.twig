@@ -1,0 +1,38 @@
+<form class="no-bg m0 mb15 p0" role="form" method="post" action="{{ path('admin_match_semaine') }}">
+    <div class="panel">
+        <div class="row panel-body p10 pb0">
+            <div class="col-sm-8 text-center">
+                <div class="form-group mb10">
+                    <div class="input-group">
+                            <span class="input-group-btn">
+                                <button name="add" type="submit"
+                                        class="btn bg-color-blue txt-color-white">Selectionner</button>
+                            </span>
+                        <select name="dateSemaine" class="form-control">
+                            {% set currentMoisAnnee = null %}
+                            {% set currentSemaine = null %}
+                            {% for match in semaines %}
+                                {% if match.date|date('m-Y') != currentMoisAnnee %}
+                                    {% set currentMoisAnnee = match.date|date('m-Y') %}
+                                    <optgroup label="{{ match.date|localizeddate('none', 'none', null, null, 'MMMM Y')|capitalize }}">
+                                        {% for match in semaines %}
+                                            {% if match.date|date('Y-W') != currentSemaine and currentMoisAnnee == match.date|date('m-Y') %}
+                                                {% set currentSemaine = match.date|date('Y-W') %}
+                                                <option value="{{ match.date|date('Y-W') }}" {% if match.date|date('Y-W') == semaine %} selected {% endif %}>
+                                                    {% set day = match.date|date('W') %}
+                                                    Semaine {{ match.date|date('W') }}
+                                                    ({{ match.date|date_modify('Monday this week')|date('d-m-Y') }}
+                                                    au {{ match.date|date_modify('Sunday this week')|date('d-m-Y') }})
+                                                </option>
+                                            {% endif %}
+                                        {% endfor %}
+                                    </optgroup>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>

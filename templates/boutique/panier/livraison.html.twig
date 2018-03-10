@@ -1,0 +1,240 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+  {% if utilisateur.adresses | length != 0 %}
+    <form action="{{ path('boutique_panier_validation') }}" method="post">
+      <div class="row">
+
+        <div class="col-md-6 g-mb-10 g-pa-30">
+          <div class="row justify-content-center">
+            <div class="col-lg-9">
+              <div class="text-center g-z-index-1 text-uppercase">
+                <h3 class="h5 mb-2 text-uppercase">
+                  <i class="fa fa-truck" aria-hidden="true"></i>
+                  Adresse de livraison</h3>
+              </div>
+            </div>
+          </div>
+
+          {% for adresse in utilisateur.adresses %}
+            <!-- Addresses -->
+            <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-20">
+              <div class="g-mb-10">
+                <span class="d-block g-color-gray-dark-v3 g-font-weight-600 mb-2">
+                  <label class="radio">
+                    <input type="radio" name="livraison" value="{{ adresse.id }}" {%  if loop.index0 == 0 %} checked="checked" {% endif %}>
+                  </label>
+                  {{ adresse.prenom }}
+                  {{ adresse.nom }}
+                </span>
+
+                <!-- Address -->
+                <address class="media">
+                  <div class="d-flex mr-3">
+                    <span class="u-icon-v1 g-color-gray-dark-v4">
+                      <i class="icon-real-estate-027 u-line-icon-pro"></i>
+                    </span>
+                  </div>
+
+                  <div class="media-body g-color-text">
+                    {{ adresse.adresse }}
+                    <br>
+                    {{ adresse.cp }}
+                    {{ adresse.ville }}
+                    <br>
+                    {{ adresse.pays }}
+                    <br>
+                  </div>
+                </address>
+                <!-- End Address -->
+
+                <!-- Phone -->
+                <div class="media">
+                  <div class="d-flex mr-3">
+                    <span class="u-icon-v1 g-color-gray-dark-v4">
+                      <i class="icon-electronics-005 u-line-icon-pro"></i>
+                    </span>
+                  </div>
+                  <div class="media-body g-color-text">
+                    {{adresse.telephone}}
+                  </div>
+                </div>
+                <!-- End Phone -->
+              </div>
+
+              <!-- Edit/Delete -->
+              <ul class="d-flex align-items-center list-inline mb-0">
+                <li class="list-inline-item">
+                  <a class="u-icon-v1 g-font-size-16 g-text-underline--none--hover" href="#" title="" data-toggle="tooltip" data-placement="top" data-original-title="Edit">
+                    <i class="icon-finance-023 u-line-icon-pro"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item g-width-1 g-height-16 g-bg-gray-light-v2 g-pr-1 ml-2 mr-3"></li>
+                <li class="list-inline-item">
+                  <a class="u-icon-v1 g-font-size-16 g-text-underline--none--hover" href="{{ path('livraisonAdresseSuppression', { 'id' : adresse.id }) }}" title="" data-toggle="tooltip" data-placement="top" data-original-title="Delete">
+                    <i class="icon-hotel-restaurant-214 u-line-icon-pro"></i>
+                  </a>
+                </li>
+              </ul>
+              <!-- End Edit/Delete -->
+            </div>
+            <!-- End Addresses -->
+          {% endfor %}
+        </div>
+        <div class="col-md-6 g-mb-10 g-pa-30">
+          <div class="row justify-content-center">
+            <div class="col-lg-9">
+              <div class="text-center g-z-index-1 text-uppercase">
+                <h3 class="h5 mb-2 text-uppercase">
+                  <i class="fa fa-credit-card-alt" aria-hidden="true"></i>
+                  Adresse de facturation</h3>
+              </div>
+            </div>
+          </div>
+          {% for adresse in utilisateur.adresses %}
+            <!-- Addresses -->
+            <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-20">
+              <div class="g-mb-10">
+                <span class="d-block g-color-gray-dark-v3 g-font-weight-600 mb-2">
+                  <label class="radio">
+                    <input type="radio" name="facturation" value="{{ adresse.id }}" {%  if loop.index0 == 0 %} checked="checked" {% endif %}>
+                  </label>
+                  {{ adresse.prenom }}
+                  {{ adresse.nom }}
+                </span>
+
+                <!-- Address -->
+                <address class="media">
+                  <div class="d-flex mr-3">
+                    <span class="u-icon-v1 g-color-gray-dark-v4">
+                      <i class="icon-real-estate-027 u-line-icon-pro"></i>
+                    </span>
+                  </div>
+
+                  <div class="media-body g-color-text">
+                    {{ adresse.adresse }}
+                    <br>
+                    {{ adresse.cp }}
+                    {{ adresse.ville }}
+                    <br>
+                    {{ adresse.pays }}
+                    <br>
+                  </div>
+                </address>
+                <!-- End Address -->
+
+                <!-- Phone -->
+                <div class="media">
+                  <div class="d-flex mr-3">
+                    <span class="u-icon-v1 g-color-gray-dark-v4">
+                      <i class="icon-electronics-005 u-line-icon-pro"></i>
+                    </span>
+                  </div>
+                  <div class="media-body g-color-text">
+                    {{adresse.telephone}}
+                  </div>
+                </div>
+                <!-- End Phone -->
+              </div>
+
+              <!-- Edit/Delete -->
+              <ul class="d-flex align-items-center list-inline mb-0">
+                <li class="list-inline-item">
+                  <a class="u-icon-v1 g-font-size-16 g-text-underline--none--hover" href="#" title="" data-toggle="tooltip" data-placement="top" data-original-title="Edit">
+                    <i class="icon-finance-023 u-line-icon-pro"></i>
+                  </a>
+                </li>
+                <li class="list-inline-item g-width-1 g-height-16 g-bg-gray-light-v2 g-pr-1 ml-2 mr-3"></li>
+                <li class="list-inline-item">
+                  <a class="u-icon-v1 g-font-size-16 g-text-underline--none--hover" href="{{ path('livraisonAdresseSuppression', { 'id' : adresse.id }) }}" title="" data-toggle="tooltip" data-placement="top" data-original-title="Delete">
+                    <i class="icon-hotel-restaurant-214 u-line-icon-pro"></i>
+                  </a>
+                </li>
+              </ul>
+              <!-- End Edit/Delete -->
+            </div>
+            <!-- End Addresses -->
+          {% endfor %}
+        </div>
+      </div>
+      <div class="row justify-content-center">
+         <div class="col-lg-5">
+          <div class="text-center g-z-index-1 text-uppercase">
+            <button href="{{ path('boutique_panier_validation') }}" class="btn btn-lg btn-block u-btn-bluegray g-mb-10 text-uppercase g-font-size-13">Valider mon adresse</button>
+          </div>
+        </div>
+      </div>
+      <div class="row">
+      <div class="col-md-2">
+        <a href="{{path('boutique_panier')}}" class="btn u-btn-darkgray g-mr-10 g-mb-15"><i class="fa fa-arrow-left g-mr-5"></i> Retour</a>
+      </div>
+      </div>
+    </form>
+  {% endif %}
+
+  <!-- Contact Form -->
+  <div class="g-brd-around g-brd-gray-light-v4 rounded g-pa-30 g-mb-30">
+    <h3 class="h5 mb-3 text-uppercase">Ajouter une nouvelle adresse</h3>
+
+    {{ form_errors(form) }}
+    <form action="{{ path('boutique_panier_livraison') }}" method="post">
+      {{ form_start(form) }}
+
+      <div class="row">
+        <div class="col-sm-4 form-group g-mb-20">
+          <label class="g-color-text g-font-size-13">Nom</label>
+          {{ form_widget(form.nom) }}
+          {{ form_errors(form.nom) }}
+        </div>
+        <div class="col-sm-4 form-group g-mb-20">
+          <label class="g-color-text g-font-size-13">Prénom</label>
+          {{ form_widget(form.prenom) }}
+          {{ form_errors(form.prenom) }}
+        </div>
+        <div class="col-sm-4 form-group g-mb-20">
+          <label class="g-color-text g-font-size-13">Télephone</label>
+          {{ form_widget(form.telephone) }}
+          {{ form_errors(form.telephone) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-6 form-group g-mb-20">
+          <label class="g-color-text g-font-size-13">Adresse</label>
+          {{ form_widget(form.adresse) }}
+          {{ form_errors(form.adresse) }}
+        </div>
+        <div class="col-sm-6 form-group g-mb-20">
+          <label class="g-color-text g-font-size-13">Complément Adresse</label>
+          {{ form_widget(form.complement) }}
+          {{ form_errors(form.complement) }}
+        </div>
+      </div>
+      <div class="row">
+        <div class="col-sm-4 form-group g-mb-20">
+          <label class="g-color-text g-font-size-13">Code Postal</label>
+          {{ form_widget(form.cp) }}
+          {{ form_errors(form.cp) }}
+        </div>
+        <div class="col-sm-4 form-group g-mb-20">
+          <label class="g-color-text g-font-size-13">Ville</label>
+          {{ form_widget(form.ville) }}
+          {{ form_errors(form.ville) }}
+        </div>
+        <div class="col-sm-4 form-group g-mb-20">
+          <label class="g-color-text g-font-size-13">Pays</label>
+          {{ form_widget(form.pays) }}
+          {{ form_errors(form.pays) }}
+        </div>
+      </div>
+
+      <button class="btn u-btn-primary g-font-size-12 text-uppercase g-py-12 g-px-25" type="submit">Ajouter</button>
+      {{ form_rest(form) }}
+      {{ form_end(form) }}
+    </form>
+
+  </div>
+  <!-- End Contact Form -->
+
+</div>
+
+{% endblock %}

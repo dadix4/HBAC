@@ -1,0 +1,80 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Equipe</li>
+        <li>Categorie</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fas fa-futbol"></i>
+        Equipe
+        <span>> Hiérarchie des catégories d'équipes</span></h1>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+    <article class="col-sm-12 col-md-12 col-lg-8">
+    <!-- Widget ID (each widget will need unique ID)-->
+    <div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-custombutton="false">
+        <header>
+            <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+            <h2>Modification de toutes les catégories</h2>
+        </header>
+
+        <!-- widget div-->
+        <div>
+            <!-- widget edit box -->
+            <div class="jarviswidget-editbox">
+                <!-- This area used as dropdown edit box -->
+            </div>
+            <!-- end widget edit box -->
+
+            <!-- widget content -->
+            <div class="widget-body">
+                <div class="table-responsive">
+                    <table class="table table-striped table-hover">
+                        <thead>
+                        <tr>
+                            <th>Catégorie</th>
+                            <th>Hiérarchie</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {{ form_start(form, {'action': path('admin_equipe_categorie_hierarchie'), 'method': 'POST', 'attr' : {'class' : ''} }) }}
+                        {{ form_errors(form) }}
+                        {% for categorie in form.categories %}
+                            <tr>
+                                <td>{{ form_widget(categorie.categorieEquipe) }}</td>
+                                <td>{{ form_widget(categorie.hierarchie) }}</td>
+                            </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                <div class="form-actions">
+                    <footer>
+                        <button type="submit" class="btn btn-success">
+                            Modifier
+                        </button>
+                    </footer>
+                </div>
+                {{ form_rest(form) }}
+            </div>
+        </div>
+    </div>
+    </article>
+    </div>
+
+    <a href="{{ path('admin_equipe_categorie_index') }}" class="btn btn-labeled btn-default">
+  <span class="btn-label">
+    <i class="glyphicon glyphicon-chevron-left"></i>
+  </span>Retour
+    </a>
+{% endblock %}

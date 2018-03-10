@@ -1,0 +1,66 @@
+{% extends 'Utilisateurs/layout/layoutMonCompte.html.twig' %}
+
+{% block titre %} Mes Commandes | {{ parent() }} {% endblock %}
+
+{% block bodyCompte %}
+
+  <div class="card border-0">
+    <div class="card-header d-flex align-items-center justify-content-between g-bg-gray-light-v5 border-0 g-mb-15">
+      <h3 class="h6 mb-0">
+        <i class="icon-directions g-pos-rel g-top-1 g-mr-5"></i>
+        Mes Commandes
+      </h3>
+    </div>
+
+    <div class="card-block g-pa-0">
+      <!-- Product Table -->
+      <div class="table-responsive">
+        <table class="table table-bordered u-table--v2">
+          <thead class="text-uppercase g-letter-spacing-1">
+            <tr>
+              <th class="g-font-weight-300 g-color-black">Références</th>
+              <th class="g-font-weight-300 g-color-black">Date</th>
+              <th class="g-font-weight-300 g-color-black">Prix TTC</th>
+              <th class="g-font-weight-300 g-color-black">Factures</th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {% if factures | length == 0 %}
+              <tr>
+                <td colspan="4">Aucune facture actuellement</td>
+              </tr>
+            {% endif %}
+            {% for facture in factures %}
+              <tr>
+                <td class="align-middle text-nowrap">
+                  <h4 class="h6 g-mb-2">{{ facture.reference }}</h4>
+                </td>
+                <td class="align-middle">
+                  <div class="d-flex">
+                    <span>{{ facture.date|date('d/m/Y') }}</span>
+                  </div>
+                </td>
+                <td class="align-middle">
+                  <div class="d-flex">
+                    <span>{{ facture.commandes.prixTTC }}
+                      €</span>
+                  </div>
+                </td>
+                <td class="align-middle">
+                  <div class="d-flex">
+                    <a href="{{ path('user_facturePDF', { 'id' : facture.id }) }}" target="_blank">
+                      <i class="icon-refresh"></i>
+                    </a>
+                  </div>
+                </td>
+              </tr>
+            {% endfor %}
+
+          </tbody>
+        </table>
+      </div>
+      <!-- End Product Table -->
+    </div>
+  </div>
+{% endblock %}

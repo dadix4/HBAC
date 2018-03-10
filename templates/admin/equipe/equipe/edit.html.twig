@@ -1,0 +1,259 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Equipe</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fas fa-futbol"></i>
+        Equipe
+        <span>> Modifier une Equipe</span></h1>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <article class="col-sm-12 col-md-12 col-lg-10">
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-custombutton="false">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                    <h2>Modification d'une Equipe</h2>
+
+                </header>
+
+                <!-- widget div-->
+                <div>
+
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+
+                    </div>
+                    <!-- end widget edit box -->
+
+                    <!-- widget content -->
+                    <div class="widget-body no-padding">
+
+                        {{ form_start(edit_form, {'action': path('admin_equipe_edit', {'saison':saison.id, 'slug': saison.slug, 'id':equipe.id }), 'method': 'POST', 'attr' : {'class' : 'smart-form'} }) }}
+
+                        {{ form_errors(edit_form) }}
+                        <header> Equipe</header>
+                        <fieldset>
+                            <section>
+                                <label class="label">Saison<strong class="text-danger"> *</strong></label>
+                                <label class="input">
+                                    {{ form_widget(edit_form.saison) }}
+                                    {{ form_errors(edit_form.saison) }}
+                                </label>
+                            </section>
+                            <div class="row">
+                                <section class="col col-6">
+                                    <label class="label">Catégorie de l'équipe<strong class="text-danger">
+                                            *</strong></label>
+                                    <label class="input">
+                                        {{ form_widget(edit_form.categorie) }}
+                                        {{ form_errors(edit_form.categorie) }}
+                                    </label>
+                                </section>
+                                <section class="col col-6">
+                                    <label class="label">Remplir si l'équipe est en convention</label>
+                                    <label class="input">
+                                        {{ form_widget(edit_form.convention, {'attr': {'placeholder': "Ex: HBAC/Pornic"}}) }}
+                                        {{ form_errors(edit_form.convention) }}
+                                    </label>
+                                </section>
+                            </div>
+                            <section>
+                                <label class="label">Entraineur(s)</label>
+                                <label class="input">
+                                    {{ form_widget(edit_form.entraineurs) }}
+                                    {{ form_errors(edit_form.entraineurs) }}
+                                </label>
+                            </section>
+                            <section>
+                                <label class="label">Joueurs</label>
+                                <label class="input">
+                                    {{ form_widget(edit_form.joueurs) }}
+                                    {{ form_errors(edit_form.joueurs) }}
+                                </label>
+                            </section>
+                        </fieldset>
+
+                        {% macro widget_prototype(refCompetition) %}
+                            <div class="row">
+                                <section class="col col-4">
+                                    <label class="label">Type de compétition</label>
+                                    <label class="input">
+                                        {{ form_widget(refCompetition.competition, { 'attr': {'placeholder': 'Compétition'}}) }}
+                                        {{ form_errors(refCompetition.competition) }}
+                                    </label>
+                                </section>
+                                <section class="col col-4">
+                                    <label class="label">Référence de la compétition</label>
+                                    <label class="input"> <i class="icon-prepend fas fa-barcode"></i>
+                                        {{ form_widget(refCompetition.reference, { 'attr': {'placeholder': 'Ex: F180027512'}}) }}
+                                        {{ form_errors(refCompetition.reference) }}
+                                    </label>
+                                </section>
+                            </div>
+                        {% endmacro %}
+
+                        <header> Compétitions</header>
+                        <fieldset>
+                            <div class="row">
+                                <section class="col col-6">
+                                    <label class="label">Division de l'équipe</label>
+                                    <label class="input"> <i class="icon-prepend fa fa-trophy"></i>
+                                        {{ form_widget(edit_form.division, { 'attr': {'placeholder': "Ex: Honneur départemental"}}) }}
+                                        {{ form_errors(edit_form.division) }}
+                                    </label>
+                                </section>
+                                <section class="col col-6">
+                                    <label class="label">Lien Fédération Française de Handball</label>
+                                    <label class="input"> <i class="icon-prepend fa fa-globe"></i>
+                                        {{ form_widget(edit_form.urlfhh, { 'attr': {'placeholder': 'Doit commencer par "http://www"'}}) }}
+                                        {{ form_errors(edit_form.urlfhh) }}
+                                    </label>
+                                </section>
+                            </div>
+
+                            {% import _self as macro %}
+                            <div class="collection" data-prototype="{{ form_widget(edit_form.refCompetitions.vars.prototype)|e('html_attr') }}">
+                                {% for refCompetition in edit_form.refCompetitions %}
+                                    {{ macro.widget_prototype(refCompetition) }}
+                                {% endfor %}
+                            </div>
+
+                            <div class="row">
+                                <section class="col col-3">
+                                    <a href="" class="add btn btn-info"><i class="fa fa-plus"></i> Add Compétition</a>
+                                </section>
+                            </div>
+
+                        </fieldset>
+
+                        <header> Photo de l'équipe</header>
+                        <fieldset>
+                            <div class="row">
+                                <section class="col col-3">
+                                    {% if equipe.image %}
+                                    <img class="img-responsive" src="{{ asset(equipe.image.webPath) }}" alt="{{ equipe.image.alt }}"/>
+                                    {% endif %}
+                                </section>
+                                <section class="col col-9">
+                                    <label class="label">Modifier la photo de l'équipe</label>
+                                    {{ form_widget(edit_form.image) }}
+                                    {{ form_errors(edit_form.image) }}
+                                </section>
+                            </div>
+                        </fieldset>
+
+                        <footer>
+                            <button type="submit" class="btn btn-success">
+                                Modifier
+                            </button>
+                        </footer>
+                        {{ form_rest(edit_form) }}
+                        {{ form_end(edit_form) }}
+
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+
+    <div class="row">
+        <div class="col-sm-12 col-md-3 col-lg-3">
+            <div class="btn-group pull-left">
+                <a href="{{ path('admin_equipe_index') }}" class="btn btn-labeled btn-default">
+        <span class="btn-label">
+          <i class="glyphicon glyphicon-chevron-left"></i>
+        </span>Retour
+                </a>
+            </div>
+            <div class="btn-group pull-right">
+                {{ form_start(delete_form) }}
+                <button class="btn btn-danger" type="submit"><i class="fa fa-trash-o"></i> Supprimer</button>
+                {{ form_end(delete_form) }}
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+            var $container = $('.collection');
+
+            // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+            var index = $container.find(':input').length;
+
+            // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+            $('.add').click(function (e) {
+                addTarif($container);
+
+                e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+                return false;
+            });
+
+            // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+            if (index == 0) {
+                addTarif($container);
+            } else {
+                // S'il existe déjà des catégories, on ajoute un lien de suppression pour chacune d'entre elles
+                $container.children('div').each(function () {
+                    addDeleteLink($(this));
+                });
+            }
+
+            // La fonction qui ajoute un formulaire CategoryType
+            function addTarif($container) {
+                // Dans le contenu de l'attribut « data-prototype », on remplace :
+                // - le texte "__name__label__" qu'il contient par le label du champ
+                // - le texte "__name__" qu'il contient par le numéro du champ
+                var template = $container.attr('data-prototype')
+                                .replace(/__name__label__/g, 'Tarif n°' + (index + 1))
+                                .replace(/__name__/g, index)
+                        ;
+
+                // On crée un objet jquery qui contient ce template
+                var $prototype = $(template);
+
+                // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+                addDeleteLink($prototype);
+
+                // On ajoute le prototype modifié à la fin de la balise <div>
+                $container.append($prototype);
+
+                // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+                index++;
+            }
+
+            // La fonction qui ajoute un lien de suppression d'une catégorie
+            function addDeleteLink($prototype) {
+                // Création du lien
+                var $deleteLink = $('<section class="col col-4"></section><a class="btn btn-danger" href="#"><i class="fa fa-trash"></i> Supprimer</a>');
+
+                // Ajout du lien
+                $prototype.append($deleteLink);
+
+                // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+                $deleteLink.click(function (e) {
+                    $prototype.remove();
+
+                    e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+                    return false;
+                });
+            }
+        });
+    </script>
+{% endblock %}
