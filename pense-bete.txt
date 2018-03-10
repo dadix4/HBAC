@@ -1,0 +1,5 @@
+git add .
+git commit -m "v.1"
+git status
+git remote add origin https://github.com/dadix4/HBAC.git
+git push -f origin master
