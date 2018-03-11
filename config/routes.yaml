@@ -79,3 +79,7 @@ routingAdminClub:
 routingAdminMatch:
     resource: "../config/routes/admin/match/adminMatch.yml"
     prefix:   /admin/matchs
+
+routingAdminBureau:
+    resource: "../config/routes/admin/core/adminBureau.yml"
+    prefix:   /admin/fiche_bureau

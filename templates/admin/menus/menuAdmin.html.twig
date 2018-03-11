@@ -61,6 +61,13 @@
         </ul>
       </li>
       <li>
+        <a href="#"><i class="fas fa-lg fa-fw fa-address-card"></i> <span class="menu-item-parent"> Fiche Bureau</span></a>
+        <ul>
+          <li {% if app.request.attributes.get('_route') == 'admin_bureau_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_bureau_index') }}">Gestion du Bureau</a></li>
+          <li {% if app.request.attributes.get('_route') == 'admin_import_fichierlicencie' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_import_fichierlicencie') }}">Import Licenciés</a></li>
+        </ul>
+      </li>
+      <li>
         <a href="#"><i class="fas fa-lg fa-fw fa-users"></i> <span class="menu-item-parent"> Adhérents</span></a>
         <ul>
           <li {% if app.request.attributes.get('_route') == 'admin_core_licencie_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_core_licencie_index') }}">Licenciés</a></li>

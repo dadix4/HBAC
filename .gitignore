@@ -2,7 +2,7 @@
 /config/services.yaml
 /config/packages/security.yaml
 /config/packages/ecommerce.yaml
-/config/packages/pense-bête
+/config/packages/pense-bête.txt
 /config/routes/
 
 

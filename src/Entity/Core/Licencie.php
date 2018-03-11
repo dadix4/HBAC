@@ -577,7 +577,7 @@ class Licencie
      *
      * @return Licencie
      */
-    public function setImgProfil(\App\Entity\Core\ImgProfil $imgProfil = null)
+    public function setImgProfil(\App\Entity\Core\Image $imgProfil = null)
     {
         $this->imgProfil = $imgProfil;
 

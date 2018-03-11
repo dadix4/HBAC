@@ -10,7 +10,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Image
  *
- * @ORM\Table(name="equipe_image")
+ * @ORM\Table(name="core_image_profil")
  * @ORM\Entity(repositoryClass="App\Repository\Equipe\ImageRepository")
  * @ORM\HasLifecycleCallbacks()
  */

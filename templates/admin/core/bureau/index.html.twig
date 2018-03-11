@@ -1,0 +1,137 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Générale</li>
+        <li>Bureau</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fa fa-cogs"></i>
+        Générale
+        <span>> Gestion des Membres du Bureau</span></h1>
+{% endblock %}
+
+{% block body %}
+
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
+
+        <div class="jarviswidget jarviswidget-color-darken" id="wid-id-1" data-widget-editbutton="false">
+            <header role="heading">
+                <span class="widget-icon"> <i class="fa fa-user"></i> </span>
+                <h2>Créer une Fiche</h2>
+            </header>
+
+            <!-- widget div-->
+            <div role="content">
+
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
+                </div>
+                <!-- end widget edit box -->
+
+                <!-- widget content -->
+                <div class="widget-body">
+                    {{ form_start(form, {'action': path('admin_bureau_index'), 'method': 'POST'}) }}
+                    {{ form_widget(form) }}
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-check"></i> Ajouter
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+    </article>
+
+    <article class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
+
+        <div class="jarviswidget jarviswidget-color-darken" id="wid-id-1" data-widget-editbutton="false">
+            <header role="heading">
+                <span class="widget-icon"> <i class="fa fa-table"></i> </span>
+                <h2>Liste des membres <small>liés à une fonction par saison</small></h2>
+            </header>
+            <!-- widget div-->
+            <div>
+
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
+
+                </div>
+                <!-- end widget edit box -->
+
+                <!-- widget content -->
+                <div class="widget-body no-padding">
+
+                    <div class="table-responsive">
+                        <table class="table table-striped table-hover">
+                            <thead>
+                            <tr>
+                                <th>Photo</th>
+                                <th>Prénom</th>
+                                <th>Nom</th>
+                                <th>Saison</th>
+                                <th>Fonctions</th>
+                                <th>Contact</th>
+                                <th><i class="fa fa-calendar"></i> Date</th>
+                                <th>Actions</th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {% for fichebureau in fichesbureau %}
+                                <tr>
+                                    <td ROWSPAN=2>
+                                        {% if fichebureau.licencies.imgProfil is not null %}
+                                            <img class="img-responsive" src="{{ asset(fichebureau.licencies.imgProfil.webPath) }}" width="30px" alt="{{ fichebureau.licencies.imgProfil.alt }}"/>
+                                        {% else %}
+                                            <img src="{{ asset ('assets/images/team/user.jpeg') }}" class="img-responsive" width="30px"  alt=""/>
+                                        {% endif %}
+                                    </td>
+                                    <td ROWSPAN=2>{{ fichebureau.licencies.prenom }}</td>
+                                    <td ROWSPAN=2>{{ fichebureau.licencies.nom }}</td>
+                                    <td ROWSPAN=2>{{ fichebureau.saison.nomSaison }}</td>
+                                    <td ROWSPAN=2>{% for fonction in fichebureau.fonctions %}{{ fonction.fonction }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                                    <td>{{ fichebureau.licencies.mail }}</td>
+                                    <td>{{ fichebureau.licencies.tel }}</td>
+                                    <td>
+                                        <i class="far fa-plus-square"></i> {{ fichebureau.createdBy.username }} le {{ fichebureau.createdAt|date('d/m/Y') }} à {{ fichebureau.createdAt|date('H:i') }} </br>
+                                        {% if fichebureau.updatedBy is not null and  fichebureau.updatedAt > fichebureau.createdAt %}<i class="fas fa-wrench"></i> {{ fichebureau.updatedBy.username }} le {{ fichebureau.updatedAt|date('d/m/Y') }} à {{ fichebureau.updatedAt|date('H:i') }}{% endif %}
+                                    </td>
+                                    <td>
+                                        <div class="btn-group-vertical">
+                                            <a href="{{ path('admin_saison_edit', { 'id': fichebureau.id }) }}"
+                                               class="btn btn-xs bg-color-teal txt-color-white">
+                                                <i class="fas fa-edit"></i>
+                                                Editer</a>
+                                            <form action="{{ path('admin_saison_delete', {'id': fichebureau.id}) }}" method="post">
+                                                <input type="hidden" name="form[_token]" value="{{ csrf_token('form') }}" />
+                                                <input type="hidden" name="_method" value="DELETE" />
+                                                <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Supprimer</button>
+                                            </form>
+                                        </div>
+                                    </td>
+                                </tr>
+                            {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+            </div>
+    </article>
+
+{% endblock %}
+
