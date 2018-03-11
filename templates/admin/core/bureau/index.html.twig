@@ -6,14 +6,14 @@
         <li>Home</li>
         <li>Dashboard</li>
         <li>Générale</li>
-        <li>Bureau</li>
+        <li>Organigramme</li>
     </ol>
     <!-- end breadcrumb -->
 {% endblock %}
 
 {% block sousBreadcrumb %}
     <h1 class="page-title txt-color-blueDark">
-        <i class="fa fa-cogs"></i>
+        <i class="far fa-address-card"></i>
         Générale
         <span>> Gestion des Membres du Bureau</span></h1>
 {% endblock %}
@@ -22,7 +22,15 @@
 
     <article class="col-xs-12 col-sm-12 col-md-12 col-lg-3">
 
-        <div class="jarviswidget jarviswidget-color-darken" id="wid-id-1" data-widget-editbutton="false">
+        {% if app.request.attributes.get('_route') == 'admin_bureau_index' %}
+        <div class="jarviswidget jarviswidget-color-darken"
+             data-widget-colorbutton="false"
+             data-widget-togglebutton="false"
+             data-widget-editbutton="false"
+             data-widget-fullscreenbutton="false"
+             data-widget-deletebutton="false"
+             style=""
+             role="widget">
             <header role="heading">
                 <span class="widget-icon"> <i class="fa fa-user"></i> </span>
                 <h2>Créer une Fiche</h2>
@@ -36,7 +44,6 @@
                     <!-- This area used as dropdown edit box -->
                 </div>
                 <!-- end widget edit box -->
-
                 <!-- widget content -->
                 <div class="widget-body">
                     {{ form_start(form, {'action': path('admin_bureau_index'), 'method': 'POST'}) }}
@@ -54,14 +61,65 @@
                 </div>
             </div>
         </div>
+            {% else %}
+        <div class="jarviswidget jarviswidget-color-darken"
+             data-widget-colorbutton="false"
+             data-widget-togglebutton="false"
+             data-widget-editbutton="false"
+             data-widget-fullscreenbutton="false"
+             data-widget-deletebutton="false"
+             style=""
+             role="widget">
+            <header role="heading">
+                <span class="widget-icon"> <i class="fa fa-user"></i> </span>
+                <h2>Modifier une Fiche</h2>
+            </header>
+
+            <!-- widget div-->
+            <div role="content">
+
+                <!-- widget edit box -->
+                <div class="jarviswidget-editbox">
+                    <!-- This area used as dropdown edit box -->
+                </div>
+                <!-- end widget edit box -->
+                <!-- widget content -->
+                <div class="widget-body">
+                    {{ form_start(form, {'action': path('admin_bureau_edit' , {'id': fichebureau.id, 'prenom': fichebureau.licencies.prenom , 'nom' : fichebureau.licencies.nom}), 'method': 'POST'}) }}
+                    {{ form_widget(form) }}
+                    <div class="form-actions">
+                        <div class="row">
+                            <div class="col-md-12">
+                                <button type="submit" class="btn btn-success">
+                                    <i class="fas fa-check"></i> Modifier
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+            </div>
+        </div>
+        {% endif %}
     </article>
 
     <article class="col-xs-12 col-sm-12 col-md-12 col-lg-9">
 
-        <div class="jarviswidget jarviswidget-color-darken" id="wid-id-1" data-widget-editbutton="false">
+        <div class="jarviswidget jarviswidget-color-darken"
+             data-widget-colorbutton="false"
+             data-widget-togglebutton="false"
+             data-widget-editbutton="false"
+             data-widget-deletebutton="false"
+             style=""
+             role="widget">
             <header role="heading">
-                <span class="widget-icon"> <i class="fa fa-table"></i> </span>
-                <h2>Liste des membres <small>liés à une fonction par saison</small></h2>
+                <span class="widget-icon">
+                    <i class="fa fa-arrow-down"></i>
+                </span>
+                <h2>
+                    <strong>Liste</strong>
+                    des membres de l'organigramme du club <strong class="txt-color-blueLight">lié à une saison et fonction(s)</strong>
+                </h2>
             </header>
             <!-- widget div-->
             <div>
@@ -93,30 +151,32 @@
                             <tbody>
                             {% for fichebureau in fichesbureau %}
                                 <tr>
-                                    <td ROWSPAN=2>
+                                    <td>
                                         {% if fichebureau.licencies.imgProfil is not null %}
                                             <img class="img-responsive" src="{{ asset(fichebureau.licencies.imgProfil.webPath) }}" width="30px" alt="{{ fichebureau.licencies.imgProfil.alt }}"/>
                                         {% else %}
-                                            <img src="{{ asset ('assets/images/team/user.jpeg') }}" class="img-responsive" width="30px"  alt=""/>
+                                            <img src="{{ asset ('assets/backend/img/user.jpeg') }}" class="img-responsive" width="30px"  alt=""/>
                                         {% endif %}
                                     </td>
-                                    <td ROWSPAN=2>{{ fichebureau.licencies.prenom }}</td>
-                                    <td ROWSPAN=2>{{ fichebureau.licencies.nom }}</td>
-                                    <td ROWSPAN=2>{{ fichebureau.saison.nomSaison }}</td>
-                                    <td ROWSPAN=2>{% for fonction in fichebureau.fonctions %}{{ fonction.fonction }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
-                                    <td>{{ fichebureau.licencies.mail }}</td>
-                                    <td>{{ fichebureau.licencies.tel }}</td>
+                                    <td>{{ fichebureau.licencies.prenom }}</td>
+                                    <td>{{ fichebureau.licencies.nom }}</td>
+                                    <td>{{ fichebureau.saison.nomSaison }}</td>
+                                    <td>{% for fonction in fichebureau.fonctions %}{{ fonction.fonction }}{% if not loop.last %}, {% endif %}{% endfor %}</td>
+                                    <td>
+                                        <i class="far fa-envelope"></i> : {{ fichebureau.licencies.mail }}<br>
+                                        <i class="fas fa-phone"></i> : {{ fichebureau.licencies.tel }}
+                                    </td>
                                     <td>
                                         <i class="far fa-plus-square"></i> {{ fichebureau.createdBy.username }} le {{ fichebureau.createdAt|date('d/m/Y') }} à {{ fichebureau.createdAt|date('H:i') }} </br>
                                         {% if fichebureau.updatedBy is not null and  fichebureau.updatedAt > fichebureau.createdAt %}<i class="fas fa-wrench"></i> {{ fichebureau.updatedBy.username }} le {{ fichebureau.updatedAt|date('d/m/Y') }} à {{ fichebureau.updatedAt|date('H:i') }}{% endif %}
                                     </td>
                                     <td>
                                         <div class="btn-group-vertical">
-                                            <a href="{{ path('admin_saison_edit', { 'id': fichebureau.id }) }}"
+                                            <a href="{{ path('admin_bureau_edit', { 'id': fichebureau.id, 'prenom': fichebureau.licencies.prenom , 'nom' : fichebureau.licencies.nom}) }}"
                                                class="btn btn-xs bg-color-teal txt-color-white">
                                                 <i class="fas fa-edit"></i>
                                                 Editer</a>
-                                            <form action="{{ path('admin_saison_delete', {'id': fichebureau.id}) }}" method="post">
+                                            <form action="{{ path('admin_bureau_delete', {'id': fichebureau.id}) }}" method="post">
                                                 <input type="hidden" name="form[_token]" value="{{ csrf_token('form') }}" />
                                                 <input type="hidden" name="_method" value="DELETE" />
                                                 <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Supprimer</button>

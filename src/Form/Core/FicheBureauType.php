@@ -12,7 +12,7 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
 
 
-class FicheMembreType extends AbstractType
+class FicheBureauType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -44,7 +44,8 @@ class FicheMembreType extends AbstractType
                 'attr' => array('class'=>'selectpicker'),
                 'query_builder' => function(EntityRepository $er ) {
                             return $er->createQueryBuilder('s')
-                                 ->orderBy('s.nomSaison', 'DESC');
+                                ->orderBy('s.active','DESC')
+                                ->addOrderBy('s.slug' , 'DESC');
             }))
 
             ->add('fonctions', EntityType::class , array(
