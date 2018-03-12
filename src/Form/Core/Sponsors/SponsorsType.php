@@ -1,11 +1,15 @@
 <?php
 
-namespace Hbac\CoreBundle\Form;
+namespace App\Form\Core;
 
+use App\Entity\Equipe\Image;
+use App\Form\Equipe\ImageType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
+use Symfony\Component\Form\Extension\Core\Type\UrlType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Hbac\EquipeBundle\Form\ImageType;
+
 
 class SponsorsType extends AbstractType
 {
@@ -16,53 +20,49 @@ class SponsorsType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('nom', 'text',array(
+            ->add('nom', TextType::class ,array(
                 'attr' => array(
                     'placeholder' => 'Nom du Sponsors',)))
 
-            ->add('mail', 'text',array(
+            ->add('mail', TextType::class ,array(
                 'required'  => false,
                 'attr' => array(
         '           placeholder' => 'Adresse Email*',)))
 
-            ->add('tel', 'text',array(
+            ->add('tel', TextType::class ,array(
                 'required'  => false,
                 'attr' => array(
                     'placeholder' => 'Téléphone*',)))
 
-            ->add('adresse', 'text',array(
+            ->add('adresse', TextType::class ,array(
                 'required'  => false,
                 'attr' => array(
                     'placeholder' => 'Adresse*',)))
 
-            ->add('cpmtadresse', 'text',array(
+            ->add('cpmtadresse', TextType::class  ,array(
                 'required'  => false,
                 'attr' => array(
                     'placeholder' => 'Complément Adresse*',)))
 
-            ->add('codepostal', 'text',array(
+            ->add('codepostal', TextType::class ,array(
                 'required'  => false,
                 'attr' => array(
                     'placeholder' => 'Code Postal*',)))
 
-            ->add('ville', 'text',array(
+            ->add('ville', TextType::class  ,array(
                 'required'  => false,
                 'attr' => array(
                     'placeholder' => 'Vile*',)))
 
-            ->add('web','url',array(
+            ->add('web', UrlType::class ,array(
                 'required'  => false,
                 'attr' => array(
                     'placeholder' => 'Lien site web*',)))
 
-            ->add('image',      new ImageType(),array(
+            ->add('image', ImageType::class ,array(
                 'required'  => false,
                 'attr' => array(
                     'placeholder' => 'Photo*',
-                )))
-            ->add('save',      'submit',array(
-                'attr' => array(
-                    'class' => 'btn btn-info'
                 )))
         ;
     }
@@ -73,7 +73,7 @@ class SponsorsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Hbac\CoreBundle\Entity\Sponsors'
+            'data_class' => 'App\Entity\Core\Sponsors'
         ));
     }
 }
