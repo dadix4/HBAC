@@ -1,0 +1,72 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Evenement</h1>
+
+    <table>
+        <tbody>
+            <tr>
+                <th>Id</th>
+                <td>{{ evenement.id }}</td>
+            </tr>
+            <tr>
+                <th>Titre</th>
+                <td>{{ evenement.titre }}</td>
+            </tr>
+            <tr>
+                <th>Description</th>
+                <td>{{ evenement.description }}</td>
+            </tr>
+            <tr>
+                <th>Date</th>
+                <td>{% if evenement.date %}{{ evenement.date|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Heure</th>
+                <td>{% if evenement.heure %}{{ evenement.heure|date('H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Datelimit</th>
+                <td>{% if evenement.datelimit %}{{ evenement.datelimit|date('Y-m-d') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Bodymail</th>
+                <td>{{ evenement.bodyMail }}</td>
+            </tr>
+            <tr>
+                <th>Resagroupe</th>
+                <td>{% if evenement.resaGroupe %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Resaequipe</th>
+                <td>{% if evenement.resaEquipe %}Yes{% else %}No{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Mailnotification</th>
+                <td>{{ evenement.mailNotification }}</td>
+            </tr>
+            <tr>
+                <th>Createdat</th>
+                <td>{% if evenement.createdAt %}{{ evenement.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+            <tr>
+                <th>Updatedat</th>
+                <td>{% if evenement.updatedAt %}{{ evenement.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+            </tr>
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_event_index') }}">Back to the list</a>
+        </li>
+        <li>
+            <a href="{{ path('admin_event_edit', { 'id': evenement.id }) }}">Edit</a>
+        </li>
+        <li>
+            {{ form_start(delete_form) }}
+                <input type="submit" value="Delete">
+            {{ form_end(delete_form) }}
+        </li>
+    </ul>
+{% endblock %}

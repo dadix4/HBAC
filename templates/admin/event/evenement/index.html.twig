@@ -1,0 +1,59 @@
+{% extends 'base.html.twig' %}
+
+{% block body %}
+    <h1>Evenements list</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Titre</th>
+                <th>Description</th>
+                <th>Date</th>
+                <th>Heure</th>
+                <th>Datelimit</th>
+                <th>Bodymail</th>
+                <th>Resagroupe</th>
+                <th>Resaequipe</th>
+                <th>Mailnotification</th>
+                <th>Createdat</th>
+                <th>Updatedat</th>
+                <th>Actions</th>
+            </tr>
+        </thead>
+        <tbody>
+        {% for evenement in evenements %}
+            <tr>
+                <td><a href="{{ path('admin_event_show', { 'id': evenement.id }) }}">{{ evenement.id }}</a></td>
+                <td>{{ evenement.titre }}</td>
+                <td>{{ evenement.description }}</td>
+                <td>{% if evenement.date %}{{ evenement.date|date('Y-m-d') }}{% endif %}</td>
+                <td>{% if evenement.heure %}{{ evenement.heure|date('H:i:s') }}{% endif %}</td>
+                <td>{% if evenement.datelimit %}{{ evenement.datelimit|date('Y-m-d') }}{% endif %}</td>
+                <td>{{ evenement.bodyMail }}</td>
+                <td>{% if evenement.resaGroupe %}Yes{% else %}No{% endif %}</td>
+                <td>{% if evenement.resaEquipe %}Yes{% else %}No{% endif %}</td>
+                <td>{{ evenement.mailNotification }}</td>
+                <td>{% if evenement.createdAt %}{{ evenement.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if evenement.updatedAt %}{{ evenement.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>
+                    <ul>
+                        <li>
+                            <a href="{{ path('admin_event_show', { 'id': evenement.id }) }}">show</a>
+                        </li>
+                        <li>
+                            <a href="{{ path('admin_event_edit', { 'id': evenement.id }) }}">edit</a>
+                        </li>
+                    </ul>
+                </td>
+            </tr>
+        {% endfor %}
+        </tbody>
+    </table>
+
+    <ul>
+        <li>
+            <a href="{{ path('admin_event_new') }}">Create a new evenement</a>
+        </li>
+    </ul>
+{% endblock %}
