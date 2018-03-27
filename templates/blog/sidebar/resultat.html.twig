@@ -1,0 +1,68 @@
+    {% for match in resultats %}
+        <div class="match_homepage">
+            <div class="row">
+                <div class="col-xs-4 team_local">
+                    <div class="col-xs-3 team_logo_local">
+                        {% if match.clubReceveur is not null and match.clubReceveur.logo is not null  %}
+                            <img src="{{ asset(match.clubReceveur.logo.webPath) }}" alt="{{ match.clubReceveur.logo.alt }}" />
+                        {% else %}
+                            <img src="{{ asset ('assets/frontend/img/logo_visiteur.png') }}" alt="logo adversaire">
+                        {% endif %}
+                    </div>
+                    <div class="col-xs-9 team_nom_local">
+                        {% if match.clubReceveur is not null and match.clubReceveur.monclub == true %}
+                            {% if match.equipe %}
+                                <span class="monClub"><a href="{{ path('view_team', {'id': match.equipe.id, 'slug':match.equipe.saison.slug}) }}"> {{ match.equipe.categorie.categorieEquipe }}</a></span>
+                            {% else %}
+                                <span class="monClub">{{ match.poule }}</span>
+                            {% endif %}
+                        {% else %}
+                            <span class="club">{{ match.local|upper|truncate(32, false, '') }}</span>
+                        {% endif %}
+                    </div>
+                </div>
+
+                <div class="col-xs-4 score">
+                    {% if (match.clubReceveur is not null and (match.clubReceveur.monclub == true or match.clubReceveur.convention == true)) and (match.scorelocal > match.scorevisiteur)  %}
+                        <span class="victoire">{{  match.scorelocal }} - {{  match.scorevisiteur }}</span>
+                    {% elseif (match.clubVisiteur is not null and (match.clubVisiteur.monclub == true or match.clubVisiteur.convention == true)) and (match.scorelocal < match.scorevisiteur)  %}
+                        <span class="victoire">{{  match.scorelocal }} - {{  match.scorevisiteur }}</span>
+                    {% elseif(match.clubReceveur is not null and (match.clubReceveur.monclub == true or match.clubReceveur.convention == true)) and (match.scorelocal < match.scorevisiteur)  %}
+                        <span class="defaite">{{  match.scorelocal }} - {{  match.scorevisiteur }}</span>
+                    {% elseif(match.clubVisiteur is not null and (match.clubVisiteur.monclub == true or match.clubVisiteur.convention == true)) and (match.scorelocal > match.scorevisiteur)  %}
+                        <span class="defaite">{{  match.scorelocal }} - {{  match.scorevisiteur }}</span>
+                    {% elseif ((match.scorelocal is not null and match.scorevisiteur is not null) and (match.scorelocal == match.scorevisiteur )) %}
+                        <span class="nul">{{  match.scorelocal }} - {{  match.scorevisiteur }}</span>
+                    {% elseif (match.scorelocal == null ) == (match.scorevisiteur == null) %}
+                        NC
+                    {% else %}
+                        {{  match.scorelocal }} - {{  match.scorevisiteur }}
+                    {% endif %}
+                </div>
+
+                <div class="col-xs-4 team_visiteur">
+                    <div class="col-xs-9 team_nom_visiteur">
+                        {% if match.clubVisiteur is not null and match.clubVisiteur.monclub == true %}
+                            {% if match.equipe %}
+                                <span class="monClub"><a href="{{ path('view_team', {'id': match.equipe.id, 'slug':match.equipe.saison.slug}) }}"> {{ match.equipe.categorie.categorieEquipe }}</a></span>
+                            {% else %}
+                                <span class="monClub">{{ match.poule }}</span>
+                            {% endif %}
+                        {% else %}
+                            <span class="club">{{ match.visiteur|upper|truncate(32, false, '') }}</span>
+                        {% endif %}
+                    </div>
+                    <div class="col-xs-3 team_logo_visiteur">
+                        {% if match.clubVisiteur is not null and match.clubVisiteur.logo is not null  %}
+                            <img src="{{ asset(match.clubVisiteur.logo.webPath) }}" alt="{{ match.clubVisiteur.logo.alt }}"  />
+                        {% else %}
+                            <img src="{{ asset ('assets/frontend/img/logo_visiteur.png') }}" alt="logo adversaire">
+                        {% endif %}
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p>Pas de matchs le weekend dernière ;-) </p>
+    {% endfor %}
