@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity\Event;
+namespace App\Entity\Event;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -10,10 +10,21 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Reservation
  *
  * @ORM\Table(name="event_reservation")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Event\ReservationRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Event\ReservationRepository")
  */
 class Reservation
 {
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Event\Inscrit", cascade={"persist", "remove"}, orphanRemoval=true, mappedBy="reservation")
+     */
+    private $inscrits;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Event\Evenement", inversedBy="reservations")
+     * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
+     */
+    private $evenement;
+
     /**
      * @var int
      *
@@ -312,6 +323,64 @@ class Reservation
     public function getUpdatedBy()
     {
         return $this->updatedBy;
+    }
+
+    /**
+     * Add inscrit
+     *
+     * @param \App\Entity\Event\Inscrit $inscrit
+     *
+     * @return Reservation
+     */
+    public function addInscrit(\App\Entity\Event\Inscrit $inscrit)
+    {
+        $this->inscrits[] = $inscrit;
+        $inscrit->setReservation($this); //Permet de réaliser la liaison onetomany
+        return $this;
+    }
+
+    /**
+     * Remove inscrit
+     *
+     * @param \App\Entity\Event\Inscrit $inscrit
+     */
+    public function removeInscrit(\App\Entity\Event\Inscrit $inscrit)
+    {
+        $this->inscrits->removeElement($inscrit);
+    }
+
+    /**
+     * Get inscrits
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getInscrits()
+    {
+        return $this->inscrits;
+    }
+
+    /**
+     * Set evenement
+     *
+     * @param \App\Entity\Event\Evenement $evenement
+     *
+     * @return Reservation
+     */
+    public function setEvenement(\App\Entity\Event\Evenement $evenement = null)
+    {
+        $this->evenement = $evenement;
+
+        return $this;
+    }
+
+    /**
+     * Get evenement
+     *
+     * @return \App\Entity\Event\Evenement
+     */
+    public function getEvenement()
+    {
+        return $this->evenement;
     }
 }
 

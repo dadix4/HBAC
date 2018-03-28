@@ -1,0 +1,83 @@
+{% extends 'layout.html.twig' %}
+
+{% block titre %} Evènements | {{ parent() }} {% endblock %}
+
+{% block body %}
+
+    <section class="container g-pt-20 g-pb-20">
+        <!-- Heading -->
+        <div class="text-center g-mb-40">
+            <h2 class="mb-3">Validation de la Réservation</h2>
+            <div class="d-inline-block g-width-85 g-height-1 g-bg-gray-dark-v5 mb-2"></div>
+        </div>
+        <!-- End Heading -->
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                <tr>
+                    <th>Prénom</th>
+                    <th>Nom</th>
+                    <th>Type de réservation</th>
+                    <th style="text-align: center">Tarif</th>
+                </tr>
+                </thead>
+
+                <tbody>
+                {% for inscrits in reservation.inscrits %}
+                    <tr>
+                        <td>{{ inscrits.prenom }}</td>
+                        <td> {{ inscrits.nom }}</td>
+                        <td>{{ inscrits.tarif.titreprix }}</td>
+                        <td style="text-align: center">{{ inscrits.tarif.prix }}€</td>
+                    </tr>
+                {% endfor %}
+                </tbody>
+            </table>
+        </div>
+        <div class="row">
+            <div class="col-md-9 g-bg-gray-light-v5 g-pa-20 g-pb-20"></div>
+            <div class="col-md-3">
+                <!-- Summary -->
+                <div class="g-bg-gray-light-v5 g-pa-20 g-pb-20">
+                    <h4 class="h6 text-uppercase mb-3">Total Réservation</h4>
+
+                    <div class="d-flex justify-content-between mb-2">
+                        <span class="g-color-black">Prix TTC</span>
+                        <span class="g-color-black g-font-weight-300">{{ totalTarif }}
+                            €</span>
+                    </div>
+                </div>
+                <!-- End Summary -->
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-md-2">
+                <a href="{{path('boutique_panier_livraison')}}" class="btn u-btn-darkgray g-mr-10 g-mb-15"><i class="fa fa-arrow-left g-mr-5"></i> Retour</a>
+            </div>
+            <div class="col-md-8"></div>
+            <div class="col-md-2">
+
+
+                <form action="{{ path('event_paiement', {'id': evenement.id, 'reservation': reservation.id}) }}" method="POST">
+                    <script src="https://checkout.stripe.com/checkout.js" class="stripe-button"
+                            data-key="pk_test_UtAFAk3s4TzUx31bp7LMckI5"
+                            data-amount="{{ totalTarif * 100 }}"
+                            data-name="Handball Atlantique Club Sainte Pazanne"
+                            data-description="Widget"
+                            data-image="https://stripe.com/img/documentation/checkout/marketplace.png"
+                            data-locale="auto"
+                            data-zip-code="true"
+                            data-currency="eur">
+                    </script>
+                    <script>
+                        // Hide default stripe button, be careful there if you
+                        // have more than 1 button of that class
+                        document.getElementsByClassName("stripe-button-el")[0].style.display = 'none';
+                    </script>
+                    <button type="submit" class="btn u-btn-primary g-mr-10 g-mb-15"><i class="fa fa-check-circle g-mr-5"></i> Payer</button>
+                </form>
+
+            </div>
+        </div>
+    </section>
+{% endblock %}

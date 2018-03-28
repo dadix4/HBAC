@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Repository\Event;
+namespace App\Repository\Event;
 
 /**
  * EvenementRepository
@@ -10,4 +10,11 @@ namespace AppBundle\Repository\Event;
  */
 class EvenementRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function allEvents()
+    {
+        return $this->createQueryBuilder('e')
+            ->orderBy('e.createdAt','DESC')
+            ->getQuery()
+            ->getResult();
+    }
 }

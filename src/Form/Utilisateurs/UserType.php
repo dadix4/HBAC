@@ -1,11 +1,14 @@
 <?php
 
-namespace Hbac\UserBundle\Form;
+namespace App\Form\Utilisateurs;
 
+use Symfony\Bridge\Doctrine\Form\Type\EntityType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\DateType;
+use Symfony\Component\Form\Extension\Core\Type\EmailType;
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-use Hbac\EquipeBundle\Form\ImageType;
 
 
 class UserType extends AbstractType
@@ -19,7 +22,7 @@ class UserType extends AbstractType
 
 
         $builder
-            ->add('date_register', 'datetime', [
+            ->add('createdAt', DateType::class , [
                 'required'  => false,
                 'widget' => 'single_text',
                 'format' => 'dd-MM-yyyy',
@@ -28,28 +31,24 @@ class UserType extends AbstractType
                     'data-provide' => 'datepicker',
                     'data-date-format' => 'dd-mm-yyyy'
                 ]])
-            ->add('username')
-            ->add('email')
-            ->add('image',      new ImageType(),array(
+            ->add('username', TextType::class)
+            ->add('email', EmailType::class )
+            ->add('avatar', AvatarType::class ,array(
                 'required'  => false,
                 'attr' => array(
                     'placeholder' => 'Photo',
                 )))
-            ->add('membre', 'entity', array(
-                'class'    => 'HbacCoreBundle:Membres',
-                'property' => 'getPrenomNom',
+            ->add('adherent', EntityType::class, array(
+                'class'    => 'App:Core\Licencie',
+                'choice_label' => 'getPrenomNom',
                 'multiple' => false,
                 'expanded' => false,
                 'attr' => array(
                     'class'=>'selectpicker',
                     'data-live-search' => 'true',
                     'title' => "Choisir un membre",
-                    'data-size' => "5",)
+                    'data-size' => "10",)
             ))
-            ->add('save',      'submit',array(
-                'attr' => array(
-                    'class' => 'btn btn-info'
-                )))
         ;
     }
 
@@ -60,7 +59,7 @@ class UserType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Hbac\UserBundle\Entity\User'
+            'data_class' => 'App\Entity\Utilisateurs\User'
         ));
     }
 }

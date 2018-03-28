@@ -1,24 +1,22 @@
 <?php
 
-namespace Hbac\EventBundle\Form;
+namespace App\Form\Event;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
-
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\Extension\Core\Type\CollectionType;
-use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
-use Symfony\Component\Form\Extension\Core\Type\EmailType;
+
 
 class ReservationType extends AbstractType
 {
-    private $event;
-    private $tarifs;
-    public function __construct($event, $tarifs)
+
+    private $entityManager;
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->event=$event;
-        $this->tarifs=$tarifs;
+        $this->entityManager  = $entityManager;
     }
 
     /**
@@ -26,23 +24,28 @@ class ReservationType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-        $event =$this->event;
-        $tarifs =$this->tarifs;
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $entityManager = $options['entity_manager'];
+        $evenement = $options['evenement'];
+        // ...
+
 
         $builder
-            ->add('nomreservation', TextType::class )
-            ->add('telreservation', TextType::class )
+            ->add('nomReservation', TextType::class )
+            ->add('telReservation', TextType::class )
             ->add('inscrits', CollectionType::class , array(
-                'type'         => new InscritType($event,$tarifs),
+                'entry_type'   => InscritType::class,
+                'entry_options'  => array(
+                    'entity_manager' => $entityManager,
+                    'evenement' => $evenement),
                 'allow_add'    => true,
                 'allow_delete' => true,
-                'by_reference' => false,
                 'label' => false,
-            ))
-            ->add('captcha', 'ds_re_captcha', array('mapped' => false))
-            ->add('envoyer', SubmitType::class ,array(
-                'attr' => array(
-                    'placeholder' => 'Envoyer',)));
+                'prototype'    => true,
+                'required'     => false,
+                'by_reference' => false,
+            ));
+
     }
     
     /**s
@@ -50,8 +53,12 @@ class ReservationType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setRequired('entity_manager');
+        $resolver->setRequired('evenement');
         $resolver->setDefaults(array(
-            'data_class' => 'Hbac\EventBundle\Entity\Reservation'
+            'data_class' => 'App\Entity\Event\Reservation',
+            'evenement' => null,
+            'session'
         ));
     }
 
@@ -60,7 +67,7 @@ class ReservationType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'hbac_eventbundle_reservation';
+        return 'app_event_reservation';
     }
 
 

@@ -16,9 +16,17 @@
 
         <!-- Tags -->
         <div class="g-mb-20">
+          <h3 class="h5 g-color-black g-font-weight-600 mb-4">Résultats du Weekend</h3>
+          {{ render(controller('App\\Controller\\Match\\MatchController:sidebarResultatAction')) }}
+        </div>
+        <!-- End Tags -->
+
+        <hr class="g-brd-gray-light-v4">
+
+        <!-- Tags -->
+        <div class="g-mb-20">
           <h3 class="h5 g-color-black g-font-weight-600 mb-4">Catégorie</h3>
           {{ render(controller('App\\Controller\\Blog\\CategorieController:CategoriesSidebarAction')) }}
-
         </div>
         <!-- End Tags -->
 

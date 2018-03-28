@@ -43,4 +43,15 @@ class ArticleRepository extends \Doctrine\ORM\EntityRepository
 
         return new Paginator($qb);
     }
+
+    public function ActuFooter()
+    {
+        $qb = $this->createQueryBuilder('a')
+            ->select('a')
+            ->orderBy('a.createdAt', 'DESC')
+            ->setFirstResult(0)
+            ->setMaxResults(4);
+
+        return new Paginator($qb);
+    }
 }

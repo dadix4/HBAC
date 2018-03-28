@@ -1,0 +1,155 @@
+{% extends 'layout.html.twig' %}
+
+{% block titre %}Inscription | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <div class="row justify-content-center g-mb-60">
+        <div class="col-lg-7">
+            <!-- Heading -->
+            <div class="text-center mb-0">
+                <h2 class="h2 text-uppercase mb-1 g-font-weight-600"><span class="g-color-primary">Inscription HBAC</span> Saison 2017-2018</h2>
+                <div class="d-inline-block g-width-60 g-height-1 g-bg-black mb-1"></div>
+                <p class="lead mb-0">Vous trouverez ci-dessous les documents à télécharger pour s'inscrires</p>
+            </div>
+            <!-- End Heading -->
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-4">
+            <!-- Icon Blocks -->
+            <div class="g-brd-around--md g-brd-gray-light-v4 text-center g-pa-10 g-px-30--lg g-py-40--lg u-icon-v4-bg-primary--hover">
+                <a href="{{ asset ('assets/inscription/Inscription_2017-2018/Inscriptions_HBAC_2017_2018_v2.pdf') }}" class="d-block g-color-gray-dark-v4 g-font-size-40 g-mb-15"  data-toggle="tooltip" data-placement="top" title="Lien pour télécharger le fichier">
+              <i class="icon-communication-013 u-line-icon-pro"></i>
+            </a>
+                <a href="{{ asset ('assets/inscription/Inscription_2017-2018/Inscriptions_HBAC_2017_2018_v2.pdf') }}"><h3 class="h5 text-uppercase g-color-primary g-mb-10">Infos & Tarif</h3></a>
+                <p class="g-color-gray-dark-v4">Document avec les informations d'inscription ainsi que les pièces à fournir et tarif par catégorie.</p>
+                <div class="d-inline-block g-width-40 g-brd-bottom g-brd-gray-dark-v5 g-my-15"></div>
+            </div>
+            <!-- End Icon Blocks -->
+        </div>
+        <div class="col-md-4">
+            <!-- Icon Blocks -->
+            <div class="g-brd-around--md g-brd-gray-light-v4 text-center g-pa-10 g-px-30--lg g-py-40--lg">
+                <a href="{{ asset ('assets/inscription/Inscription_2017-2018/Certificat_medical_2017_2018.pdf') }}" class="d-block g-color-gray-dark-v4 g-font-size-40 g-mb-15"  data-toggle="tooltip" data-placement="top" title="Lien pour télécharger le fichier">
+              <i class="icon-communication-013 u-line-icon-pro"></i>
+            </a>
+                <a href="{{ asset ('assets/inscription/Inscription_2017-2018/Certificat_medical_2017_2018.pdf') }}"><h3 class="h5 text-uppercase g-color-primary g-mb-10">Certificat Médical</h3></a>
+                <p class="g-color-gray-dark-v4">Certification médical à remplir avec la mention <b>"pratique du handball en compétition"</b>.</p>
+                <div class="d-inline-block g-width-40 g-brd-bottom g-brd-gray-dark-v5 g-my-15"></div>
+            </div>
+            <!-- End Icon Blocks -->
+        </div>
+        <div class="col-md-4">
+            <!-- Icon Blocks -->
+            <div class="g-brd-around--md g-brd-gray-light-v4 text-center g-pa-10 g-px-30--lg g-py-40--lg">
+                <a href="{{ asset ('assets/inscription/Inscription_2017-2018/Autorisation_parentale_2017_2018.pdf') }}" class="d-block g-color-gray-dark-v4 g-font-size-40 g-mb-15"  data-toggle="tooltip" data-placement="top" title="Lien pour télécharger le fichier">
+              <i class="icon-communication-013 u-line-icon-pro"></i>
+            </a>
+                <a href="{{ asset ('assets/inscription/Inscription_2017-2018/Autorisation_parentale_2017_2018.pdf') }}"><h3 class="h5 text-uppercase g-color-primary g-mb-10">Autorisation Parentale</h3></a>
+                <p class="g-color-gray-dark-v4"> Documement d'autorisation parentale à compléter pour <b>les mineurs ou majeurs protégés</b>.</p>
+                <div class="d-inline-block g-width-40 g-brd-bottom g-brd-gray-dark-v5 g-my-15"></div>
+            </div>
+            <!-- End Icon Blocks -->
+        </div>
+    </div>
+
+    <div class="container-fluid g-px-50 g-py-50">
+
+    <div class="u-shadow-v19 g-bg-white rounded g-py-20">
+        <h2 class="h5 g-color-black mb-3"><i class="fas fa-info-circle"></i> PERMANENCES LICENCES</h2>
+        <div class="d-inline-block g-width-50 g-height-2 g-bg-black mb-3"></div>
+        <p>
+        <ul>
+            <li><b>Vendredi 30 Juin de 18h à 20h</b> - Maison des Associations (salle du rez-de-chaussée) </li>
+            <li><b>Samedi 8 juillet de 10h à 12h30</b> - Au Flash Foot (sur le parking de la salle de sport)</li>
+        </ul>
+        </p>
+    </div>
+
+    <div class="u-shadow-v19 g-bg-white rounded g-py-20">
+        <h2 class="h5 g-color-black mb-3"><i class="fas fa-info-circle"></i> Documents et informations à fournir lors de l'inscription</h2>
+        <div class="d-inline-block g-width-50 g-height-2 g-bg-black mb-3"></div>
+        <p>
+            Nous vous demanderons de venir aux créneaux d’inscription munis des éléments et informations qui
+            suivent :
+        </p>
+        <ul>
+            <li>Nom de naissance, d’usage et Prénom.</li>
+            <li>Date de naissance.</li>
+            <li>Adresse mail valide.</li>
+            <li>Le certificat médical original portant la mention <strong>« pratique du handball en compétition »</strong> et
+                <strong>préalablement numérisé en pdf</strong>. Il vous sera nécessaire pour finaliser votre inscription sur Gesthand, le portail
+                de la FFHB.
+            </li>
+            <li>Une enveloppe timbrée (une seule par famille). </li>
+            <li>Le chèque correspondant à la catégorie du licencié. </li>
+            <li>L’autorisation parentale validée pour <strong>les mineurs</strong>.</li>
+        </ul>
+    </div>
+
+    <div class="u-shadow-v19 g-bg-white rounded g-py-20">
+        <h2 class="h5 g-color-black mb-3"><i class="fas fa-info-circle"></i> COMMENT S'INSCRIRE SI VOUS N'AVEZ PAS PU VOUS RENDRE AUX PERMANENCES LICENCES ?</h2>
+        <div class="d-inline-block g-width-50 g-height-2 g-bg-black mb-3"></div>
+        <p>
+            Merci d'envoyer ou déposer sous enveloppe votre dossier complet d'inscription chez :
+        </p>
+        <ul>
+            <li>Mme Véronique Villain - 9 route de Port la Roche – 44580 St Cyr En Retz</li>
+            <li>Mme Danièle Sanches - 1 rue du Brigandin - 44680 Chéméré</li>
+        </ul>
+        <br>
+        <p><b>Important</b> : N'oubliez pas de scanner/photographier votre certificat médical avant de le joindre à votre dossier d'inscription.</p>
+    </div>
+
+    <div class="u-shadow-v19 g-bg-white rounded g-py-20">
+        <h2 class="h5 g-color-black mb-3"><i class="fas fa-info-circle"></i> Portail de la fédération - GestHand</h2>
+        <div class="d-inline-block g-width-50 g-height-2 g-bg-black mb-3"></div>
+        <div class="row">
+        <div class="col-sm-3 text-center">
+            <img src="{{ asset ('assets/frontend/img/new_inscription_hbac.png')}}" alt="Inscription GestHand" />
+        </div>
+        <div class="col-sm-9">
+        <p>
+            Ensuite, vous recevrez un mail vous invitant à vous connecter sur le portail de la fédération. Il vous sera demandé de :
+        </p>
+        <ul>
+            <li>Compléter, modifier (si besoin) et valider vos coordonnées.</li>
+            <li>Télécharger le fichier du certificat médical et l’autorisation parentale pour les mineurs.</li>
+            <li>Télécharger une photo <b>format d’identité</b> ainsi qu’une pièce d’identité (CNI ou copie livret de famille) pour <b>les nouveaux inscrits</b>.
+                Pour les renouvellements, ces documents seront ceux de l’an dernier déjà enregistrés dans Gesthand. </li>
+        </ul>
+        <p>
+            Si vous ne possédez pas de scanner, une photo de votre CNI ou de votre certificat médical est possible. Pensez donc à votre smartphone !
+        </p>
+        </div>
+        </div>
+    </div>
+
+        <div class="u-shadow-v19 g-bg-white rounded g-py-20">
+            <h2 class="h5 g-color-black mb-3"><i class="fas fa-info-circle"></i> Validation</h2>
+            <div class="d-inline-block g-width-50 g-height-2 g-bg-black mb-3"></div>
+            <p>
+                Une fois renseignées, ces informations seront transmises électroniquement au club pour validation de la licence.
+                 Si tout est conforme, le club validera votre licence et la transmettra à la Ligue Pays de la Loire pour qualification.
+                 Votre licence vous parviendra ensuite par mail.
+            </p>
+        </div>
+
+        <div class="u-shadow-v19 g-bg-white rounded g-py-20">
+            <h2 class="h5 g-color-black mb-3"><i class="fas fa-info-circle"></i> Contact</h2>
+            <div class="d-inline-block g-width-50 g-height-2 g-bg-black mb-3"></div>
+            <p>
+                <b>Bien entendu, le club sera présent pour vous apporter son aide en cas de difficultés.</b>
+            <ul>
+                <li>communication@hbaclub.fr</li>
+                <li>Mme SANCHES Danièle – <a href="http://www.hbaclub.fr/Contact/10/550/DANIELE-SANCHES"><i class="fa fa-envelope" aria-hidden="true"></i> Contacter Danièle</a></li>
+                <li>Mme VILLAIN Véronique - <a href="http://www.hbaclub.fr/Contact/10/568/VERONIQUE-VILLAIN"><i class="fa fa-envelope" aria-hidden="true"></i> Contacter Véronique</a></li>
+            </ul>
+            </p>
+        </div>
+
+    </div>
+
+{% endblock %}

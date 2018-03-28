@@ -1,0 +1,79 @@
+{% extends 'layout.html.twig' %}
+
+{% block titre %}Entrainements | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <div class="row justify-content-center g-mb-50">
+        <div class="col-lg-7">
+            <!-- Heading -->
+            <div class="text-center mb-0">
+                <h2 class="h2 text-uppercase mb-1 g-font-weight-600 "><span class="g-color-primary">Horaires d'entrainements</span></h2>
+                {% set currentSaison = null %}
+                {% for entrainement in entrainements %}
+                    {% if entrainement.saison.slug != currentSaison %}
+                        {% set currentSaison = entrainement.saison.slug %}
+                        <h2 class="h3 text-uppercase mb-1">Saison 2017-2018</h2>
+                    {% endif %}
+                {% endfor %}
+
+                {% for entrainement in updateTraining %}
+                <div class="d-inline-block g-width-60 g-height-1 g-bg-black mb-1"></div>
+                <p class="g-font-size-13 lead mb-0">
+                    Modifié le {{ entrainement.updatedAt|date('d/m/Y à H:i') }}
+                </p>
+                {% endfor %}
+            </div>
+            <!-- End Heading -->
+        </div>
+    </div>
+
+
+
+    <div class="table-responsive g-mb-60">
+        <table class="table table-striped">
+            {% set currentJour = null %}
+            {% for entrainement in entrainements %}
+            {% if entrainement.jourEntrainement.jour != currentJour %}
+            {% set currentJour = entrainement.jourEntrainement.jour %}
+            <thead>
+            <tr>
+                <th colspan="4" style="text-transform: capitalize; text-align: center; font-size: 16px">
+                    <strong>{{ entrainement.jourEntrainement.jour |upper }}</strong></th>
+            </tr>
+            </thead>
+
+            <tbody>
+            {% endif %}
+            <tr style="font-size: 14px">
+                <td style="vertical-align: middle; font-weight: 400">{{ entrainement.horaireDebut|date('H:i') }}
+                    - {{ entrainement.horaireFin|date('H:i') }}</td>
+                <td style="vertical-align: middle">{% if entrainement.equipes is not null %}
+                        {% for equipes in entrainement.equipes %}{{ equipes.nomEquipe }}{% if not loop.last %}
+                            <br/> {% endif %}{% endfor %}
+                    {% endif %}
+                </td>
+                <td style="vertical-align: middle">{% if entrainement.encadrants is not null %}
+                        {% for membres in entrainement.encadrants %}{{ membres.prenom|capitalize }} {{ membres.nom|capitalize }}{% if not loop.last %}
+                            <br/> {% endif %}{% endfor %}
+                    {% endif %}
+                </td>
+                {% if entrainement.salle.nomSalle == "Salle Bleue" %}
+                    <td style="vertical-align: middle; color: #0b3e6f">{{ entrainement.salle.nomSalle }}</td>
+                {% else %}
+                    <td style="vertical-align: middle; color: #5C391E ">{{ entrainement.salle.nomSalle }}</td>
+                {% endif %}
+
+            </tr>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="text-center">
+    <div class="d-inline-block g-width-60 g-height-1 g-bg-black mb-1"></div>
+    <p class="lead mb-0">
+        Pour tous renseignements sur une équipe, merci de se présenter aux horaires d’entrainements
+    </p>
+    </div>
+{% endblock %}

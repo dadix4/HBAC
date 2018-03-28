@@ -1,12 +1,15 @@
 <?php
 
-namespace Hbac\CoreBundle\Form;
+namespace App\Form\Core;
 
+
+use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\AbstractType;
+use Symfony\Component\Form\Extension\Core\Type\ChoiceType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 
-class FonctionsType extends AbstractType
+class FonctionType extends AbstractType
 {
     /**
      * @param FormBuilderInterface $builder
@@ -16,21 +19,15 @@ class FonctionsType extends AbstractType
     {
         $builder
             ->add('fonction')
-            ->add('type', 'choice',
+            ->add('groupe', ChoiceType::class,
                 array('choices' => array(
                     'Bureau' => "Bureau",
                     'Conseil d\'Administration' => "Conseil d'Administration",
                     'Commission' => "Commission"),
                     'multiple' => false,
                     'expanded' => true,
-                    'empty_value' => ''
                 ))
-            ->add('hierarchie')
-            ->add('save',      'submit',array(
-                'attr' => array(
-                    'class' => 'btn btn-info'
-                )))
-        ;
+            ->add('hierarchie', TextType::class);
     }
     
     /**
@@ -39,7 +36,7 @@ class FonctionsType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Hbac\CoreBundle\Entity\Fonctions'
+            'data_class' => 'App\Entity\Core\Bureau\Fonction'
         ));
     }
 }

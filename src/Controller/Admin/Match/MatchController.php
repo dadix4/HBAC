@@ -141,7 +141,7 @@ class MatchController extends Controller
             $numPoules = $em->getRepository('App:Equipe\RefCompetition')->findByReference($refPoule);
             foreach ($numPoules as $numPoule){
                 $equipe = $em->getRepository('App:Equipe\Equipe')->find($numPoule->getEquipe()->getId());
-                $match->addEquipeMatch($equipe);
+                $match->setEquipe($equipe);
             }
 
             $em->persist($match);
@@ -203,7 +203,7 @@ class MatchController extends Controller
 
             foreach ($numPoules as $numPoule){
                 $equipe = $em->getRepository('App:Equipe\Equipe')->find($numPoule->getEquipe()->getId());
-                $match->addEquipeMatch($equipe);
+                $match->setEquipe($equipe);
             }
             $this->getDoctrine()->getManager()->flush();
             $request->getSession()->getFlashBag()->add('success', 'Modification de la Rencontre');
@@ -260,7 +260,7 @@ class MatchController extends Controller
 
                 foreach ($numPoules as $numPoule){
                     $equipe = $em->getRepository('App:Equipe\Equipe')->find($numPoule->getEquipe()->getId());
-                    $match->addEquipeMatch($equipe);
+                    $match->setEquipe($equipe);
                 }
                 $this->getDoctrine()->getManager()->flush();
             }

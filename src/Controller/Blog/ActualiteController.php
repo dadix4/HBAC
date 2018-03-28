@@ -36,6 +36,13 @@ class ActualiteController extends Controller
         return $this->render('blog/sidebar/articles.html.twig', array('articles' => $articles));
     }
 
+    public function postFooterAction()
+    {
+        $em = $this->getDoctrine()->getManager();
+        $articles = $em->getRepository('App:Blog\Article')->ActuFooter();
+        return $this->render('blog/layout/footer.html.twig', array('articles' => $articles));
+    }
+
     public function ViewPostAction($id)
     {
         $em = $this->getDoctrine()->getManager();

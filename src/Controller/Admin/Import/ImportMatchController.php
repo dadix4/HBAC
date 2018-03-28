@@ -171,7 +171,7 @@ class ImportMatchController extends Controller
             $numPoules = $em->getRepository('App:Equipe\RefCompetition')->findByReference($fichiermatch["numPoule"]);
             foreach ($numPoules as $numPoule){
                 $equipe = $em->getRepository('App:Equipe\Equipe')->find($numPoule->getEquipe()->getId());
-                $match->addEquipeMatch($equipe);
+                $match->setEquipe($equipe);
             }
 
             // Enregistrement de l'objet pour la liaison Many to One entre les entités CSVFichier et CSVMatch en vu de son écriture  dans la base de données

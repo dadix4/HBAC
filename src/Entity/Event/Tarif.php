@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity\Event;
+namespace App\Entity\Event;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -10,10 +10,17 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Tarif
  *
  * @ORM\Table(name="event_tarif")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Event\TarifRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Event\TarifRepository")
  */
 class Tarif
 {
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\Event\Evenement", inversedBy="tarifs")
+     * @ORM\JoinColumn(nullable=false)
+     * @ORM\JoinColumn(name="event_id", referencedColumnName="id")
+     */
+    private $evenement;
+
     /**
      * @var int
      *
@@ -224,6 +231,30 @@ class Tarif
     public function getUpdatedBy()
     {
         return $this->updatedBy;
+    }
+
+    /**
+     * Set evenement
+     *
+     * @param \App\Entity\Event\Evenement $evenement
+     *
+     * @return Tarif
+     */
+    public function setEvenement(\App\Entity\Event\Evenement $evenement)
+    {
+        $this->evenement = $evenement;
+
+        return $this;
+    }
+
+    /**
+     * Get evenement
+     *
+     * @return \App\Entity\Event\Evenement
+     */
+    public function getEvenement()
+    {
+        return $this->evenement;
     }
 }
 

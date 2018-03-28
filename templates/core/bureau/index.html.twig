@@ -2,5 +2,71 @@
 
 {% block body %}
 
+    <div class="text-center text-uppercase g-mb-50">
+        <h2 class="h4"><span class="g-color-primary g-ml-5">Les membres du Bureau</span> et du conseil d'administration</h2>
+    </div>
+        <!-- Team Block -->
+        <div class="row">
+            {% for ficheBureau in membres %}
+            <div class="col-6 col-sm-4 col-lg-2 g-mb-40 block-bureau">
+                <!-- Figure -->
+                <figure class="text-center">
+                    <!-- Figure Image -->
+                    <div class="mx-auto g-width-130 g-height-130 g-mb-15">
+                        {% if ficheBureau.licencies.imgProfil is not null %}
+                            <img class="g-width-120 g-height-120 rounded-circle" src="/{{ ficheBureau.licencies.imgProfil.webPath }}"  alt="{{ ficheBureau.licencies.imgProfil.alt }}">
+                        {% else %}
+                            <img class="g-width-120 g-height-120 rounded-circle" src="{{ asset ('assets/frontend/img/user_no_img.png')}}" alt="Image Description">
+                        {% endif %}
+                    </div>
+                    <!-- End Figure Image -->
 
+                    <!-- Figure Info -->
+                    <div class="info-bureau">
+                    <h4 class="h6 text-uppercase g-color-black g-font-weight-800 g-mb-5">{{ ficheBureau.licencies.prenomNom }}</h4>
+                    {% for fonctions in ficheBureau.fonctions %}
+                        {% if fonctions.groupe == 'Bureau'  %}
+                            <p class="g-font-size-14  g-color-primary">{{ fonctions.fonction }}</p>
+                        {% elseif fonctions.groupe == 'Conseil d\'Administration' %}
+                            <p class="g-font-size-14 g-color-primary">{{ fonctions.fonction }}</p>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+
+                    {% set count = 0 %}
+                    {% for fonctions in ficheBureau.fonctions %}
+                        {% if fonctions.groupe == 'Commission' %}
+                            {% set count = count + 1 %}
+                        {% endif %}
+                    {% endfor %}
+
+                    <div class="info-commission g-mb-5">
+                        {% if count == 0 %}
+                        {% elseif count == 1 %}
+                        <span class="d-block">Commission:</span>
+                        {% else %}
+                        <span class="d-block">Commissions:</span>
+                        {% endif %}
+                    {% for fonctions in ficheBureau.fonctions %}
+                        {% if fonctions.groupe == 'Commission'  %}
+                        <span class="d-block g-color-gray-dark-v5 g-font-size-13">{{ fonctions.fonction }}</span>
+                        {% endif %}
+                    {% endfor %}
+                    </div>
+                    <!-- End Info -->
+                    <!-- Figure Body -->
+                    <ul class="list-inline mb-0">
+                        <li class="list-inline-item mx-1">
+                            <a href="{{ path('core_contact_membre', {'id':ficheBureau.licencies.id, 'prenom':ficheBureau.licencies.prenom, 'nom':ficheBureau.licencies.nom}) }}" class="btn btn-sm u-btn-outline-primary g-mr-10 g-mb-15" data-toggle="tooltip" data-placement="top"  title="Contacter {{ ficheBureau.licencies.prenomNom }}">
+                                <i class="fas fa-envelope"></i>
+                            </a>
+                        </li>
+                    </ul>
+                    <!-- End Figure Body -->
+                </figure>
+                <!-- End Figure -->
+            </div>
+            {% endfor %}
+        </div>
+        <!-- End Team Block -->
 {% endblock%}

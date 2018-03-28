@@ -1,6 +1,6 @@
 <?php
 
-namespace Hbac\CoreBundle\Repository;
+namespace App\Repository\Core;
 
 /**
  * SponsorsRepository

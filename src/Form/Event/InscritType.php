@@ -1,9 +1,9 @@
 <?php
 
-namespace Hbac\EventBundle\Form;
+namespace App\Form\Event;
 
+use Doctrine\ORM\EntityManagerInterface;
 use Symfony\Component\Form\AbstractType;
-use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Doctrine\ORM\EntityRepository;
@@ -12,12 +12,10 @@ use Symfony\Component\Form\Extension\Core\Type\TextType;
 
 class InscritType extends AbstractType
 {
-    private $event;
-    private $tarifs;
-    public function __construct($event, $tarifs)
+    private $entityManager;
+    public function __construct(EntityManagerInterface $entityManager)
     {
-        $this->event=$event;
-        $this->tarifs=$tarifs;
+        $this->entityManager  = $entityManager;
     }
 
     /**
@@ -25,34 +23,32 @@ class InscritType extends AbstractType
      */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-
-        $event =$this->event;
-        $tarifs =$this->tarifs;
+        /** @var \Doctrine\ORM\EntityManager $em */
+        $entityManager = $options['entity_manager'];
+        $evenement = $options['evenement'];
+        //on recherche l'evenement via l'
+        $event = $entityManager->getRepository('App:Event\Evenement')->find($evenement);
 
 
         $builder
             ->add('nom', TextType::class)
             ->add('prenom', TextType::class);
 
-
-
-        //On affiche seulement le champ tarif si l'event à un ou des tarifs.
-        if ($tarifs != 0 ) {
-        $builder
-            ->add('tarif', EntityType::class, array(
-                'class'    => 'Hbac\EventBundle\Entity\Tarif',
-                'property' => 'getTitreetPrix',
-                'multiple' => false,
-                'expanded' => false,
-                'placeholder'=> "Choix du tarif",
-                'query_builder' => function(EntityRepository $er ) use ($event) {
-                    return $er->createQueryBuilder('t')
-                        ->where('t.event =:event')
-                        ->setParameter('event', $event);
-                }
-            ));
+        //si l'option gratuit n'est pas coché, on affiche le tarif
+        if ($event->getGratuit() == 0 ) {
+            $builder
+                ->add('tarif', EntityType::class, array(
+                    'class' => 'App\Entity\Event\Tarif',
+                    'choice_label' => 'getTitreetPrix',
+                    'multiple' => false,
+                    'expanded' => false,
+                    'placeholder' => "Choix du tarif",
+                    'query_builder' => function(EntityRepository $er ) use ($evenement) {
+                        return $er->createQueryBuilder('t')
+                            ->where('t.evenement =:evenement')
+                            ->setParameter('evenement', $evenement);}
+                ));
         }
-
     }
     
     /**
@@ -60,10 +56,13 @@ class InscritType extends AbstractType
      */
     public function configureOptions(OptionsResolver $resolver)
     {
+        $resolver->setRequired('entity_manager');
+        $resolver->setRequired('evenement');
+        $resolver->setAllowedTypes('evenement', 'integer');
         $resolver
             ->setDefaults(array(
-            'data_class' => 'Hbac\EventBundle\Entity\Inscrit',
-            'event' => null))
+            'data_class' => 'App\Entity\Event\Inscrit',
+        ))
         ;
     }
 
@@ -72,7 +71,7 @@ class InscritType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'hbac_eventbundle_inscrit';
+        return 'app_event_inscrit';
     }
 
 

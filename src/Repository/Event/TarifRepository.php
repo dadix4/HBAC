@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Repository\Event;
+namespace App\Repository\Event;
 
 /**
  * TarifRepository
@@ -10,4 +10,15 @@ namespace AppBundle\Repository\Event;
  */
 class TarifRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getNbtarif($evenement)
+    {
+        $evenement->getId();
+
+        return $this->createQueryBuilder('t')
+            ->select('COUNT(t.id)')
+            ->where('t.evenement = :id')
+            ->setParameter('id', $evenement)
+            ->getQuery()
+            ->getResult();
+    }
 }

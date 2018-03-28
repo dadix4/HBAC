@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Repository\Event;
+namespace App\Repository\Event;
 
 /**
  * InscritRepository
@@ -10,4 +10,29 @@ namespace AppBundle\Repository\Event;
  */
 class InscritRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getNbinscrit($idEvent)
+    {
+        return $this->createQueryBuilder('i')
+            ->leftJoin('i.reservation', 'r')
+            ->addSelect('r')
+            ->select('COUNT(i.id)')
+            ->where('r.evenement = :id')
+            ->setParameter('id', $idEvent)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
+
+    public function getTarifByEvent($idEvent)
+    {
+        return $this->createQueryBuilder('i')
+            ->leftJoin('i.reservation', 'r')
+            ->addSelect('r')
+            ->leftJoin('i.tarif', 't')
+            ->addSelect('t')
+            ->select('SUM(t.prix)')
+            ->where('r.evenement = :id')
+            ->setParameter('id', $idEvent)
+            ->getQuery()
+            ->getSingleScalarResult();
+    }
 }

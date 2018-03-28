@@ -1,0 +1,108 @@
+<!-- Header -->
+<header id="js-header" class="u-header u-header--sticky-top u-header--toggle-section u-header--change-appearance" data-header-fix-moment="500" data-header-fix-effect="slide">
+    <div class="u-header__section u-header__section--light g-bg-white g-transition-0_3 u-shadow-v18 g-py-0 js-header-change-moment" data-header-fix-moment-exclude="g-py-10" data-header-fix-moment-classes="u-shadow-v18 g-py-0">
+        <nav class="js-mega-menu navbar navbar-expand-lg hs-menu-initialized hs-menu-horizontal">
+            <div class="container-fluid g-px-120 ">
+                <!-- Responsive Toggle Button -->
+                <button class="navbar-toggler navbar-toggler-right btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-3 g-right-0" type="button" aria-label="Toggle navigation" aria-expanded="false" aria-controls="navBar" data-toggle="collapse" data-target="#navBar">
+              <span class="hamburger hamburger--slider">
+            <span class="hamburger-box">
+              <span class="hamburger-inner"></span>
+              </span>
+              </span>
+                </button>
+                <!-- End Responsive Toggle Button -->
+                <!-- Logo -->
+                <a href="{{ path('index_blog') }}" class="navbar-brand">
+                    <img src="{{ asset ('assets/frontend/img/hbac_top_bar.png') }}" alt="Image Description">
+                </a>
+                <!-- End Logo -->
+
+                <!-- Navigation -->
+                <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10" id="navBar">
+                    <ul class="navbar-nav text-uppercase g-font-weight-600 ml-auto u-sub-menu-v1">
+                        <li class="nav-item g-mx-10--lg{% if app.request.attributes.get('_route') == 'index_blog' %}active{% else %}{% endif %}">
+                            <a href="{{ path('index_blog') }}" class="nav-link px-0"><i class="fa fa-home fa-lg"></i></a>
+                        </li>
+                        <li class="nav-item g-mx-10--lg {% if app.request.attributes.get('_route') == 'index_match' %}active{% else %}{% endif %}">
+                            <a href="{{ path('index_match') }}" class="nav-link px-0">Matchs</a>
+                        </li>
+                        <li class="nav-item g-mx-10--lg{% if app.request.attributes.get('_route') == 'index_team' %}active{% else %}{% endif %}">
+                            <a href="{{ path('index_team') }}" class="nav-link px-0">Equipes</a>
+                        </li>
+                        <li class="nav-item g-mx-10--lg{% if app.request.attributes.get('_route') == 'index_bureau' %}active{% else %}{% endif %}">
+                            <a href="{{ path('index_bureau') }}" class="nav-link px-0">Organigramme</a>
+                        </li>
+                        <li class="nav-item g-mx-10--lg{% if app.request.attributes.get('_route') == 'event_index' %}active{% else %}{% endif %}">
+                            <a href="{{ path('event_index') }}" class="nav-link px-0">Evènements</a>
+                        </li>
+                        <li class="nav-item hs-has-sub-menu g-mx-10--lg g-mb-1 g-mb-0--lg">
+                            <a href="#!" class="nav-link" id="nav-link-1" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu-1">Infos Pratique
+
+                            </a>
+                            <!-- Submenu -->
+                            <ul class="hs-sub-menu list-unstyled g-mt-20--lg g-mt-10--lg--scrolling" id="nav-submenu-1" aria-labelledby="nav-link-1" style="display: none;">
+                                <li>
+                                    <a href="{{ path('core_inscription') }}">Comment s'inscrire</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('core_entrainement') }}">Entrainements</a>
+                                </li>
+                                <li>
+                                    <a href="{{ path('core_liensUtiles') }}">Liens utiles</a>
+                                </li>
+                            </ul>
+                            <!-- End Submenu -->
+                        </li>
+                        <li class="nav-item g-mx-10--lg">
+                            <a href="{{ path('core_sponsors') }}" class="nav-link px-0">Partenariats</a>
+                        </li>
+                        <li class="nav-item g-mx-10--lg{% if app.request.attributes.get('_route') == 'boutique_produit' %}active{% else %}{% endif %}">
+                            <a href="{{ path('boutique_produit') }}" class="nav-link px-0"><i class="fas fa-shopping-cart"></i></a>
+                        </li>
+                        <li class="nav-item g-mx-10--lg g-mb-1 g-mb-0--lg">
+                            <a href="{{ path('core_contact') }}" class="nav-link px-0"><i class="fas fa-envelope"></i></a>
+                        </li>
+                        {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
+                            <li class="nav-item hs-has-sub-menu g-mx-30--lg g-mb-1 g-mb-0--lg">
+                                <a href="#!" style="background-color: #eaeaea" class="nav-link" id="nav-link-1" aria-haspopup="true" aria-expanded="false" aria-controls="nav-submenu-1">
+
+                                    <img class="g-width-20 media-object u-image-icon-size-md"
+                                            {% if app.user.avatar is not null %}
+                                                src="{{ asset(app.user.avatar.webPath) }}" alt="{{ app.user.avatar.alt }}"
+                                            {% else %}
+                                                src="{{ asset ('assets/frontend/img/user_no_img.png')}}" alt="Image profil user"
+                                            {% endif %}
+                                    >
+                                    {{ app.user.username }}
+                                </a>
+                                <!-- Submenu -->
+                                <ul class="hs-sub-menu list-unstyled g-mt-20--lg g-mt-10--lg--scrolling" id="nav-submenu-1" aria-labelledby="nav-link-1" style="display: none;">
+                                    <li>
+                                        <a href="{{ path('user_mes_commandes')}}"><i class="fas fa-user g-mr-10"></i>Mon Compte</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('admin_ecommerce_commandes_index') }}"><i class="fas fa-cogs g-mr-10"></i>Administration</a>
+                                    </li>
+                                    <li>
+                                        <a href="{{ path('fos_user_security_logout') }}"><i class="fas fa-power-off g-mr-10"></i>Déconnexion</a>
+                                    </li>
+                                </ul>
+                                <!-- End Submenu -->
+                            </li>
+                        {% else %}
+                            <li class="nav-item g-mx-20--lg">
+                                <a href="{{ path('fos_user_security_login') }}" class="btn btn-xs u-btn-primary"><i class="fas fa-sign-in-alt g-mr-3"></i>Login</a>
+                            </li>
+                            <li class="nav-item g-mx-10--lg">
+                                <a href="{{ path('fos_user_registration_register') }}" class="btn btn-xs u-btn-bluegray"><i class="fas fa-user-plus g-mr-3"></i>Inscription</a>
+                            </li>
+                        {% endif %}
+                    </ul>
+                </div>
+                <!-- End Navigation -->
+            </div>
+        </nav>
+    </div>
+</header>
+<!-- End Header -->

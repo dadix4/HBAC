@@ -1,0 +1,234 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+
+
+    <div class="shortcode-html">
+        <!-- Nav tabs -->
+        <ul class="nav text-center nav-justified u-nav-v7-1" role="tablist" data-target="nav-7-1-default-hor-left-big-icons" data-tabs-mobile-type="slide-up-down" data-btn-classes="btn btn-md btn-block rounded-0 u-btn-outline-lightgray">
+            <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#nav-7-1-default-hor-left-big-icons--1" role="tab">
+                    <i class="icon-sport-174 d-block g-font-size-25 u-tab-line-icon-pro"></i>
+                    Matchs à venir
+                </a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#nav-7-1-default-hor-left-big-icons--2" role="tab">
+                    <i class="icon-sport-075 d-block g-font-size-25 u-tab-line-icon-pro"></i>
+                    Résultats du Weekend
+                </a>
+            </li>
+        </ul>
+        <!-- End Nav tabs -->
+
+        <!-- Tab panes -->
+        <div id="nav-7-1-default-hor-left-big-icons" class="tab-content g-pt-20">
+            <div class="tab-pane fade show active" id="nav-7-1-default-hor-left-big-icons--1" role="tabpanel">
+                <div class="table-responsive">
+                    <table style="font-size: 12px " class="table table-hover table-striped">
+                        {% set currentDate = null %}
+
+                        {% for match in matchs %}
+                        {% if match.date|date('d/m/Y') != currentDate %}
+                        {% set currentDate = match.date|date('d/m/Y') %}
+                        <thead>
+                        <tr class="">
+                            <th colspan="8"  style="background-color:#5e5e5e; color: #ffffff  ;text-transform: capitalize; text-align: center"><strong>{{ match.date|localizeddate("medium", "none", null, null, "cccc d LLLL yyyy")|capitalize }}</strong></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% endif %}
+
+                        <tr>
+
+                            {% if match.equipe %}
+                                {% for refCompetitions in match.equipe.refCompetitions %}
+                                    {% if refCompetitions.competition == 'Champ' and refCompetitions.reference == match.numpoule %}
+                                        <td align="center" style="vertical-align: middle;">
+                                            <span class="g-font-size-9 u-label g-bg-teal g-rounded-3">Champ</span>
+                                        </td>
+                                    {% elseif refCompetitions.competition == 'Coupe' and refCompetitions.reference == match.numpoule %}                                    <td align="center" style="vertical-align: middle;">
+                                        <td align="center" style="vertical-align: middle;">
+                                            <span class="g-font-size-9 u-label g-bg-darkred g-rounded-3">Coupe</span>
+                                        </td>
+                                    {% elseif refCompetitions.competition == 'Tournoi' and refCompetitions.reference == match.numpoule %}
+                                        <td align="center" style="vertical-align: middle;">
+                                            <span class="g-font-size-9 u-label g-bg-indigo g-rounded-3">Tournoi</span>
+                                        </td>
+                                    {% else %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <td style="vertical-align: middle;">
+                                    <span class="g-font-size-9 u-label g-bg-bluegray g-rounded-3">{{ match.poule }}</span>
+                                </td>
+                            {% endif %}
+
+
+                            {% if match.equipe %}
+                                <td style="vertical-align: middle;"><a class="equipe" href="{{ path('view_team', {'id': match.equipe.id, 'slug':match.equipe.saison.slug}) }}"> {{ match.equipe.categorie.categorieEquipe }}</a></td>
+                            {% else %}
+                                <td style="vertical-align: middle;">{{ match.competition }}</td>
+                            {% endif %}
+
+
+                            {% if match.clubReceveur is not null and match.clubReceveur.monclub == true %}
+                                <td title="{{ match.local }}" style="vertical-align: middle; text-align: right"><strong>{{ match.local }}</strong></td>
+                            {% elseif (match.clubVisiteur is not null and match.clubVisiteur.monclub == true) and (match.clubReceveur is not null and match.clubReceveur.convention == true)  %}
+                                <td title="{{ match.local }}" style="vertical-align: middle; text-align: right">{{ match.local }}</td>
+                            {% elseif (match.clubVisiteur is not null and match.clubVisiteur.monclub != true) and (match.clubReceveur is not null and match.clubReceveur.convention == true)  %}
+                                <td title="{{ match.local }}" style="vertical-align: middle; text-align: right"><strong>{{ match.local }}</strong></td>
+                            {% else %}
+                                <td title="{{ match.local }}" style="vertical-align: middle; text-align: right">{{ match.local }}</td>
+                            {% endif %}
+
+
+                            {% if match.clubReceveur is not null and match.clubReceveur.logo is not null  %}
+                                <td align="center" style="vertical-align: middle;"><img src="{{ asset(match.clubReceveur.logo.webPath) }}" alt="{{ match.clubReceveur.logo.alt }}" width="35px"  /></td>
+                            {% else %}
+                                <td align="center" style="vertical-align: middle;"><img src="{{ asset ('assets/frontend/img/logo_visiteur.png') }}"  width="35px" alt="pas de logo"></td>
+                            {% endif %}
+
+                            {% if match.heure is not null %}
+                                <td  style="vertical-align: middle; text-align: center" class=""><span class="g-font-size-10 u-label g-bg-bluegray g-rounded-20">{{  match.heure|date('H:i') }}</span></td>
+                            {% else %}
+                                <td style="vertical-align: middle; text-align: center">VS</td>
+                            {% endif %}
+
+
+                            {% if match.clubVisiteur is not null and match.clubVisiteur.logo is not null  %}
+                                <td align="center" style="vertical-align: middle;"><img src="{{ asset(match.clubVisiteur.logo.webPath) }}" alt="{{ match.clubVisiteur.logo.alt }}" width="35px"  /></td>
+                            {% else %}
+                                <td align="center" style="vertical-align: middle;"><img src="{{ asset ('assets/frontend/img/logo_visiteur.png') }}"  width="35px" alt="pas de logo"></td>
+                            {% endif %}
+
+
+                            {% if match.clubVisiteur is not null and match.clubVisiteur.monclub == true %}
+                                <td title="{{ match.visiteur }}" style="vertical-align: middle; text-align: left"><strong>{{ match.visiteur }}</strong></td>
+                            {% elseif (match.clubReceveur is not null and match.clubReceveur.monclub == true) and (match.clubVisiteur is not null and match.clubVisiteur.convention == true)  %}
+                                <td title="{{ match.visiteur }}" style="vertical-align: middle; text-align: left">{{ match.visiteur }}</td>
+                            {% elseif (match.clubReceveur is not null and match.clubReceveur.monclub != true) and (match.clubVisiteur is not null and match.clubVisiteur.convention == true)  %}
+                                <td title="{{ match.visiteur }}" style="vertical-align: middle; text-align: left"><strong>{{ match.visiteur }}</strong></td>
+                            {% else %}
+                                <td title="{{ match.visiteur }}" style="vertical-align: middle; text-align: left">{{ match.visiteur }}</td>
+                            {% endif %}
+
+                            <td style="font-size: 11px;color: #8A8F99; vertical-align: bottom; text-align: right" >{{ match.ville|capitalize }}</td>
+                        </tr>
+
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="nav-7-1-default-hor-left-big-icons--2" role="tabpanel">
+                <div class="table-responsive">
+                    <table style="font-size: 12px" class="table table-hover table-striped">
+
+                        {% for match in resultats %}
+                        {% if match.date|date('d/m/Y') != currentDate %}
+                        {% set currentDate = match.date|date('d/m/Y') %}
+                        <thead>
+                        <tr>
+                            <th colspan="7"  style="background-color:#5e5e5e; color: #ffffff  ;text-transform: capitalize; text-align: center"><strong>{{ match.date|localizeddate("medium", "none", null, null, "cccc d LLLL yyyy")|capitalize }}</strong></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% endif %}
+                        <tr>
+                            {% if match.equipe %}
+                                <td style="vertical-align: middle;"><a class="equipe" href="{{ path('view_team', {'id': match.equipe.id, 'slug':match.equipe.saison.slug}) }}"> {{ match.equipe.categorie.categorieEquipe }}</a></td>
+                            {% else %}
+                                <td style="vertical-align: middle;">{{ match.competition }}</td>
+                            {% endif %}
+
+
+                            {% if match.clubReceveur is not null and match.clubReceveur.monclub == true %}
+                                <td title="{{ match.local }}" style="vertical-align: middle; text-align: right"><strong>{{ match.local }}</strong></td>
+                            {% elseif (match.clubVisiteur is not null and match.clubVisiteur.monclub == true) and (match.clubReceveur is not null and match.clubReceveur.convention == true)  %}
+                                <td title="{{ match.local }}" style="vertical-align: middle; text-align: right">{{ match.local }}</td>
+                            {% elseif (match.clubVisiteur is not null and match.clubVisiteur.monclub != true) and (match.clubReceveur is not null and match.clubReceveur.convention == true)  %}
+                                <td title="{{ match.local }}" style="vertical-align: middle; text-align: right"><strong>{{ match.local }}</strong></td>
+                            {% else %}
+                                <td title="{{ match.local }}" style="vertical-align: middle; text-align: right">{{ match.local }}</td>
+                            {% endif %}
+
+
+                            {% if match.clubReceveur is not null and match.clubReceveur.logo is not null  %}
+                                <td align="center" style="vertical-align: middle;"><img src="{{ asset(match.clubReceveur.logo.webPath) }}" alt="{{ match.clubReceveur.logo.alt }}" width="35px"  /></td>
+                            {% else %}
+                                <td align="center" style="vertical-align: middle;"><img src="{{ asset ('assets/frontend/img/logo_visiteur.png') }}"  width="35px" alt="pas de logo"></td>
+                            {% endif %}
+
+
+                            {% if (match.clubReceveur is not null and (match.clubReceveur.monclub == true or match.clubReceveur.convention == true)) and (match.scorelocal > match.scorevisiteur)  %}
+                                <td  style="vertical-align: middle; text-align: center" class="victoire">{{  match.scorelocal }} - {{  match.scorevisiteur }}</td>
+                            {% elseif (match.clubVisiteur is not null and (match.clubVisiteur.monclub == true or match.clubVisiteur.convention == true)) and (match.scorelocal < match.scorevisiteur)  %}
+                                <td style="vertical-align: middle; text-align: center" class="victoire">{{  match.scorelocal }} - {{  match.scorevisiteur }}</td>
+                            {% elseif(match.clubReceveur is not null and (match.clubReceveur.monclub == true or match.clubReceveur.convention == true)) and (match.scorelocal < match.scorevisiteur)  %}
+                                <td  style="vertical-align: middle; text-align: center" class="defaite">{{  match.scorelocal }} - {{  match.scorevisiteur }}</td>
+                            {% elseif(match.clubVisiteur is not null and (match.clubVisiteur.monclub == true or match.clubVisiteur.convention == true)) and (match.scorelocal > match.scorevisiteur)  %}
+                                <td  style="vertical-align: middle; text-align: center" class="defaite">{{  match.scorelocal }} - {{  match.scorevisiteur }}</td>
+                            {% elseif match.scorelocal == match.scorevisiteur %}
+                                <td  style="vertical-align: middle; text-align: center" class="nul">{{  match.scorelocal }} - {{  match.scorevisiteur }}</td>
+                            {% else %}
+                                <td style="vertical-align: middle; text-align: center">{{  match.scorelocal }} - {{  match.scorevisiteur }}</td>
+                            {% endif %}
+
+
+                            {% if match.clubVisiteur is not null and match.clubVisiteur.logo is not null  %}
+                                <td align="center" style="vertical-align: middle;"><img src="{{ asset(match.clubVisiteur.logo.webPath) }}" alt="{{ match.clubVisiteur.logo.alt }}" width="35px"  /></td>
+                            {% else %}
+                                <td align="center" style="vertical-align: middle;"><img src="{{ asset ('assets/frontend/img/logo_visiteur.png') }}"  width="35px" alt="pas de logo"></td>
+                            {% endif %}
+
+
+                            {% if match.clubVisiteur is not null and match.clubVisiteur.monclub == true %}
+                                <td title="{{ match.visiteur }}" style="vertical-align: middle; text-align: left"><strong>{{ match.visiteur }}</strong></td>
+                            {% elseif (match.clubReceveur is not null and match.clubReceveur.monclub == true) and (match.clubVisiteur is not null and match.clubVisiteur.convention == true)  %}
+                                <td title="{{ match.visiteur }}" style="vertical-align: middle; text-align: left">{{ match.visiteur }}</td>
+                            {% elseif (match.clubReceveur is not null and match.clubReceveur.monclub != true) and (match.clubVisiteur is not null and match.clubVisiteur.convention == true)  %}
+                                <td title="{{ match.visiteur }}" style="vertical-align: middle; text-align: left"><strong>{{ match.visiteur }}</strong></td>
+                            {% else %}
+                                <td title="{{ match.visiteur }}" style="vertical-align: middle; text-align: left">{{ match.visiteur }}</td>
+                            {% endif %}
+
+                            {% if match.equipe %}
+                                {% for refCompetitions in match.equipe.refCompetitions %}
+                                    {% if refCompetitions.competition == 'Champ' and refCompetitions.reference == match.numpoule %}
+                                        <td align="center" style="vertical-align: middle;">
+                                            <span class="g-font-size-9 u-label g-bg-teal g-rounded-3">Champ</span>
+                                        </td>
+                                    {% elseif refCompetitions.competition == 'Coupe' and refCompetitions.reference == match.numpoule %}                                    <td align="center" style="vertical-align: middle;">
+                                        <td align="center" style="vertical-align: middle;">
+                                            <span class="g-font-size-9 u-label g-bg-darkred g-rounded-3">Coupe</span>
+                                        </td>
+                                    {% elseif refCompetitions.competition == 'Tournoi' and refCompetitions.reference == match.numpoule %}
+                                        <td align="center" style="vertical-align: middle;">
+                                            <span class="g-font-size-9 u-label g-bg-indigo g-rounded-3">Tournoi</span>
+                                        </td>
+                                    {% else %}
+                                    {% endif %}
+                                {% endfor %}
+                            {% else %}
+                                <td style="vertical-align: middle;">
+                                    <span class="g-font-size-9 u-label g-bg-bluegray g-rounded-3">{{ match.poule }}</span>
+                                </td>
+                            {% endif %}
+
+                        </tr>
+                        {% else %}
+                            <tr> Il n'y a pas eu de matchs la semaine dernière ;-) </tr>
+                        {% endfor %}
+                        </tbody>
+
+                    </table>
+                </div>
+            </div>
+        </div>
+        <!-- End Tab panes -->
+    </div>
+
+{% endblock %}

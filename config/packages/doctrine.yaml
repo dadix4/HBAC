@@ -55,3 +55,4 @@ doctrine:
                 prefix: 'App\Entity'
                 alias: App
 
+

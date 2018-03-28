@@ -41,8 +41,8 @@ class LicencieController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($licencie);
             $em->flush();
-
-            return $this->redirectToRoute('admin_core_licencie_show', array('id' => $licencie->getId()));
+            $request->getSession()->getFlashBag()->add('success', 'Nouveau licencié enregistré');
+            return $this->redirectToRoute('admin_core_licencie_index');
         }
 
         return $this->render('admin/core/licencie/new.html.twig', array(
@@ -78,8 +78,8 @@ class LicencieController extends Controller
 
         if ($editForm->isSubmitted() && $editForm->isValid()) {
             $this->getDoctrine()->getManager()->flush();
-
-            return $this->redirectToRoute('admin_core_licencie_edit', array('id' => $licencie->getId()));
+            $request->getSession()->getFlashBag()->add('success', 'Modification du licencié effectué');
+            return $this->redirectToRoute('admin_core_licencie_index');
         }
 
         return $this->render('admin/core/licencie/edit.html.twig', array(

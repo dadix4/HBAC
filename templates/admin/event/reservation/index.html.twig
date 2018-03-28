@@ -1,0 +1,105 @@
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Evènement</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fas fa-calendar-alt"></i>
+        Event
+        <span>> Gestion des réservations</span></h1>
+{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <article class="col-sm-12 col-md-12 col-lg-12">
+<div
+        class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable"
+        data-widget-colorbutton="false"
+        data-widget-togglebutton="false"
+        data-widget-editbutton="false"
+        data-widget-fullscreenbutton="false"
+        data-widget-deletebutton="false"
+        style=""
+        role="widget">
+    <header role="heading">
+    <span class="widget-icon">
+      <i class="fa fa-arrow-down"></i>
+    </span>
+        <h2><strong>Liste</strong> des Réservations</h2>
+        <span class="jarviswidget-loader">
+    <i class="fa fa-refresh fa-spin"></i></span></header>
+
+    <!-- widget div-->
+    <div role="content">
+
+        <!-- widget edit box -->
+        <div class="jarviswidget-editbox">
+            <!-- This area used as dropdown edit box -->
+        </div>
+        <!-- end widget edit box -->
+
+        <!-- widget content -->
+        <div class="widget-body no-padding">
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                        <th>Réservation</th>
+                        <th>Date de Réservation</th>
+                        <th>Réservation faite par</th>
+                        <th>Contacts</th>
+                        <th>Nombre d'inscrits</th>
+                        <th>Statut Paiement</th>
+                        <th>Date Paiement</th>
+                        <th>Modifié</th>
+                        <th>Actions</th>
+                    </tr>
+                    </thead>
+                    <tbody>
+
+        {% for reservation in reservations %}
+                  <tr>
+                      <td>{{ reservation.nomReservation }}</td>
+                      <td><i class="far fa-plus-square"></i> {{ reservation.createdAt|date('d-m-Y à H:i') }}</td>
+                      <td>{{ reservation.createdBy.username }}</td>
+                      <td>
+                          <i class="fas fa-envelope"></i> {{ reservation.mailReservation }}<br>
+                          <i class="fas fa-phone"></i> {{ reservation.telReservation }}
+                      </td>
+                      <td>{{ reservation.inscrits.count }}</td>
+                      <td>{% if reservation.statutPaiement == true %} <span class="label label-success">Paiement OK</span> {% else %}<span class="label label-danger">NOK</span>{% endif %}</td>
+                      <td>{{ reservation.datePaiement|date('d-m-Y à H:i') }}</td>
+                      <td>{% if reservation.updatedBy is not null and  reservation.updatedAt >reservation.createdAt %}<i class="fas fa-wrench"></i> {{ reservation.updatedBy.username }} le {{ reservation.updatedAt|date('d-m-Y à H:i') }}{% endif %}</td>
+                      <td><a href="{{ path('admin_event_inscrit', { 'evenement': reservation.evenement.id, 'reservation':reservation.id }) }}" class="btn btn-xs bg-color-blue txt-color-white"><i class="fas fa-user-circle"></i> Inscrits</a></td>
+                  </tr>
+        {% endfor %}
+                    </tbody>
+                </table>
+
+            </div>
+
+        </div>
+        <!-- end widget content -->
+
+    </div>
+    <!-- end widget div -->
+
+</div>
+            </article>
+    </div>
+
+    <a href="{{ path('admin_event_index') }}" class="btn btn-labeled btn-default">
+  <span class="btn-label">
+    <i class="glyphicon glyphicon-chevron-left"></i>
+  </span>Retour
+    </a>
+{% endblock %}

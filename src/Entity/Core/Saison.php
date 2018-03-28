@@ -365,6 +365,13 @@ class Saison
         $this->equipes->removeElement($equipe);
     }
 
+    public function setEquipes($equipes)
+    {
+        $this->equipes = $equipes;
+
+        return $this;
+    }
+
     /**
      * Get equipes
      *

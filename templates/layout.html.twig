@@ -1,662 +1,316 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html lang="en">
 
-  <head>
-    {% block fbshare %}{% endblock %}
-    <!-- Title -->
-    <title>
-      {% block titre %}{{ site_name }}{% endblock %}
-    </title>
-    <meta name="description" content="{% block description %} {% endblock %}">
+<head>
+  {% block fbshare %}{% endblock %}
+  <!-- Title -->
+  <title>
+    {% block titre %}{{ site_name }}{% endblock %}
+  </title>
+  <meta name="description" content="{% block description %} {% endblock %}">
 
-    <!-- Required Meta Tags Always Come First -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-    <meta name="description" content="Site officiel du HandBall Atlantique Club Sainte-Pazanne, retrouvez toute l'actualité du club, les prochains matchs et résultats des weekends ainsi que des photos de nos évènements !">
-    <meta name="Keywords" content="hbaclub, HBAC Sainte Pazanne,Hbac ste pazanne,Handball,Hand,HBAC,HandBall Atlantique Club,Sainte-Pazanne,sport,club,club handball nantes,club handball loire atlantique">
-    <meta name="author" content="hbaclub">
-    <meta http-equiv="x-ua-compatible" content="ie=edge">
+  <!-- Required Meta Tags Always Come First -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="Site officiel du HandBall Atlantique Club Sainte-Pazanne, retrouvez toute l'actualité du club, les prochains matchs et résultats des weekends ainsi que des photos de nos évènements !">
+  <meta name="Keywords" content="hbaclub, HBAC Sainte Pazanne,Hbac ste pazanne,Handball,Hand,HBAC,HandBall Atlantique Club,Sainte-Pazanne,sport,club,club handball nantes,club handball loire atlantique">
+  <meta name="author" content="hbaclub">
+  <meta http-equiv="x-ua-compatible" content="ie=edge">
 
-    <!-- Favicon -->
-    <link rel="shortcut icon" type="image/x-icon" href="{{ asset ('assets/favicon/favicon.ico') }}">
-    <link rel="apple-touch-icon" href="{{ asset ('assets/favicon/apple-touch-icon.png') }}">
-    <link rel="apple-touch-icon" sizes="57x57" href="{{ asset ('assets/favicon/apple-touch-icon-57x57.png') }}">
-    <link rel="apple-touch-icon" sizes="72x72" href="{{ asset ('assets/favicon/apple-touch-icon-72x72.png') }}">
-    <link rel="apple-touch-icon" sizes="76x76" href="{{ asset ('assets/favicon/apple-touch-icon-76x76.png') }}">
-    <link rel="apple-touch-icon" sizes="114x114" href="{{ asset ('assets/favicon/apple-touch-icon-114x114.png') }}">
-    <link rel="apple-touch-icon" sizes="120x120" href="{{ asset ('assets/favicon/apple-touch-icon-120x120.png') }}">
-    <link rel="apple-touch-icon" sizes="144x144" href="{{ asset ('assets/favicon/apple-touch-icon-144x144.png') }}">
-    <link rel="apple-touch-icon" sizes="152x152" href="{{ asset ('assets/favicon/apple-touch-icon-152x152.png') }}">
-    <link rel="apple-touch-icon" sizes="180x180" href="{{ asset ('assets/favicon/apple-touch-icon-180x180.png') }}">
-    <!-- Google Fonts -->
-    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Open+Sans%3A400%2C300%2C500%2C600%2C700%7CPlayfair+Display%7CRoboto%7CRaleway%7CSpectral%7CRubik">
-    <!-- CSS Global Compulsory -->
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/bootstrap/bootstrap.min.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/bootstrap/offcanvas.css') }}">
-    <!-- CSS Global Icons -->
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/icon-awesome/css/font-awesome.min.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/icon-line/css/simple-line-icons.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/icon-etlinefont/style.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/icon-line-pro/style.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/icon-hs/style.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/dzsparallaxer/dzsparallaxer.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/dzsparallaxer/dzsscroller/scroller.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/dzsparallaxer/advancedscroller/plugin.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/animate.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/hamburgers/hamburgers.min.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/hs-megamenu/src/hs.megamenu.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/malihu-scrollbar/jquery.mCustomScrollbar.min.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/slick-carousel/slick/slick.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/fancybox/jquery.fancybox.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/jquery-ui/themes/base/jquery-ui.min.css') }}">
+  <!-- Favicon -->
+  <link rel="shortcut icon" type="image/x-icon" href="{{ asset ('assets/favicon/favicon.ico') }}">
+  <link rel="apple-touch-icon" href="{{ asset ('assets/favicon/apple-touch-icon.png') }}">
+  <link rel="apple-touch-icon" sizes="57x57" href="{{ asset ('assets/favicon/apple-touch-icon-57x57.png') }}">
+  <link rel="apple-touch-icon" sizes="72x72" href="{{ asset ('assets/favicon/apple-touch-icon-72x72.png') }}">
+  <link rel="apple-touch-icon" sizes="76x76" href="{{ asset ('assets/favicon/apple-touch-icon-76x76.png') }}">
+  <link rel="apple-touch-icon" sizes="114x114" href="{{ asset ('assets/favicon/apple-touch-icon-114x114.png') }}">
+  <link rel="apple-touch-icon" sizes="120x120" href="{{ asset ('assets/favicon/apple-touch-icon-120x120.png') }}">
+  <link rel="apple-touch-icon" sizes="144x144" href="{{ asset ('assets/favicon/apple-touch-icon-144x144.png') }}">
+  <link rel="apple-touch-icon" sizes="152x152" href="{{ asset ('assets/favicon/apple-touch-icon-152x152.png') }}">
+  <link rel="apple-touch-icon" sizes="180x180" href="{{ asset ('assets/favicon/apple-touch-icon-180x180.png') }}">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css?family=Ubuntu:300,400,600" rel="stylesheet">
+  <!-- CSS Global Compulsory -->
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/bootstrap/bootstrap.min.css') }}">
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/bootstrap/offcanvas.css') }}">
+  <!-- CSS Global Icons -->
+  <link href="https://use.fontawesome.com/releases/v5.0.6/css/all.css" rel="stylesheet">
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/icon-awesome/css/font-awesome.min.css') }}">
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/icon-line/css/simple-line-icons.css') }}">
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/icon-etlinefont/style.css') }}">
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/icon-line-pro/style.css') }}">
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/icon-hs/style.css') }}">
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/dzsparallaxer/dzsparallaxer.css') }}">
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/dzsparallaxer/dzsscroller/scroller.css') }}">
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/dzsparallaxer/advancedscroller/plugin.css') }}">
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/animate.css') }}">
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/hamburgers/hamburgers.min.css') }}">
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/hs-megamenu/src/hs.megamenu.css') }}">
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/slick-carousel/slick/slick.css') }}">
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/vendor/fancybox/jquery.fancybox.css') }}">
 
-    <!-- CSS Unify -->
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/css/unify-core.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/css/unify-components.css') }}">
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/css/unify-globals.css') }}">
+  <!-- CSS Unify -->
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/css/unify-core.css') }}">
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/css/unify-components.css') }}">
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/css/unify-globals.css') }}">
 
-    <!-- CSS Customization -->
-    <link rel="stylesheet" href="{{ asset ('assets/frontend/css/custom.css') }}">
+  <!-- CSS Customization -->
+  <link rel="stylesheet" href="{{ asset ('assets/frontend/css/custom.css') }}">
+  {% block stylesheet %}{% endblock %}
+</head>
 
-    {% block stylesheet %}{% endblock %}
-  </head>
+<body>
+<!-- Load Facebook SDK for JavaScript -->
+<div id="fb-root"></div>
+<script>(function(d, s, id) {
+    var js, fjs = d.getElementsByTagName(s)[0];
+    if (d.getElementById(id)) return;
+    js = d.createElement(s); js.id = id;
+    js.src = 'https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.11&appId=105016226575775';
+    fjs.parentNode.insertBefore(js, fjs);
+  }(document, 'script', 'facebook-jssdk'));
+</script>
+<main>
 
-  <body>
-  <!-- Load Facebook SDK for JavaScript -->
-  <div id="fb-root"></div>
-  <script>(function(d, s, id) {
-      var js, fjs = d.getElementsByTagName(s)[0];
-      if (d.getElementById(id)) return;
-      js = d.createElement(s); js.id = id;
-      js.src = 'https://connect.facebook.net/fr_FR/sdk.js#xfbml=1&version=v2.11&appId=105016226575775';
-      fjs.parentNode.insertBefore(js, fjs);
-    }(document, 'script', 'facebook-jssdk'));
-  </script>
-    <main>
-      <!-- Header -->
-      <header id="js-header" class="u-header u-header--sticky-top u-header--toggle-section u-header--change-appearance" data-header-fix-moment="300">
-        <!-- Top Bar -->
-        <div class="u-header__section u-header__section--hidden u-header__section--dark g-bg-black g-py-13">
-          <div class="container">
-            <div class="row flex-column flex-md-row align-items-center justify-content-between text-uppercase g-color-white g-font-size-11 g-mx-minus-15">
-              <!-- Responsive Toggle Button -->
-              <button
-                class="g-hidden-md-up d-block btn btn-xs u-btn-primary g-brd-none g-line-height-1 mx-auto"
-                type="button"
-                aria-controls="dropdown-megamenu"
-                aria-expanded="false"
-                aria-label="Toggle navigation"
-                data-toggle="collapse"
-                data-target="#dropdown-megamenu">
-                <span class="hamburger hamburger--slider">
-                  <span class="hamburger-box">
-                    <span class="hamburger-inner g-bg-white"></span>
-                  </span>
-                </span>
-              </button>
-              <!-- End Responsive Toggle Button -->
+  {{ include("includeLayout/menu.html.twig") }}
 
-              <div class="col-auto g-px-15 w-100 g-width-auto--md">
-                <ul id="dropdown-megamenu" class="d-md-block collapse list-inline g-line-height-1 g-mx-minus-4 mb-0">
-                  {% if is_granted("IS_AUTHENTICATED_REMEMBERED") %}
-                    <li class="d-block d-md-inline-block g-mx-4">
-                      <a href="#" class="g-color-white g-color-primary--hover g-text-underline--none--hover">
-                        <i class="fa fa-sign-out"></i>
-                        Déconnexion</a>
-                    </li>
-                    <li class="d-block g-hidden-md-down d-md-inline-block g-mx-4">|</li>
-                    <li class="hs-has-sub-menu d-block d-md-inline-block g-pos-rel g-mx-4">
-                      <a href="#" id="dropdown-invoker-3" class="g-color-white g-color-primary--hover g-text-underline--none--hover" aria-haspopup="true" aria-expanded="false" aria-controls="dropdown-3">
-                        <i class="fa fa-user"></i>
-                        {{ app.user.username }}
-                      </a>
-                      <ul id="dropdown-3" class="hs-sub-menu list-unstyled g-bg-gray-dark-v1 g-py-10 g-px-20 g-mt-13" aria-labelledby="dropdown-invoker-3">
-                        <li class="g-py-10">
-                          <a href="{{ path('user_mes_commandes')}}" class="d-block g-text-underline--none--hover g-color-white g-color-primary--hover">Mon Compte</a>
-                        </li>
-                        <li class="g-py-10">
-                          <a href="{{ path('admin_ecommerce_commandes_index') }}" class="d-block g-text-underline--none--hover g-color-white g-color-primary--hover">Administration</a>
-                        </li>
-                      </ul>
-                    </li>
-                  {% else %}
-                    <li class="d-block d-md-inline-block g-mx-4">
-                      <a href="{{ path('fos_user_security_login') }}" class="g-color-white g-color-primary--hover g-text-underline--none--hover">
-                        <i class="fa fa-sign-in"></i>
-                        Login</a>
-                    </li>
-                    <li class="d-block d-md-inline-block g-mx-4">
-                      <a href="{{ path('fos_user_registration_register') }}" class="g-color-white g-color-primary--hover g-text-underline--none--hover">
-                        <i class="fa fa-user-plus"></i>
-                        Inscription</a>
-                    </li>
-                  {% endif %}
-                </ul>
-              </div>
+  <!-- breadcrumbs Block -->
+  {% block breadcrumbs %}
+    <section class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll loaded dzsprx-readyall " data-options='{direction: "reverse", settings_mode_oneelement_max_offset: "150"}'>
+      <div class="divimage dzsparallaxer--target w-100 g-bg-pos-bottom-center" style="height: 110%; background-image: url({{ asset ('assets/frontend/img/ban_hbac.jpg') }});"></div>
 
-              <div class="col-auto g-px-15 w-100 g-width-auto--md">
-                <ul id="dropdown-megamenu" class="list-inline g-line-height-1 g-mt-minus-10 g-mx-minus-4 mb-0">
-                  <li class="list-inline-item g-mx-4 g-mt-10">
-                    <div class="g-pos-rel">
-                      <a href="{{ path('boutique_panier') }}" class="g-font-size-14 g-color-white g-color-primary--hover g-ml-5">
-                        <i class="fa fa-shopping-cart" aria-hidden="true"></i>
-                      </a>
-                    </div>
-                  </li>
-                  <li class="list-inline-item g-mx-4 g-mt-10">
-                    <!-- Search -->
-                    <div class="g-pos-rel">
-                      <a
-                        href="#"
-                        class="g-font-size-14 g-color-white g-color-primary--hover g-ml-5"
-                        aria-haspopup="true"
-                        aria-expanded="false"
-                        aria-controls="searchform-6"
-                        data-dropdown-target="#searchform-6"
-                        data-dropdown-type="css-animation"
-                        data-dropdown-duration="300"
-                        data-dropdown-animation-in="fadeInUp"
-                        data-dropdown-animation-out="fadeOutDown">
-                        <i class="fa fa-search"></i>
-                      </a>
-
-                      <!-- Search Form -->
-                      {{ render(controller('App\\Controller\\Ecommerce\\ProduitController:rechercheAction')) }}
-                      <!-- End Search Form -->
-                    </div>
-                    <!-- End Search -->
-                  </li>
-                </ul>
-
-              </div>
-
-            </div>
+      <div class="container g-bg-cover__inner g-py-180">
+        <div class="row align-items-center">
+          <div class="col-lg-6  g-mb-0--lg">
+            <h2 class="h1 text-uppercase g-color-white g-mb-30">
+              <span class="g-bg-primary-dark-v3 g-px-5">HANDBALL CLUB</span><br>
+              <span class="g-bg-primary-dark-v3 g-px-5">SAINTE PAZANNE</span><br>
+            </h2>
+            <h3 class="h4 g-color-white">
+              <span class="g-bg-black-opacity-0_6 g-px-5">Plus qu'un sport... une passion !</span><br>
+            </h3>
           </div>
-        </div>
-        <!-- End Top Bar -->
-
-        <div class="u-header__section u-header__section--light g-bg-white-opacity-0_8 g-py-10" data-header-fix-moment-exclude="g-bg-white-opacity-0_8 g-py-10" data-header-fix-moment-classes="g-bg-white u-shadow-v18 g-py-0">
-          <nav class="navbar navbar-expand-lg">
-            <div class="container">
-              <!-- Responsive Toggle Button -->
-              <button
-                class="navbar-toggler navbar-toggler-right btn g-line-height-1 g-brd-none g-pa-0 g-pos-abs g-top-3 g-right-0"
-                type="button"
-                aria-label="Toggle navigation"
-                aria-expanded="false"
-                aria-controls="navBar"
-                data-toggle="collapse"
-                data-target="#navBar">
-                <span class="hamburger hamburger--slider">
-                  <span class="hamburger-box">
-                    <span class="hamburger-inner"></span>
-                  </span>
-                </span>
-              </button>
-              <!-- End Responsive Toggle Button -->
-              <!-- Logo -->
-              <a href="../../../index.html" class="navbar-brand">
-                <img src="{{ asset ('assets/frontend/img/hbac_top_bar.png') }}" alt="Image Description">
-              </a>
-              <!-- End Logo -->
-
-              <!-- Navigation -->
-              <div class="collapse navbar-collapse align-items-center flex-sm-row g-pt-10 g-pt-5--lg" id="navBar">
-                <ul class="navbar-nav text-uppercase g-font-weight-600 ml-auto">
-                  <li class="nav-item g-mx-20--lg g-mr-0--lg">
-                    <a href="{{ path('index_blog') }}" class="nav-link px-0">
-                      <i class="fa fa-home fa-lg"></i>
-                    </a>
-                  </li>
-                  <li class="nav-item g-mx-20--lg g-mr-0--lg">
-                    <a href="#" class="nav-link px-0">Matchs
-
-                    </a>
-                  </li>
-                  <li class="nav-item g-mx-20--lg g-mr-0--lg active">
-                    <a href="#" class="nav-link px-0">Equipes
-                      <span class="sr-only">(current)</span>
-                    </a>
-                  </li>
-                  <li class="nav-item g-mx-20--lg g-mr-0--lg">
-                    <a href="#" class="nav-link px-0">Bureau
-
-                    </a>
-                  </li>
-                  <li class="nav-item g-mx-20--lg g-mr-0--lg">
-                    <a href="#" class="nav-link px-0">Evènements
-
-                    </a>
-                  </li>
-                  <li class="nav-item g-ml-20--lg g-mr-0--lg">
-                    <a href="#" class="nav-link px-0">Infos Pratique
-
-                    </a>
-                  </li>
-                  <li class="nav-item g-ml-20--lg g-mr-0--lg">
-                    <a href="#" class="nav-link px-0">Partenariats
-
-                    </a>
-                  </li>
-                  <li class="nav-item g-ml-20--lg g-mr-0--lg">
-                    <a href="{{ path('boutique_produit') }}" class="nav-link px-0">Boutique
-
-                    </a>
-                  </li>
-                  <li class="nav-item g-ml-20--lg g-mr-0--lg">
-                    <a href="#" class="nav-link px-0">
-                      <i class="fa fa-envelope" aria-hidden="true"></i>
-                    </a>
-                  </li>
-                </ul>
-              </div>
-              <!-- End Navigation -->
-            </div>
-          </nav>
-        </div>
-      </header>
-      <!-- End Header -->
-
-      <!-- breadcrumbs Block -->
-      {% block breadcrumbs %}
-        <section class="dzsparallaxer auto-init height-is-based-on-content use-loading mode-scroll loaded dzsprx-readyall " data-options='{direction: "reverse", settings_mode_oneelement_max_offset: "150"}'>
-          <div class="divimage dzsparallaxer--target w-100 g-bg-pos-bottom-center" style="height: 110%; background-image: url({{ asset ('assets/frontend/img/ban_hbac.jpg') }});"></div>
-
-          <div class="container g-py-150 ">
-            <div class="row">
-              <div class="col-md-6">
-                <h3 class="g-color-black g-font-weight-300 g-font-size-40 g-line-height-1_2 mb-4">HANDBALL CLUB
-                  <br>
-                  SAINTE PAZANNE
-                </h3>
-                <span class="d-block g-color-black-opacity-0_8 g-font-size-16 mb-5">Plus qu'un sport... une passion !</span>
-              </div>
-            </div>
-          </div>
-        </section>
-      {% endblock %}
-      <!-- End breadcrumbs Block -->
-
-      <!-- Body -->
-      <section id="about-section" class="g-pt-10 g-pb-10">
-        <div class="container g-pt-50 g-pb-20">
-
-          {% for message in app.flashes('success') %}
-            <div class="alert alert-dismissible fade show g-bg-teal g-color-white rounded-0" role="alert">
-              <button type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-
-              <div class="media">
-                <span class="d-flex g-mr-10 g-mt-5">
-                  <i class="icon-check g-font-size-25"></i>
-                </span>
-                <span class="media-body align-self-center">
-                  <strong>Well done!</strong>
-                  {{ message }}
-                </span>
-              </div>
-            </div>
-          {% endfor %}
-          {% for message in app.flashes('warning') %}
-            <div class="alert alert-dismissible fade show g-bg-yellow rounded-0" role="alert">
-              <button type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-
-              <div class="media">
-                <span class="d-flex g-mr-10 g-mt-5">
-                  <i class="icon-info g-font-size-25"></i>
-                </span>
-                <span class="media-body align-self-center">
-                  <strong>Attention!</strong>
-                  {{message}}
-                </span>
-              </div>
-            </div>
-          {% endfor %}
-          {% for message in app.flashes('error') %}
-            <div class="alert alert-dismissible fade show g-bg-red g-color-white rounded-0" role="alert">
-              <button type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
-                <span aria-hidden="true">×</span>
-              </button>
-
-              <div class="media">
-                <span class="d-flex g-mr-10 g-mt-5">
-                  <i class="icon-ban g-font-size-25"></i>
-                </span>
-                <span class="media-body align-self-center">
-                  <strong>Erreur!</strong>
-                  {{message}}
-                </span>
-              </div>
-            </div>
-          {% endfor %}
-
-          {% block body %}{% endblock %}
-
-        </div>
-      </section>
-      <!-- End Body -->
-
-      <!-- Footer -->
-      <div id="contacts-section" class="g-bg-black-opacity-0_9 g-color-white-opacity-0_8 g-py-60">
-        <div class="container">
-          <div class="row">
-            <!-- Footer Content -->
-            <div class="col-lg-3 col-md-6 g-mb-40 g-mb-0--lg">
-              <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
-                <h2 class="u-heading-v2__title h6 text-uppercase mb-0">About Us</h2>
-              </div>
-
-              <p>About Unify dolor sit amet, consectetur adipiscing elit. Maecenas eget nisl id libero tincidunt sodales.</p>
-            </div>
-            <!-- End Footer Content -->
-
-            <!-- Footer Content -->
-            <div class="col-lg-3 col-md-6 g-mb-40 g-mb-0--lg">
-              <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
-                <h2 class="u-heading-v2__title h6 text-uppercase mb-0">Latest Posts</h2>
-              </div>
-
-              <article>
-                <h3 class="h6 g-mb-2">
-                  <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Incredible template</a>
-                </h3>
-                <div class="small g-color-white-opacity-0_6">May 8, 2017</div>
-              </article>
-
-              <hr class="g-brd-white-opacity-0_1 g-my-10">
-
-              <article>
-                <h3 class="h6 g-mb-2">
-                  <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">New features</a>
-                </h3>
-                <div class="small g-color-white-opacity-0_6">June 23, 2017</div>
-              </article>
-
-              <hr class="g-brd-white-opacity-0_1 g-my-10">
-
-              <article>
-                <h3 class="h6 g-mb-2">
-                  <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">New terms and conditions</a>
-                </h3>
-                <div class="small g-color-white-opacity-0_6">September 15, 2017</div>
-              </article>
-            </div>
-            <!-- End Footer Content -->
-
-            <!-- Footer Content -->
-            <div class="col-lg-3 col-md-6 g-mb-40 g-mb-0--lg">
-              <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
-                <h2 class="u-heading-v2__title h6 text-uppercase mb-0">Useful Links</h2>
-              </div>
-
-              <nav class="text-uppercase1">
-                <ul class="list-unstyled g-mt-minus-10 mb-0">
-                  <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                    <h4 class="h6 g-pr-20 mb-0">
-                      <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">About Us</a>
-                      <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                    </h4>
-                  </li>
-                  <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                    <h4 class="h6 g-pr-20 mb-0">
-                      <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Portfolio</a>
-                      <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                    </h4>
-                  </li>
-                  <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                    <h4 class="h6 g-pr-20 mb-0">
-                      <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Our Services</a>
-                      <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                    </h4>
-                  </li>
-                  <li class="g-pos-rel g-brd-bottom g-brd-white-opacity-0_1 g-py-10">
-                    <h4 class="h6 g-pr-20 mb-0">
-                      <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Latest Jobs</a>
-                      <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                    </h4>
-                  </li>
-                  <li class="g-pos-rel g-py-10">
-                    <h4 class="h6 g-pr-20 mb-0">
-                      <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Contact Us</a>
-                      <i class="fa fa-angle-right g-absolute-centered--y g-right-0"></i>
-                    </h4>
-                  </li>
-                </ul>
-              </nav>
-            </div>
-            <!-- End Footer Content -->
-
-            <!-- Footer Content -->
-            <div class="col-lg-3 col-md-6">
-              <div class="u-heading-v2-3--bottom g-brd-white-opacity-0_8 g-mb-20">
-                <h2 class="u-heading-v2__title h6 text-uppercase mb-0">Our Contacts</h2>
-              </div>
-
-              <address class="g-bg-no-repeat g-font-size-12 mb-0" style="background-image: url(../../../assets/img/maps/map2.png);">
-                <!-- Location -->
-                <div class="d-flex g-mb-20">
-                  <div class="g-mr-10">
-                    <span class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-color-white-opacity-0_6">
-                      <i class="fa fa-map-marker"></i>
-                    </span>
-                  </div>
-                  <p class="mb-0">795 Folsom Ave, Suite 600,
-                    <br>
-                    San Francisco, CA 94107 795</p>
-                </div>
-                <!-- End Location -->
-
-                <!-- Phone -->
-                <div class="d-flex g-mb-20">
-                  <div class="g-mr-10">
-                    <span class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-color-white-opacity-0_6">
-                      <i class="fa fa-phone"></i>
-                    </span>
-                  </div>
-                  <p class="mb-0">(+123) 456 7890
-                    <br>
-                    (+123) 456 7891</p>
-                </div>
-                <!-- End Phone -->
-
-                <!-- Email and Website -->
-                <div class="d-flex g-mb-20">
-                  <div class="g-mr-10">
-                    <span class="u-icon-v3 u-icon-size--xs g-bg-white-opacity-0_1 g-color-white-opacity-0_6">
-                      <i class="fa fa-globe"></i>
-                    </span>
-                  </div>
-                  <p class="mb-0">
-                    <a class="g-color-white-opacity-0_8 g-color-white--hover" href="mailto:info@htmlstream.com">info@htmlstream.com</a>
-                    <br>
-                    <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">www.htmlstream.com</a>
-                  </p>
-                </div>
-                <!-- End Email and Website -->
-              </address>
-            </div>
-            <!-- End Footer Content -->
+          <div class="col-lg-6">
+            <img src="{{ asset('assets/frontend/img/logo_hbac.png') }}" class="img-fluid float-right g-rounded-50" alt="" style="opacity:0.7;filter:alpha(opacity=70);">
           </div>
         </div>
       </div>
-      <!-- End Footer -->
+    </section>
+  {% endblock %}
+  <!-- End breadcrumbs Block -->
 
-      <!-- Copyright Footer -->
-      <footer class="g-bg-gray-dark-v1 g-color-white-opacity-0_8 g-py-20">
-        <div class="container">
-          <div class="row">
-            <div class="col-md-8 text-center text-md-left g-mb-10 g-mb-0--md">
-              <div class="d-lg-flex">
-                <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">2012 -
-                  {{ "now"|date('Y')}}
-                  ©
-                  {{copyright}}.</small>
-                <ul class="u-list-inline">
-                  <li class="list-inline-item">
-                    <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Privacy Policy</a>
-                  </li>
-                  <li class="list-inline-item">
-                    <span>|</span>
-                  </li>
-                  <li class="list-inline-item">
-                    <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Terms of Use</a>
-                  </li>
-                  <li class="list-inline-item">
-                    <span>|</span>
-                  </li>
-                  <li class="list-inline-item">
-                    <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">License</a>
-                  </li>
-                  <li class="list-inline-item">
-                    <span>|</span>
-                  </li>
-                  <li class="list-inline-item">
-                    <a class="g-color-white-opacity-0_8 g-color-white--hover" href="#">Support</a>
-                  </li>
-                </ul>
-              </div>
-            </div>
+  <!-- Body -->
+  <section id="about-section" class="g-pt-10 g-pb-10">
+    <div class="container-fluid g-px-150 g-py-50">
 
-            <div class="col-md-4 align-self-center">
-              <ul class="list-inline text-center text-md-right mb-0">
-                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Facebook">
-                  <a href="#" class="g-color-white-opacity-0_5 g-color-white--hover">
-                    <i class="fa fa-facebook"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Skype">
-                  <a href="#" class="g-color-white-opacity-0_5 g-color-white--hover">
-                    <i class="fa fa-skype"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Linkedin">
-                  <a href="#" class="g-color-white-opacity-0_5 g-color-white--hover">
-                    <i class="fa fa-linkedin"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Pinterest">
-                  <a href="#" class="g-color-white-opacity-0_5 g-color-white--hover">
-                    <i class="fa fa-pinterest"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Twitter">
-                  <a href="#" class="g-color-white-opacity-0_5 g-color-white--hover">
-                    <i class="fa fa-twitter"></i>
-                  </a>
-                </li>
-                <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Dribbble">
-                  <a href="#" class="g-color-white-opacity-0_5 g-color-white--hover">
-                    <i class="fa fa-dribbble"></i>
-                  </a>
-                </li>
-              </ul>
-            </div>
+      {% for message in app.flashes('success') %}
+        <div class="alert alert-dismissible fade show g-bg-teal g-color-white rounded-0" role="alert">
+          <button type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+
+          <div class="media">
+                <span class="d-flex g-mr-10 g-mt-5">
+                  <i class="icon-check g-font-size-25"></i>
+                </span>
+            <span class="media-body align-self-center">
+                  <strong>Well done!</strong>
+              {{ message }}
+                </span>
           </div>
         </div>
-      </footer>
-      <!-- End Copyright Footer -->
-      <a class="js-go-to u-go-to-v1" href="#" data-type="fixed" data-position='{
+      {% endfor %}
+      {% for message in app.flashes('warning') %}
+        <div class="alert alert-dismissible fade show g-bg-yellow rounded-0" role="alert">
+          <button type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+
+          <div class="media">
+                <span class="d-flex g-mr-10 g-mt-5">
+                  <i class="icon-info g-font-size-25"></i>
+                </span>
+            <span class="media-body align-self-center">
+                  <strong>Attention!</strong>
+              {{message}}
+                </span>
+          </div>
+        </div>
+      {% endfor %}
+      {% for message in app.flashes('error') %}
+        <div class="alert alert-dismissible fade show g-bg-red g-color-white rounded-0" role="alert">
+          <button type="button" class="close u-alert-close--light" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">×</span>
+          </button>
+
+          <div class="media">
+                <span class="d-flex g-mr-10 g-mt-5">
+                  <i class="icon-ban g-font-size-25"></i>
+                </span>
+            <span class="media-body align-self-center">
+                  <strong>Erreur!</strong>
+              {{message}}
+                </span>
+          </div>
+        </div>
+      {% endfor %}
+
+      {% block body %}{% endblock %}
+
+    </div>
+  </section>
+  <!-- End Body -->
+
+  {{ include("includeLayout/footer.html.twig") }}
+
+
+  <!-- Copyright Footer -->
+  <footer class="g-bg-gray-dark-v1 g-color-white-opacity-0_8 g-py-20">
+    <div class="container">
+      <div class="row">
+        <div class="col-md-8 text-center text-md-left g-mb-10 g-mb-0--md">
+          <div class="d-lg-flex">
+            <small class="d-block g-font-size-default g-mr-10 g-mb-10 g-mb-0--md">
+              &copy; 2014-{{ "now"|date('Y') }} <em><b class="g-color-primary">H</b>and<b class="g-color-primary">B</b>all <b class="g-color-primary">A</b>tlantique <b class="g-color-primary">C</b>lub Sainte Pazanne</em></small>
+          </div>
+        </div>
+
+        <div class="col-md-4 align-self-center">
+          <ul class="list-inline text-center text-md-right mb-0">
+            <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Facebook">
+              <a href="https://www.facebook.com/HBACSaintePazanne/" class="g-color-white-opacity-0_5 g-color-white--hover">
+                <i class="fa fa-facebook"></i>
+              </a>
+            </li>
+            <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Skype">
+              <a href="#!" class="g-color-white-opacity-0_5 g-color-white--hover">
+                <i class="fa fa-skype"></i>
+              </a>
+            </li>
+            <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Linkedin">
+              <a href="#!" class="g-color-white-opacity-0_5 g-color-white--hover">
+                <i class="fa fa-linkedin"></i>
+              </a>
+            </li>
+            <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Pinterest">
+              <a href="#!" class="g-color-white-opacity-0_5 g-color-white--hover">
+                <i class="fa fa-pinterest"></i>
+              </a>
+            </li>
+            <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Twitter">
+              <a href="#!" class="g-color-white-opacity-0_5 g-color-white--hover">
+                <i class="fa fa-twitter"></i>
+              </a>
+            </li>
+            <li class="list-inline-item g-mx-10" data-toggle="tooltip" data-placement="top" title="Dribbble">
+              <a href="#!" class="g-color-white-opacity-0_5 g-color-white--hover">
+                <i class="fa fa-dribbble"></i>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <!-- End Copyright Footer -->
+  <a class="js-go-to u-go-to-v1" href="#!" data-type="fixed" data-position='{
      "bottom": 15,
      "right": 15
    }' data-offset-top="400" data-compensation="#js-header" data-show-effect="zoomIn">
-        <i class="hs-icon hs-icon-arrow-top"></i>
-      </a>
-    </main>
+    <i class="hs-icon hs-icon-arrow-top"></i>
+  </a>
+</main>
 
-    <script src="{{ asset('bundles/fosjsrouting/js/router.js') }}"></script>
-    <script src="{{ path('fos_js_routing_js', { callback: 'fos.Router.setData' }) }}"></script>
+<!-- JS Global Compulsory -->
+<script src="{{ asset ('assets/frontend/vendor/jquery/jquery.min.js') }}"></script>
+<script src="{{ asset ('assets/frontend/vendor/jquery-migrate/jquery-migrate.min.js') }}"></script>
+<script src="{{ asset ('assets/frontend/vendor/popper.min.js') }}"></script>
+<script src="{{ asset ('assets/frontend/vendor/bootstrap/bootstrap.min.js') }}"></script>
 
-    <!-- JS Global Compulsory -->
-    <script src="{{ asset ('assets/frontend/vendor/jquery/jquery.min.js') }}"></script>
-    <script src="{{ asset ('assets/frontend/vendor/jquery-migrate/jquery-migrate.min.js') }}"></script>
-    <script src="{{ asset ('assets/frontend/vendor/jquery.easing/js/jquery.easing.js') }}"></script>
-    <script src="{{ asset ('assets/frontend/vendor/popper.min.js') }}"></script>
-    <script src="{{ asset ('assets/frontend/vendor/bootstrap/bootstrap.min.js') }}"></script>
-    <script src="{{ asset ('assets/frontend/vendor/bootstrap/offcanvas.js') }}"></script>
+<script src="{{ asset ('assets/frontend/vendor/bootstrap/offcanvas.js') }}"></script>
 
-    <!-- JS Implementing Plugins -->
-    <script src="{{ asset ('assets/frontend/vendor/hs-megamenu/src/hs.megamenu.js') }}"></script>
-    <script src="{{ asset ('assets/frontend/vendor/dzsparallaxer/dzsparallaxer.js') }}"></script>
-    <script src="{{ asset ('assets/frontend/vendor/dzsparallaxer/dzsscroller/scroller.js') }}"></script>
-    <script src="{{ asset ('assets/frontend/vendor/dzsparallaxer/advancedscroller/plugin.js') }}"></script>
-    <script src="{{ asset ('assets/frontend/vendor/masonry/dist/masonry.pkgd.min.js') }}"></script>
-    <script src="{{ asset ('assets/frontend/vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
-    <script src="{{ asset ('assets/frontend/vendor/malihu-scrollbar/jquery.mCustomScrollbar.concat.min.js') }}"></script>
-    <script src="{{ asset ('assets/frontend/vendor/slick-carousel/slick/slick.js') }}"></script>
-    <script src="{{ asset ('assets/frontend/vendor/fancybox/jquery.fancybox.min.js') }}"></script>
+<!-- JS Implementing Plugins -->
+<script src="{{ asset ('assets/frontend/vendor/hs-megamenu/src/hs.megamenu.js') }}"></script>
+<script src="{{ asset ('assets/frontend/vendor/dzsparallaxer/dzsparallaxer.js') }}"></script>
+<script src="{{ asset ('assets/frontend/vendor/dzsparallaxer/dzsscroller/scroller.js') }}"></script>
+<script src="{{ asset ('assets/frontend/vendor/dzsparallaxer/advancedscroller/plugin.js') }}"></script>
+<script src="{{ asset ('assets/frontend/vendor/masonry/dist/masonry.pkgd.min.js') }}"></script>
+<script src="{{ asset ('assets/frontend/vendor/imagesloaded/imagesloaded.pkgd.min.js') }}"></script>
+<script src="{{ asset ('assets/frontend/vendor/slick-carousel/slick/slick.js') }}"></script>
+<script src="{{ asset ('assets/frontend/vendor/fancybox/jquery.fancybox.min.js') }}"></script>
+<script src="{{ asset ('assets/frontend/vendor/gmaps/gmaps.min.js') }}"></script>
 
-    <!-- JS Unify -->
-    <script src="{{ asset ('assets/frontend/js/hs.core.js') }}"></script>
+<!-- JS Unify -->
+<script src="{{ asset ('assets/frontend/js/hs.core.js') }}"></script>
+<script src="{{ asset ('assets/frontend/js/components/gmap/hs.map.js') }}"></script>
 
-    <script src="{{ asset ('assets/frontend/js/components/hs.header.js') }}"></script>
-    <script src="{{ asset ('assets/frontend/js/helpers/hs.hamburgers.js') }}"></script>
+<script src="{{ asset ('assets/frontend/js/components/hs.header.js') }}"></script>
+<script src="{{ asset ('assets/frontend/js/helpers/hs.hamburgers.js') }}"></script>
 
-    <script src="{{ asset ('assets/frontend/js/components/hs.dropdown.js') }}"></script>
-    <script src="{{ asset ('frontend//assets/js/components/hs.scrollbar.js') }}"></script>
-    <script src="{{ asset ('assets/frontend/js/components/hs.popup.js') }}"></script>
-    <script src="{{ asset ('assets/frontend/js/components/hs.carousel.js') }}"></script>
+<script src="{{ asset ('assets/frontend/js/components/hs.popup.js') }}"></script>
+<script src="{{ asset ('assets/frontend/js/components/hs.carousel.js') }}"></script>
 
-    <script src="{{ asset ('assets/frontend/js/components/hs.go-to.js') }}"></script>
+<script src="{{ asset ('assets/frontend/js/components/hs.go-to.js') }}"></script>
 
-    <!-- JS Custom -->
-    <script src="{{ asset ('assets/frontend/js/custom.js') }}"></script>
+<!-- JS Custom -->
+<script src="{{ asset ('assets/frontend/js/custom.js') }}"></script>
 
-    {% block javascript %}{% endblock %}
+<!-- JS Plugins Init. -->
+<script>
 
-    <!-- JS Plugins Init. -->
-    <script>
-      $(document).on('ready', function() {
-        // initialization of go to
-        $.HSCore.components.HSGoTo.init('.js-go-to');
 
-        // initialization of carousel
-        $.HSCore.components.HSCarousel.init('.js-carousel');
+  $(document).on('ready', function() {
+    // initialization of go to
+    $.HSCore.components.HSGoTo.init('.js-go-to');
 
-        $('#we-provide').slick('setOption', 'responsive', [
-          {
-            breakpoint: 992,
-            settings: {
-              slidesToShow: 2
-            }
-          }, {
-            breakpoint: 576,
-            settings: {
-              slidesToShow: 1
-            }
-          }
-        ], true);
+    // initialization of carousel
+    $.HSCore.components.HSCarousel.init('.js-carousel');
 
-        // initialization of HSDropdown component
-        $.HSCore.components.HSDropdown.init($('[data-dropdown-target]'), {
-          afterOpen: function() {
-            $(this).find('input[type="search"]').focus();
-          }
-        });
+    $('#we-provide').slick('setOption', 'responsive', [
+      {
+        breakpoint: 992,
+        settings: {
+          slidesToShow: 2
+        }
+      }, {
+        breakpoint: 576,
+        settings: {
+          slidesToShow: 1
+        }
+      }
+    ], true);
 
-        // initialization of HSScrollBar component
-        $.HSCore.components.HSScrollBar.init($('.js-scrollbar'));
+    // initialization of carousel
+    $.HSCore.components.HSCarousel.init('.js-carousel');
 
-        // initialization of masonry
-        $('.masonry-grid').imagesLoaded().then(function() {
-          $('.masonry-grid').masonry({columnWidth: '.masonry-grid-sizer', itemSelector: '.masonry-grid-item', percentPosition: true});
-        });
-
-        // initialization of popups
-        $.HSCore.components.HSPopup.init('.js-fancybox');
+    // initialization of masonry
+    $('.masonry-grid').imagesLoaded().then(function () {
+      $('.masonry-grid').masonry({
+        columnWidth: '.masonry-grid-sizer',
+        itemSelector: '.masonry-grid-item',
+        percentPosition: true
       });
+    });
 
-      $(window).on('load', function() {
-        // initialization of header
-        $.HSCore.components.HSHeader.init($('#js-header'));
-        $.HSCore.helpers.HSHamburgers.init('.hamburger');
+    // initialization of popups
+    $.HSCore.components.HSPopup.init('.js-fancybox');
+  });
 
-        // initialization of HSMegaMenu component
-        $('#dropdown-megamenu').HSMegaMenu({event: 'hover', pageContainer: $('.container'), breakpoint: 767});
-      });
-    </script>
-  </body>
+  $(window).on('load', function () {
+    // initialization of header
+    $.HSCore.components.HSHeader.init($('#js-header'));
+    $.HSCore.helpers.HSHamburgers.init('.hamburger');
+
+    // initialization of HSMegaMenu component
+    $('.js-mega-menu').HSMegaMenu({
+      event: 'hover',
+      pageContainer: $('.container'),
+      breakpoint: 991
+    });
+  });
+</script>
+
+
+</body>
 
 </html>

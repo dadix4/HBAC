@@ -1,8 +1,8 @@
 <?php
 
-namespace AppBundle\Controller\Event;
+namespace App\Controller\Admin\Event;
 
-use AppBundle\Entity\Event\Evenement;
+use App\Entity\Event\Evenement;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 
@@ -19,11 +19,25 @@ class EvenementController extends Controller
     public function indexAction()
     {
         $em = $this->getDoctrine()->getManager();
+        $evenements = $em->getRepository('App:Event\Evenement')->findAll();
 
-        $evenements = $em->getRepository('AppBundle:Event\Evenement')->findAll();
+        $events = [];
+        foreach ($evenements as $evenement) {
+            $event = $em->getRepository('App:Event\Evenement')->find($evenement);
+            $idEvent = $event->getId();
+            $nbInscrit = $em->getRepository('App:Event\Inscrit')->getNbinscrit($idEvent);
+            $TTtarif = $em->getRepository('App:Event\Inscrit')->getTarifByEvent($idEvent);
 
-        return $this->render('event/evenement/index.html.twig', array(
+            $events[] =[
+                'nbInscrit' => $nbInscrit,
+                'evenement' => $event,
+                'TTtarif' => $TTtarif
+            ];
+           }
+
+        return $this->render('admin/event/evenement/index.html.twig', array(
             'evenements' => $evenements,
+            'events' => $events
         ));
     }
 
@@ -34,7 +48,7 @@ class EvenementController extends Controller
     public function newAction(Request $request)
     {
         $evenement = new Evenement();
-        $form = $this->createForm('AppBundle\Form\Event\EvenementType', $evenement);
+        $form = $this->createForm('App\Form\Event\EvenementType', $evenement);
         $form->handleRequest($request);
 
         if ($form->isSubmitted() && $form->isValid()) {
@@ -42,26 +56,12 @@ class EvenementController extends Controller
             $em->persist($evenement);
             $em->flush();
 
-            return $this->redirectToRoute('admin_event_show', array('id' => $evenement->getId()));
+            return $this->redirectToRoute('admin_event_index');
         }
 
-        return $this->render('event/evenement/new.html.twig', array(
+        return $this->render('admin/event/evenement/new.html.twig', array(
             'evenement' => $evenement,
             'form' => $form->createView(),
-        ));
-    }
-
-    /**
-     * Finds and displays a evenement entity.
-     *
-     */
-    public function showAction(Evenement $evenement)
-    {
-        $deleteForm = $this->createDeleteForm($evenement);
-
-        return $this->render('event/evenement/show.html.twig', array(
-            'evenement' => $evenement,
-            'delete_form' => $deleteForm->createView(),
         ));
     }
 
@@ -72,18 +72,18 @@ class EvenementController extends Controller
     public function editAction(Request $request, Evenement $evenement)
     {
         $deleteForm = $this->createDeleteForm($evenement);
-        $editForm = $this->createForm('AppBundle\Form\Event\EvenementType', $evenement);
-        $editForm->handleRequest($request);
+        $form = $this->createForm('App\Form\Event\EvenementType', $evenement);
+        $form->handleRequest($request);
 
-        if ($editForm->isSubmitted() && $editForm->isValid()) {
+        if ($form->isSubmitted() && $form->isValid()) {
             $this->getDoctrine()->getManager()->flush();
 
-            return $this->redirectToRoute('admin_event_edit', array('id' => $evenement->getId()));
+            return $this->redirectToRoute('admin_event_index');
         }
 
-        return $this->render('event/evenement/edit.html.twig', array(
+        return $this->render('admin/event/evenement/edit.html.twig', array(
             'evenement' => $evenement,
-            'edit_form' => $editForm->createView(),
+            'form' => $form->createView(),
             'delete_form' => $deleteForm->createView(),
         ));
     }

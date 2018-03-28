@@ -43,7 +43,7 @@ class AppExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFilters(): array
+    public function getFilters()
     {
         return [
             new TwigFilter('md2html', [$this, 'markdownToHtml'], ['is_safe' => ['html']]),
@@ -52,7 +52,7 @@ class AppExtension extends AbstractExtension
     /**
      * {@inheritdoc}
      */
-    public function getFunctions(): array
+    public function getFunctions()
     {
         return [
             new TwigFunction('locales', [$this, 'getLocales']),
@@ -60,8 +60,12 @@ class AppExtension extends AbstractExtension
     }
     /**
      * Transforms the given Markdown content into HTML content.
+     *
+     *  @param string $content
+     *
+     * @return string
      */
-    public function markdownToHtml(string $content): string
+    public function markdownToHtml($content)
     {
         return $this->parser->toHtml($content);
     }
@@ -69,8 +73,9 @@ class AppExtension extends AbstractExtension
      * Takes the list of codes of the locales (languages) enabled in the
      * application and returns an array with the name of each locale written
      * in its own language (e.g. English, Français, Español, etc.).
+     * @return array
      */
-    public function getLocales(): array
+    public function getLocales()
     {
         if (null !== $this->locales) {
             return $this->locales;

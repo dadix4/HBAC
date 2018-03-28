@@ -1,7 +1,8 @@
     {% for match in resultats %}
-        <div class="match_homepage">
+        <div class="g-px-20 match_homepage">
             <div class="row">
                 <div class="col-xs-4 team_local">
+                    <div class="row">
                     <div class="col-xs-3 team_logo_local">
                         {% if match.clubReceveur is not null and match.clubReceveur.logo is not null  %}
                             <img src="{{ asset(match.clubReceveur.logo.webPath) }}" alt="{{ match.clubReceveur.logo.alt }}" />
@@ -19,6 +20,7 @@
                         {% else %}
                             <span class="club">{{ match.local|upper|truncate(32, false, '') }}</span>
                         {% endif %}
+                    </div>
                     </div>
                 </div>
 
@@ -41,6 +43,7 @@
                 </div>
 
                 <div class="col-xs-4 team_visiteur">
+                    <div class="row">
                     <div class="col-xs-9 team_nom_visiteur">
                         {% if match.clubVisiteur is not null and match.clubVisiteur.monclub == true %}
                             {% if match.equipe %}
@@ -59,7 +62,7 @@
                             <img src="{{ asset ('assets/frontend/img/logo_visiteur.png') }}" alt="logo adversaire">
                         {% endif %}
                     </div>
-
+                    </div>
                 </div>
             </div>
         </div>

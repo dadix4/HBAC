@@ -1,0 +1,27 @@
+<div class="form-group row g-mb-25">
+    <div class="col-sm-3">
+        <div class="input-group g-brd-primary--focus">
+            <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
+                <i class="fa fa-user"></i>
+            </div>
+            {{ form_widget(inscrit.prenom, { 'attr': {'placeholder': 'Prénom'}}) }}
+            {{ form_errors(inscrit.prenom) }}
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group g-brd-primary--focus">
+            <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
+                <i class="far fa-user"></i>
+            </div>
+            {{ form_widget(inscrit.nom, { 'attr': {'placeholder': 'Nom'}}) }}
+        </div>
+    </div>
+    <div class="col-sm-3">
+        <div class="input-group g-brd-primary--focus">
+            {% if inscrit.tarif is defined %}
+                {{ form_widget(inscrit.tarif, { 'attr': {'placeholder': 'Nom'}}) }}
+                {{ form_errors(inscrit.tarif) }}
+            {% endif %}
+        </div>
+    </div>
+</div>

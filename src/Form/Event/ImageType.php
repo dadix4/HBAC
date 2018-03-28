@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Form\Core\Sponsors;
+namespace App\Form\Event;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -24,7 +24,7 @@ class ImageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\Core\Sponsors\Image'
+            'data_class' => 'App\Entity\Event\Image'
         ));
     }
 
@@ -33,7 +33,7 @@ class ImageType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'app_sponsors_image';
+        return 'app_event_image';
     }
 
 

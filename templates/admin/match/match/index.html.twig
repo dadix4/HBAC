@@ -123,8 +123,8 @@
                                         <td>{{ match.numReceveur }}</td>
                                         <td>{{ match.numVisiteur }}</td>
                                         <td>
-                                            <i class="far fa-plus-square"></i> {{ match.createdBy.username }} le {{ match.createdAt|date('d/m/Y') }} à {{ match.createdAt|date('H:i') }} </br>
-                                            {% if match.updatedBy is not null and  match.updatedAt > match.createdAt %}<i class="fas fa-wrench"></i> {{ match.updatedBy.username }} le {{ match.updatedAt|date('d/m/Y') }} à {{ match.updatedAt|date('H:i') }}{% endif %}
+                                            <i class="far fa-plus-square"></i> {{ match.createdBy.username }} | <span class="font-xs">{{ match.createdAt|date('d/m/Y H:i') }}</span><br>
+                                            {% if match.updatedBy is not null and  match.updatedAt > match.createdAt %}<i class="fas fa-wrench"></i> {{ match.updatedBy.username }} | <span class="font-xs">{{ match.updatedAt|date('d/m/Y H:i') }}</span>{% endif %}
                                         </td>
                                         <td>
                                             <div class="btn-group-vertical">

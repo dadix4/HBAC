@@ -1,59 +1,143 @@
-{% extends 'base.html.twig' %}
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Evènement</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fas fa-calendar-alt"></i>
+        Event
+        <span>> Gestion de nos évènements</span></h1>
+{% endblock %}
 
 {% block body %}
-    <h1>Evenements list</h1>
+<div
+        class="jarviswidget jarviswidget-color-blueDark jarviswidget-sortable"
+        data-widget-colorbutton="false"
+        data-widget-togglebutton="false"
+        data-widget-editbutton="false"
+        data-widget-fullscreenbutton="false"
+        data-widget-deletebutton="false"
+        style=""
+        role="widget">
+    <header role="heading">
+    <span class="widget-icon">
+      <i class="fa fa-arrow-down"></i>
+    </span>
+        <h2><strong>Liste</strong> des Evènements</h2>
+        <div class="widget-toolbar" role="menu">
 
-    <table>
-        <thead>
-            <tr>
-                <th>Id</th>
+            <div class="btn-group">
+                <a href="{{ path('admin_event_new') }}" class="btn dropdown-toggle btn-xs btn-primary">
+                    <i class="fa fa-plus"></i>
+                    <strong>Créer un Evènement</strong>
+                </a>
+            </div>
+        </div>
+        <span class="jarviswidget-loader">
+    <i class="fa fa-refresh fa-spin"></i></span></header>
+
+    <!-- widget div-->
+    <div role="content">
+
+        <!-- widget edit box -->
+        <div class="jarviswidget-editbox">
+            <!-- This area used as dropdown edit box -->
+        </div>
+        <!-- end widget edit box -->
+
+        <!-- widget content -->
+        <div class="widget-body no-padding">
+
+            <div class="table-responsive">
+                <table class="table table-bordered table-hover">
+                    <thead>
+                    <tr>
+                <th>Image</th>
                 <th>Titre</th>
-                <th>Description</th>
-                <th>Date</th>
-                <th>Heure</th>
-                <th>Datelimit</th>
-                <th>Bodymail</th>
-                <th>Resagroupe</th>
-                <th>Resaequipe</th>
-                <th>Mailnotification</th>
+                <th>Jour et Heure de l'évènement</th>
+                <th>Tarif(s)</th>
+                <th>Date limite d'inscription</th>
+                <th>Nombre d'inscrits</th>
+                <th>Total Tarif</th>
+                <th>Type de réservation</th>
+                <th>Email de Notification</th>
                 <th>Createdat</th>
-                <th>Updatedat</th>
                 <th>Actions</th>
             </tr>
         </thead>
         <tbody>
-        {% for evenement in evenements %}
+
+        {% for evenement  in events %}
             <tr>
-                <td><a href="{{ path('admin_event_show', { 'id': evenement.id }) }}">{{ evenement.id }}</a></td>
-                <td>{{ evenement.titre }}</td>
-                <td>{{ evenement.description }}</td>
-                <td>{% if evenement.date %}{{ evenement.date|date('Y-m-d') }}{% endif %}</td>
-                <td>{% if evenement.heure %}{{ evenement.heure|date('H:i:s') }}{% endif %}</td>
-                <td>{% if evenement.datelimit %}{{ evenement.datelimit|date('Y-m-d') }}{% endif %}</td>
-                <td>{{ evenement.bodyMail }}</td>
-                <td>{% if evenement.resaGroupe %}Yes{% else %}No{% endif %}</td>
-                <td>{% if evenement.resaEquipe %}Yes{% else %}No{% endif %}</td>
-                <td>{{ evenement.mailNotification }}</td>
-                <td>{% if evenement.createdAt %}{{ evenement.createdAt|date('Y-m-d H:i:s') }}{% endif %}</td>
-                <td>{% if evenement.updatedAt %}{{ evenement.updatedAt|date('Y-m-d H:i:s') }}{% endif %}</td>
+                <td>{% if evenement.evenement.image %}<img width="80px" src="{{ asset(evenement.evenement.image.webPath) }}" alt="{{ evenement.evenement.image.alt }}"/>{% endif %}</td>
+                <td>{{ evenement.evenement.titre }}</td>
                 <td>
-                    <ul>
-                        <li>
-                            <a href="{{ path('admin_event_show', { 'id': evenement.id }) }}">show</a>
-                        </li>
-                        <li>
-                            <a href="{{ path('admin_event_edit', { 'id': evenement.id }) }}">edit</a>
-                        </li>
-                    </ul>
+                    {% if evenement.evenement.date %}{{ evenement.evenement.date|date('d-m-Y') }}{% endif %}<br>
+                    {% if evenement.evenement.heure %}{{ evenement.evenement.heure|date('H:i') }}{% endif %}
+                </td>
+                <td>
+                    {% if evenement.evenement.tarifs %}
+                        {% for tarifs in evenement.evenement.tarifs %}
+                        {{ tarifs.titreetprix }}{% if not loop.last %}<br> {% endif %}
+                        {% endfor %}
+                    {% endif %}
+                </td>
+                <td>{% if evenement.evenement.datelimit %}{{ evenement.evenement.datelimit|date('d-m-Y') }}{% endif %}</td>
+                <td>
+                    {% if evenement.evenement.reservations %}
+                        {% if evenement.nbInscrit == 0 %}{% elseif evenement.nbInscrit == 1 %}{{ evenement.nbInscrit }} inscrit{% else %}{{ evenement.nbInscrit }} inscrits {% endif %}
+                    {% endif %}
+                </td>
+                <td>
+                    {% if evenement.evenement.reservations %}
+                        {% if evenement.TTtarif == 0 %}{% else %}{{ evenement.TTtarif }}€{% endif %}
+                    {% endif %}
+                </td>
+                <td>{% if evenement.evenement.resaGroupe %} Groupe {% elseif evenement.evenement.resaEquipe%}Equipe{% else %}{% endif %}</td>
+                <td>{{ evenement.evenement.mailNotification }}</td>
+                <td>
+                    <i class="far fa-plus-square"></i> {{ evenement.evenement.createdBy.username }} le {{ evenement.evenement.createdAt|date('d/m/Y') }} à {{ evenement.evenement.createdAt|date('H:i') }} </br>
+                    {% if evenement.evenement.updatedBy is not null and  evenement.evenement.updatedAt > evenement.evenement.createdAt %}<i class="fas fa-wrench"></i> {{ evenement.evenement.updatedBy.username }} le {{ evenement.evenement.updatedAt|date('d/m/Y') }} à {{ evenement.evenement.updatedAt|date('H:i') }}{% endif %}
+                </td>
+                <td>
+                    <div class="btn-group-vertical">
+                        <a href="{{ path('admin_event_edit', { 'id': evenement.evenement.id }) }}"
+                           class="btn btn-xs bg-color-teal txt-color-white">
+                            <i class="fas fa-edit"></i>
+                            Editer
+                        </a>
+                        <a href="{{ path('admin_event_reservation', { 'id': evenement.evenement.id }) }}"
+                           class="btn btn-xs bg-color-purple txt-color-white">
+                            {% if evenement.evenement.reservations|length < 2 %}<i class="fas fa-users"></i> Réservation {% else %}<i class="fas fa-users"></i> Réservations{% endif %}
+                        </a>
+                        <form action="{{ path('admin_event_delete', {'id': evenement.evenement.id}) }}" method="post">
+                            <input type="hidden" name="form[_token]" value="{{ csrf_token('form') }}" />
+                            <input type="hidden" name="_method" value="DELETE" />
+                            <button type="submit" class="btn btn-danger btn-xs"><i class="fa fa-trash"></i> Supprimer</button>
+                        </form>
+
+                    </div>
                 </td>
             </tr>
         {% endfor %}
         </tbody>
     </table>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_event_new') }}">Create a new evenement</a>
-        </li>
-    </ul>
+            </div>
+
+        </div>
+        <!-- end widget content -->
+
+    </div>
+    <!-- end widget div -->
+
+</div>
 {% endblock %}

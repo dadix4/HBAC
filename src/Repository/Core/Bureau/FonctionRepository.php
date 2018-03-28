@@ -10,4 +10,5 @@ namespace App\Repository\Core\Bureau;
  */
 class FonctionRepository extends \Doctrine\ORM\EntityRepository
 {
+
 }

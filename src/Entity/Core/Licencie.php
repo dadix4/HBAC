@@ -14,7 +14,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
 class Licencie
 {
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Core\Image", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Core\ImgProfil", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true))
      */
     private $imgProfil;
@@ -573,11 +573,11 @@ class Licencie
     /**
      * Set imgProfil
      *
-     * @param \App\Entity\Core\Image $imgProfil
+     * @param \App\Entity\Core\ImgProfil $imgProfil
      *
      * @return Licencie
      */
-    public function setImgProfil(\App\Entity\Core\Image $imgProfil = null)
+    public function setImgProfil(\App\Entity\Core\ImgProfil $imgProfil = null)
     {
         $this->imgProfil = $imgProfil;
 
@@ -587,7 +587,7 @@ class Licencie
     /**
      * Get imgProfil
      *
-     * @return \App\Entity\Core\Image
+     * @return \App\Entity\Core\ImgProfil
      */
     public function getImgProfil()
     {

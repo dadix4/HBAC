@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Core;
+namespace App\Entity\Core\Sponsors;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -16,7 +16,7 @@ class Sponsors
 {
 
     /**
-     * @ORM\OneToOne(targetEntity="App\Entity\Equipe\Image", cascade={"persist", "remove"})
+     * @ORM\OneToOne(targetEntity="App\Entity\Core\Sponsors\Image", cascade={"persist", "remove"})
      * @ORM\JoinColumn(nullable=true))
      */
     private $image;
@@ -417,11 +417,11 @@ class Sponsors
     /**
      * Set image
      *
-     * @param \App\Entity\Equipe\Image $image
+     * @param \App\Entity\Core\Sponsors\Image $image
      *
      * @return Sponsors
      */
-    public function setImage(\App\Entity\Equipe\Image $image = null)
+    public function setImage(\App\Entity\Core\Sponsors\Image $image = null)
     {
         $this->image = $image;
 
@@ -431,7 +431,7 @@ class Sponsors
     /**
      * Get image
      *
-     * @return \App\Entity\Equipe\Image
+     * @return \App\Entity\Core\Sponsors\Image
      */
     public function getImage()
     {

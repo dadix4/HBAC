@@ -13,15 +13,13 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
 class Match
 {
+
     /**
-     * @ORM\ManyToMany(targetEntity="App\Entity\Equipe\Equipe", inversedBy="matchs", orphanRemoval=true)
+     * @ORM\ManyToOne(targetEntity="App\Entity\Equipe\Equipe", inversedBy="matchs")
+     * @ORM\JoinColumn(name="equipe_id", referencedColumnName="id")
      * @ORM\JoinColumn(nullable=true))
-     * @ORM\JoinTable(name="matchs_equipe",
-     *   joinColumns={@ORM\JoinColumn(name="match_id", referencedColumnName="id")},
-     *   inverseJoinColumns={@ORM\JoinColumn(name="equipe_id", referencedColumnName="id")}
-     * )
      */
-    private $equipe_matchs;
+    private $equipe;
 
     /**
      * @ORM\ManyToOne(targetEntity="App\Entity\Core\Club" )
@@ -550,37 +548,27 @@ class Match
     }
 
     /**
-     * Add equipeMatch
+     * Set equipe
      *
-     * @param \App\Entity\Equipe\Equipe $equipeMatch
+     * @param \App\Entity\Equipe\Equipe $equipe
      *
      * @return Match
      */
-    public function addEquipeMatch(\App\Entity\Equipe\Equipe $equipeMatch)
+    public function setEquipe(\App\Entity\Equipe\Equipe $equipe = null)
     {
-        $this->equipe_matchs[] = $equipeMatch;
+        $this->equipe = $equipe;
 
         return $this;
     }
 
     /**
-     * Remove equipeMatch
+     * Get equipe
      *
-     * @param \App\Entity\Equipe\Equipe $equipeMatch
+     * @return \App\Entity\Equipe\Equipe
      */
-    public function removeEquipeMatch(\App\Entity\Equipe\Equipe $equipeMatch)
+    public function getEquipe()
     {
-        $this->equipe_matchs->removeElement($equipeMatch);
-    }
-
-    /**
-     * Get equipeMatchs
-     *
-     * @return \Doctrine\Common\Collections\Collection
-     */
-    public function getEquipeMatchs()
-    {
-        return $this->equipe_matchs;
+        return $this->equipe;
     }
 
 

@@ -1,0 +1,189 @@
+{% extends 'equipe/layout/layoutTeam.html.twig' %}
+
+{% block titre %} {{ equipe.categorie.categorieEquipe }} | {{ parent() }} {% endblock %}
+
+{% block bodyTeam %}
+
+    <div class="text-center mb-3">
+        <h2 class="h4 text-uppercase mb-1 g-color-primary">{{ equipe.categorie.categorieEquipe }}</h2>
+        <p class="lead">{{ equipe.saison.nomSaison }}</p>
+        {% if equipe.convention is not null %}<p class="lead">Convention {{ equipe.convention }}</p>{% endif %}
+        <div class="d-inline-block g-width-100 g-height-1 g-bg-black mb-0"></div>
+    </div>
+
+    <span class="g-font-size-11">
+    <i class="far fa-calendar g-mr-5"></i>Le {{ equipe.createdAt|localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}&nbsp;&nbsp;&nbsp;&nbsp;<i class="far fa-user g-mr-5"></i>{{ equipe.createdBy.username}}
+    </span>
+
+    {% if equipe.image %}
+        <img class="img-fluid u-shadow-v2 g-mb-50" src="{{ asset(equipe.image.webPath) }}" alt="{{  equipe.image.alt }}">
+    {% else %}
+        <img class="img-fluid u-shadow-v2 g-mb-50" src="{{ asset('assets/frontend/img/handball_equipe.jpg') }}" alt="pas de photo d'équipe">
+    {% endif %}
+
+
+    <div class="shortcode-html ">
+        <!-- Nav tabs -->
+        <ul class="nav u-nav-v1-1 u-nav-primary g-brd-bottom--md g-brd-primary g-mb-20" role="tablist" data-target="nav-1-1-default-hor-left-underline" data-tabs-mobile-type="slide-up-down" data-btn-classes="btn btn-md btn-block rounded-0 u-btn-outline-primary g-mb-20">
+            <li class="nav-item">
+                <a class="g-font-weight-600 nav-link active" data-toggle="tab" href="#nav-1-1-default-hor-left-underline--1" role="tab"><i class="fas fa-info"></i> Informations Equipe</a>
+            </li>
+            <li class="nav-item">
+                <a class="g-font-weight-600 nav-link" data-toggle="tab" href="#nav-1-1-default-hor-left-underline--2" role="tab"><i class="far fa-calendar-alt"></i> Matchs & Résultats</a>
+            </li>
+            <li class="nav-item">
+                <a class="g-font-weight-600 nav-link" data-toggle="tab" href="#nav-1-1-default-hor-left-underline--3" role="tab"><i class="fas fa-users"></i> Nos Joueurs</a>
+            </li>
+        </ul>
+        <!-- End Nav tabs -->
+
+        <!-- Tab panes -->
+        <div id="nav-1-1-default-hor-left-underline" class="tab-content">
+            <div class="tab-pane fade show active" id="nav-1-1-default-hor-left-underline--1" role="tabpanel">
+            <div class="row no-gutters g-mb-50">
+            <div class="col-sm-6 col-lg-6">
+                <!-- Icon Blocks -->
+                <div class="u-shadow-v21--hover g-brd-around g-brd-gray-light-v4 g-brd-transparent--hover g-bg-white--hover g-transition-0_3 g-cursor-pointer g-px-30 g-pt-30 g-pb-50">
+                    <ul class="list-unstyled">
+                        <li><strong>Saison : </strong>{{ equipe.saison.nomSaison }}</li>
+                        <li><strong>Equipe : </strong>{{ equipe.categorie.categorieEquipe }}</li>
+                        <li><strong>Entraineur(s) : </strong>{% for entraineurs in equipe.entraineurs %}{{ entraineurs.prenomNom }}{% endfor %}</li>
+                        {% if equipe.convention is not null %}<li><strong>Convention : </strong>{{ equipe.convention }}</li>{% endif %}
+                    </ul>
+                </div>
+                <!-- End Icon Blocks -->
+                </div>
+                <div class="col-sm-6 col-lg-6">
+                <!-- Icon Blocks -->
+                <div class="u-shadow-v21--hover g-brd-around g-brd-gray-light-v4 g-brd-transparent--hover g-bg-white--hover g-transition-0_3 g-cursor-pointer g-px-30 g-pt-30 g-pb-50">
+                    <ul class="list-unstyled">
+                        <li><strong>Entrainement(s) : </strong><br>{% for entrainements in equipe.entrainements %} {{ entrainements.jourEntrainement.jour }}  {{ entrainements.horaireDebut|date('H:i') }} - {{ entrainements.horaireFin|date('H:i') }}{% if not loop.last %} <br/> {% endif %} {% endfor %}</li>
+                        <li><strong>Division : </strong>{{ equipe.division }}</li>
+                        <li><strong>Classement FFHB : </strong>{% if equipe.urlfhh %} <a href="{{ equipe.urlfhh }}" onclick="window.open(this.href); return false;"><i class="fas fa-link"></i></a></li>{% endif %}
+                    </ul>
+                </div>
+                <!-- End Icon Blocks -->
+            </div>
+            </div>
+            </div>
+            <div class="tab-pane fade" id="nav-1-1-default-hor-left-underline--2" role="tabpanel">
+                <div class="table-responsive">
+                    <table class="table table-hover g-font-size-11">
+                        {% set currentDate = null %}
+                        {% for matchs in equipe.matchs %}
+
+                        {% if matchs.date|date('m') != currentDate %}
+                        {% set currentDate = matchs.date|date('m') %}
+                        <thead>
+                        <tr>
+                            <th colspan="7"  style="text-transform: capitalize; text-align: center; font-size: 13px"><strong>{{ matchs.date|localizeddate("medium", "none", null, null, "LLLL yyyy")|capitalize }}</strong></th>
+                        </tr>
+                        </thead>
+
+                        <tbody>
+                        {% endif %}
+
+                        <tr>
+                            <td align="center" style="vertical-align: middle;"><span class="label rounded-2x label-light">{{ matchs.date|date('d/m') }}</span></td>
+
+
+                            {% if matchs.clubReceveur is not null and matchs.clubReceveur.monclub == true %}
+                                <td title="{{ matchs.local }}" style="vertical-align: middle; text-align: right"><strong>{{ matchs.local }}</strong></td>
+                            {% elseif (matchs.clubVisiteur is not null and matchs.clubVisiteur.monclub != true) and (matchs.clubReceveur is not null and matchs.clubReceveur.convention == true)  %}
+                                <td title="{{ matchs.local }}" style="vertical-align: middle; text-align: right"><strong>{{ matchs.local }}</strong></td>
+                            {% elseif (matchs.clubVisiteur is not null and matchs.clubVisiteur.monclub == true) and (matchs.clubReceveur is not null and matchs.clubReceveur.convention == true)  %}
+                                <td title="{{ matchs.local }}" style="vertical-align: middle; text-align: right">{{ matchs.local }}</td>
+                            {% else %}
+                                <td title="{{ matchs.local }}" style="vertical-align: middle; text-align: right">{{ matchs.local }}</td>
+                            {% endif %}
+
+
+                            {% if matchs.clubReceveur is not null and matchs.clubReceveur.logo is not null  %}
+                                <td align="center" style="vertical-align: middle;"><img src="{{ asset(matchs.clubReceveur.logo.webPath) }}" alt="{{ matchs.clubReceveur.logo.alt }}" width="30px"  /></td>
+                            {% else %}
+                                <td align="center" style="vertical-align: middle;"><img src="{{ asset ('assets/frontend/img/logo_visiteur.png') }}"  width="30px" alt="pas de logo"></td>
+                            {% endif %}
+
+
+                            {% if     "now"|date('Y-m-d') > matchs.date|date('Y-m-d') and (matchs.clubReceveur is not null and (matchs.clubReceveur.monclub == true or matchs.clubReceveur.convention == true)) and (matchs.scorelocal > matchs.scorevisiteur)  %}
+                                <td  style="vertical-align: middle; text-align: center" class="alert-success">{{  matchs.scorelocal }} - {{  matchs.scorevisiteur }}</td>
+                            {% elseif "now"|date('Y-m-d') > matchs.date|date('Y-m-d') and (matchs.clubVisiteur is not null and (matchs.clubVisiteur.monclub == true or matchs.clubVisiteur.convention == true)) and (matchs.scorelocal < matchs.scorevisiteur)  %}
+                                <td style="vertical-align: middle; text-align: center" class="alert-success">{{  matchs.scorelocal }} - {{  matchs.scorevisiteur }}</td>
+                            {% elseif "now"|date('Y-m-d') > matchs.date|date('Y-m-d') and (matchs.clubReceveur is not null and (matchs.clubReceveur.monclub == true or matchs.clubReceveur.convention == true)) and (matchs.scorelocal < matchs.scorevisiteur)  %}
+                                <td  style="vertical-align: middle; text-align: center" class="alert-danger">{{  matchs.scorelocal }} - {{  matchs.scorevisiteur }}</td>
+                            {% elseif "now"|date('Y-m-d') > matchs.date|date('Y-m-d') and (matchs.clubVisiteur is not null and (matchs.clubVisiteur.monclub == true or matchs.clubVisiteur.convention == true)) and (matchs.scorelocal > matchs.scorevisiteur)  %}
+                                <td  style="vertical-align: middle; text-align: center" class="alert-danger">{{  matchs.scorelocal }} - {{  matchs.scorevisiteur }}</td>
+                            {% elseif "now"|date('Y-m-d') > matchs.date|date('Y-m-d') and (matchs.scorelocal is not null and matchs.scorevisiteur is not null) and matchs.scorelocal == matchs.scorevisiteur %}
+                                <td  style="vertical-align: middle; text-align: center" class="alert-info">{{  matchs.scorelocal }} - {{  matchs.scorevisiteur }}</td>
+                            {% else %}
+                                <td  style="vertical-align: middle; text-align: center" class="muted">{{  matchs.heure|date('H:i') }}</td>
+                            {% endif %}
+
+
+                            {% if matchs.clubVisiteur is not null and matchs.clubVisiteur.logo is not null  %}
+                                <td align="center" style="vertical-align: middle;"><img src="{{ asset(matchs.clubVisiteur.logo.webPath) }}" alt="{{ matchs.clubVisiteur.logo.alt }}" width="30px"  /></td>
+                            {% else %}
+                                <td align="center" style="vertical-align: middle;"><img src="{{ asset ('assets/frontend/img/logo_visiteur.png') }}"  width="30px" alt="pas de logo"></td>
+                            {% endif %}
+
+
+                            {% if matchs.clubVisiteur is not null and matchs.clubVisiteur.monclub == true %}
+                                <td title="{{ matchs.visiteur }}" style="vertical-align: middle; text-align: left"><strong>{{ matchs.visiteur }}</strong></td>
+                            {% elseif (matchs.clubReceveur is not null and matchs.clubReceveur.monclub == true) and (matchs.clubVisiteur is not null and matchs.clubVisiteur.convention == true)  %}
+                                <td title="{{ matchs.visiteur }}" style="vertical-align: middle; text-align: left">{{ matchs.visiteur }}</td>
+                            {% elseif (matchs.clubReceveur is not null and matchs.clubReceveur.monclub != true) and (matchs.clubVisiteur is not null and matchs.clubVisiteur.convention == true)  %}
+                                <td title="{{ matchs.visiteur }}" style="vertical-align: middle; text-align: left"><strong>{{ matchs.visiteur }}</strong></td>
+                            {% else %}
+                                <td title="{{ matchs.visiteur }}" style="vertical-align: middle; text-align: left">{{ matchs.visiteur }}</td>
+                            {% endif %}
+
+                            {% for refCompetitions in equipe.refCompetitions %}
+                                <td align="center" style="vertical-align: middle;">
+                                    {% if refCompetitions.competition == 'Champ' and refCompetitions.reference == matchs.numPoule %}
+                                        <span class="u-label g-bg-teal g-rounded-3 g-mb-15 g-font-size-11">Champ</span>
+                                    {% elseif refCompetitions.competition == 'Coupe' and refCompetitions.reference == matchs.numPoule %}
+                                        <span class="u-label g-bg-darkred g-rounded-3 g-mb-15 g-font-size-11">Coupe</span>
+                                    {% elseif refCompetitions.competition == 'Tournoi' and refCompetitions.reference == matchs.numPoule %}
+                                        <span class="u-label g-bg-indigo g-rounded-3 g-mb-15 g-font-size-11">Tournoi</span>
+                                    {% endif %}
+                                </td>
+                            {% endfor %}
+
+                        </tr>
+                        {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="tab-pane fade" id="nav-1-1-default-hor-left-underline--3" role="tabpanel">
+                <div class="row">
+                    {% for joueurs in equipe.joueurs %}
+                        <div class="col-lg-1 col-sm-1 g-mb-30">
+                            <!-- Figure -->
+                            <figure class="text-center">
+
+                                <!-- Figure Image -->
+                                {% if joueurs.imgProfil is not null %}
+                                    <img class="w-100 g-mb-20" src="{{ asset (joueurs.imgProfil.webPath)}}" alt="Image Description">
+                                {% else %}
+                                    <img class="w-100 g-mb-20" src="{{ asset ('assets/frontend/img/user_no_img.png')}}" alt="Image Description">
+                                {% endif %}
+                                <!-- End Figure Image -->
+
+                                <!-- Figure Info -->
+                                <div class="g-mb-20">
+                                    <em class="d-block g-font-style-normal g-font-size-11 text-uppercase g-color-primary g-mb-12">{{ joueurs.prenomNom }}</em>
+                                </div>
+                                <!-- End Info -->
+                            </figure>
+                            <!-- End Figure -->
+                        </div>
+                    {% endfor %}
+                </div>
+            </div>
+        </div>
+        <!-- End Tab panes -->
+    </div>
+
+{% endblock %}

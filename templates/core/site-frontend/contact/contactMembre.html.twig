@@ -1,0 +1,86 @@
+{% extends 'layout.html.twig' %}
+
+{% block titre %}Nous Contacter | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <div class="row justify-content-between">
+        <div class="col-lg-7 g-mb-60">
+            <div class="row justify-content-center g-mb-50">
+                <div class="col-lg-7">
+                    <!-- Heading -->
+                    <div class="text-center mb-0">
+                        <h2 class="h2 text-uppercase mb-1 g-font-weight-600 "><span class="g-color-primary">Contacter {{ licencie.prenomNom }}</span></h2>
+                            <div class="d-inline-block g-width-60 g-height-1 g-bg-black mb-1"></div>
+                            <p class="g-font-size-13 lead mb-0">
+                                Merci de compléter le formulaire
+                            </p>
+                    </div>
+                    <!-- End Heading -->
+                </div>
+            </div>
+
+            <hr class="g-my-40">
+
+            <!-- Contact Form -->
+            {{ form_start(form, {'action': path('core_contact_membre', {'id':licencie.id, 'prenom':licencie.prenom, 'nom':licencie.nom}), 'method': 'POST'}) }}
+            {{ form_widget(form) }}
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check"></i> Envoyer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {{ form_end(form) }}
+            <!-- End Contact Form -->
+        </div>
+
+        <div class="col-lg-4 g-mb-60">
+            <figure class="u-info-v7-1 g-brd-around g-brd-gray-light-v4 g-bg-white g-rounded-4 text-center">
+                <div class="g-py-40 g-px-20">
+                    <!-- Figure Image -->
+                    {% if licencie.imgProfil is not null %}
+                        <img class="g-width-100 g-height-100 rounded-circle g-mb-20" src="/{{ licencie.imgProfil.webPath }}"  alt="{{ licencie.imgProfil.alt }}">
+                    {% else %}
+                        <img class="g-width-100 g-height-100 rounded-circle g-mb-20" src="{{ asset ('assets/frontend/img/user_no_img.png')}}" alt="Image Description">
+                    {% endif %}
+                    <!-- Figure Image -->
+
+                    <!-- Figure Info -->
+                    <h4 class="h5 mb-4">{{ licencie.prenomNom }}</h4>
+                    <!-- End Figure Info -->
+                </div>
+            </figure>
+
+            <hr class="g-my-40">
+
+            <!-- Contact Info -->
+            <h2 class="h4 mb-4">Contact Administratif</h2>
+            <div class="media mb-2 g-mb-30">
+                <i class="d-flex g-color-gray-dark-v5 mt-1 mr-3 icon-hotel-restaurant-235 u-line-icon-pro"></i>
+                <div class="media-body">
+                    <p class="g-color-gray-dark-v3 mb-2">1 Rue de Bazouin
+                        <br>Maison des Associations
+                        <br>44680 Sainte Pazanne</p>
+                </div>
+            </div>
+
+            <h2 class="h4 mb-4">Notre Salle</h2>
+            <div class="media mb-2">
+                <i class="d-flex g-color-gray-dark-v5 mt-1 mr-3 icon-hotel-restaurant-235 u-line-icon-pro"></i>
+                <div class="media-body">
+                    <p class="g-color-gray-dark-v3 mb-2">COMPLEXE SPORTIF GAUVRIT
+                        <br>Avenue des Sports
+                        <br>44680 Sainte-Pazanne</p>
+                </div>
+            </div>
+            <!-- End Contact Info -->
+
+        </div>
+    </div>
+
+
+{% endblock %}

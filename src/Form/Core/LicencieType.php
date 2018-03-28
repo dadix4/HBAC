@@ -18,11 +18,25 @@ class LicencieType extends AbstractType
         $builder
             ->add('prenom')
             ->add('nom')
-            ->add('birthday',BirthdayType::class)
+            ->add('birthday', BirthdayType::class,[
+                'required'  => false,
+                'widget' => 'single_text',
+                'format' => 'dd-MM-yyyy',
+                'attr' => [
+                    'class' => 'form-control input-inline datepicker',
+                    'data-provide' => 'datepicker',
+                    'data-date-format' => 'dd-mm-yyyy',
+                    'placehorlder' => "Renseigner date d'anniversaire"
+                ]])
             ->add('numeroLicence')
             ->add('mail')
             ->add('tel')
-            ->add('portable');
+            ->add('portable')
+            ->add('imgProfil', ImgProfilType::class ,array(
+                'required'  => false,
+                'attr' => array(
+                    'placeholder' => 'Photo*',
+                )));
 
     }/**
      * {@inheritdoc}

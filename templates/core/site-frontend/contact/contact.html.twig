@@ -1,0 +1,86 @@
+{% extends 'layout.html.twig' %}
+
+{% block titre %}Nous Contacter | {{ parent() }}{% endblock %}
+
+{% block body %}
+
+    <div class="row justify-content-between">
+        <div class="col-lg-7 g-mb-60">
+            <div class="row justify-content-center g-mb-50">
+                <div class="col-lg-7">
+                    <!-- Heading -->
+                    <div class="text-center mb-0">
+                        <h2 class="h2 text-uppercase mb-1 g-font-weight-600 "><span class="g-color-primary">Contacter Nous</span></h2>
+                            <div class="d-inline-block g-width-60 g-height-1 g-bg-black mb-1"></div>
+                            <p class="g-font-size-13 lead mb-0">
+                                Merci de compléter le formulaire pour nous contacter
+                            </p>
+                    </div>
+                    <!-- End Heading -->
+                </div>
+            </div>
+
+            <hr class="g-my-40">
+
+            <!-- Contact Form -->
+            {{ form_start(form, {'action': path('core_contact'), 'method': 'POST'}) }}
+            {{ form_widget(form) }}
+            <div class="form-actions">
+                <div class="row">
+                    <div class="col-md-12">
+                        <button type="submit" class="btn btn-success">
+                            <i class="fas fa-check"></i> Envoyer
+                        </button>
+                    </div>
+                </div>
+            </div>
+            {{ form_end(form) }}
+            <!-- End Contact Form -->
+        </div>
+
+        <div class="col-lg-4 g-mb-60">
+            <!-- Google Map -->
+            <script type="text/javascript">
+                // initialization of google map
+                function initMap() {
+                    $.HSCore.components.HSGMap.init('.js-g-map');
+                }
+            </script>
+            <script async defer
+                    src="https://maps.googleapis.com/maps/api/js?key=AIzaSyBwBdTVSWXBUdr8KraJ0Z3Jjb6ErfXGvI4&callback=initMap">
+            </script>
+            <div id="GMapRoadmap" class="js-g-map embed-responsive embed-responsive-21by9 g-height-300" data-type="custom" data-lat="47.098534" data-lng="-1.811199" data-zoom="14"
+                 data-title="HBAC SAINTE PAZANNE" data-styles='[["", "", [{"saturation":-100},{"lightness":51},{"visibility":"simplified"}]], ["", "labels", [{"visibility":"on"}]], ["water", "", [{"color":"#bac6cb"}]] ]'
+                 data-pin="true" data-pin-icon="{{ asset('assets/frontend/img/icons/green.png') }}">
+            </div>
+            <!-- End Google Map -->
+
+            <hr class="g-my-40">
+
+            <!-- Contact Info -->
+            <h2 class="h4 mb-4">Contact Administratif</h2>
+            <div class="media mb-2 g-mb-30">
+                <i class="d-flex g-color-gray-dark-v5 mt-1 mr-3 icon-hotel-restaurant-235 u-line-icon-pro"></i>
+                <div class="media-body">
+                    <p class="g-color-gray-dark-v3 mb-2">1 Rue de Bazouin
+                        <br>Maison des Associations
+                        <br>44680 Sainte Pazanne</p>
+                </div>
+            </div>
+
+            <h2 class="h4 mb-4">Notre Salle</h2>
+            <div class="media mb-2">
+                <i class="d-flex g-color-gray-dark-v5 mt-1 mr-3 icon-hotel-restaurant-235 u-line-icon-pro"></i>
+                <div class="media-body">
+                    <p class="g-color-gray-dark-v3 mb-2">COMPLEXE SPORTIF GAUVRIT
+                        <br>Avenue des Sports
+                        <br>44680 Sainte-Pazanne</p>
+                </div>
+            </div>
+            <!-- End Contact Info -->
+
+        </div>
+    </div>
+
+
+{% endblock %}

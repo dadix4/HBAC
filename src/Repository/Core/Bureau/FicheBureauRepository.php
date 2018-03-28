@@ -10,4 +10,20 @@ namespace App\Repository\Core\Bureau;
  */
 class FicheBureauRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function getBureauWithActiveSaison()
+    {
+        $query = $this->createQueryBuilder('f')
+            ->leftJoin('f.saison', 'saison')
+            ->addSelect('saison')
+            ->leftJoin('f.fonctions', 'fonctions')
+            ->addSelect('fonctions')
+            ->where('saison.active = :active')
+            ->setParameter('active' , true)
+            ->orderBy('fonctions.hierarchie','ASC')
+            ->getQuery();
+
+        return $query->getResult();
+    }
+
 }
+

@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Repository\Event;
+namespace App\Repository\Event;
 
 /**
  * ReservationRepository
@@ -10,4 +10,15 @@ namespace AppBundle\Repository\Event;
  */
 class ReservationRepository extends \Doctrine\ORM\EntityRepository
 {
+    public function  getRervationsByEvent($evenement)
+    {
+        $id = $evenement->getId();
+        $query = $this->createQueryBuilder('r')
+            ->where('r.evenement = :id')
+            ->setParameter(':id', $id)
+            ->orderBy('r.createdAt', 'ASC')
+            ->getQuery();
+
+        return $query->getResult();
+    }
 }

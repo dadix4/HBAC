@@ -16,7 +16,7 @@ class Equipe
 {
     /**
      * Inverse Sid
-     * @ORM\ManyToMany(targetEntity="App\Entity\Match\Match", mappedBy="equipe_matchs", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Match\Match", mappedBy="equipe", orphanRemoval=true)
      * @ORM\OrderBy({"date" = "DESC"})
      */
     private $matchs;

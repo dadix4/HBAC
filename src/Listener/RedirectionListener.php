@@ -34,5 +34,12 @@ class RedirectionListener
               $event->setResponse(new RedirectResponse($this->router->generate('fos_user_security_login')));
           }
       }
+      if ($route == 'event_reservation' || $route == 'event_reservation') {
+          //on verifie que l'utilisateur est connecté si non on redirige vers la page login.
+          if (!is_object($this->securityContext->getToken()->getUser())) {
+              $this->session->getFlashBag()->add('warning', 'Vous devez vous identifier pour vous inscrire à cette évènement');
+              $event->setResponse(new RedirectResponse($this->router->generate('fos_user_security_login')));
+          }
+      }
   }
 }

@@ -67,7 +67,6 @@
                 <th>Convention</th>
                 <th>Division</th>
                 <th>Createdat</th>
-                <th>Updatedat</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -79,8 +78,10 @@
                 <td>{{ equipe.saison.nomSaison }} </td>
                 <td>{{ equipe.convention }}</td>
                 <td>{{ equipe.division }}</td>
-                <td>{% if equipe.createdAt %}{{ equipe.createdBy.username }} | <span class="font-xs">{{ equipe.createdAt|date('d-m-Y H:i') }}</span>{% endif %}</td>
-                <td>{% if equipe.updatedAt > equipe.createdAt %}{{ equipe.updatedBy.username }} | <span class="font-xs">{{ equipe.updatedAt|date('d-m-Y H:i') }}</span>{% endif %}</td>
+                <td>
+                    {% if equipe.createdAt %}<i class="far fa-plus-square"></i> {{ equipe.createdBy.username }} | <span class="font-xs">{{ equipe.createdAt|date('d-m-Y H:i') }}</span>{% endif %}<br>
+                    {% if equipe.updatedAt > equipe.createdAt %}<i class="fas fa-wrench"></i> {{ equipe.updatedBy.username }} | <span class="font-xs">{{ equipe.updatedAt|date('d-m-Y H:i') }}</span>{% endif %}
+                </td>
                 <td>
                     <div class="btn-group-vertical">
                         <a href="{{ path('admin_equipe_edit', { 'saison':equipe.saison.id, 'slug':equipe.saison.slug, 'id':equipe.id})  }}"

@@ -68,7 +68,6 @@
                 <th>Contenu</th>
                 <th>Commentaires</th>
                 <th>Createdat</th>
-                <th>Updatedat</th>
                 <th>Actions</th>
             </tr>
         </thead>
@@ -84,9 +83,10 @@
                 <td>
                     {{ article.commentaires|length  }}
                 </td>
-                <td>{% if article.createdAt %}{{ article.createdAt|date('d-m-Y H:i') }} par {{ article.createdBy.username }}{% endif %}</td>
-                <td>{% if article.updatedAt != article.createdAt %}{{ article.updatedAt|date('d-m-Y H:i') }} par {{ article.createdBy.username }}{% endif %}</td>
                 <td>
+                    {% if article.createdAt %}<i class="far fa-plus-square"></i> {{ article.createdBy.username }} | <span class="font-xs">{{ article.createdAt|date('d-m-Y H:i') }}</span>{% endif %}<br>
+                    {% if article.updatedAt > article.createdAt %}<i class="fas fa-wrench"></i> {{ article.updatedBy.username }} | <span class="font-xs">{{ article.updatedAt|date('d-m-Y H:i') }}</span>{% endif %}
+                </td>                <td>
                     <div class="btn-group-vertical">
                         <a href="{{ path('admin_blog_article_show', { 'id': article.id }) }}" class="btn btn-default btn-xs">
                             <i class="fa fa-eye"></i>

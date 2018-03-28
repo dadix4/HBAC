@@ -1,6 +1,6 @@
 <?php
 
-namespace Hbac\EventBundle\Form;
+namespace App\Form\Event;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
@@ -25,7 +25,7 @@ class TarifType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'Hbac\EventBundle\Entity\Tarif'
+            'data_class' => 'App\Entity\Event\Tarif'
         ));
     }
 
@@ -34,7 +34,7 @@ class TarifType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'hbac_eventbundle_tarif';
+        return 'app_event_tarif';
     }
 
 

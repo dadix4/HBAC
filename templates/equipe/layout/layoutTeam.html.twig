@@ -1,0 +1,26 @@
+{% extends 'layout.html.twig' %}
+
+{% block body %}
+    <div class="row justify-content-between">
+        <!-- End Content -->
+        {% block sidebar %}
+            <div class="col-lg-3 g-brd-left--lg g-brd-gray-light-v4 g-mb-40">
+                <div class="text-center mb-3">
+                    <h2 class="h4 text-uppercase mb-1">Nos Equipes</h2>
+                    <div class="d-inline-block g-width-100 g-height-1 g-bg-black mb-0"></div>
+                </div>
+                <div class="g-pl-0--lg">
+                    {{ render(controller('App\\Controller\\Equipe\\TeamController:menuAction')) }}
+                </div>
+            </div>
+        {% endblock %}
+
+        <div class="col-lg-9 g-mb-80">
+            <div class="g-pr-00--lg">
+                {% block bodyTeam %}
+
+                {% endblock %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

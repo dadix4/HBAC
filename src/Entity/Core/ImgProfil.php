@@ -11,10 +11,10 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Image
  *
  * @ORM\Table(name="core_image_profil")
- * @ORM\Entity(repositoryClass="App\Repository\Equipe\ImageRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Core\ImgProfilRepository")
  * @ORM\HasLifecycleCallbacks()
  */
- class Image
+ class ImgProfil
  {
      /**
       * @var integer
@@ -156,7 +156,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
      public function getUploadDir()
      {
          // On retourne le chemin relatif vers l'image pour un navigateur
-         return 'uploads/images/equipes';
+         return 'uploads/images/licencie';
      }
 
      public function getWebPath()
@@ -178,7 +178,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
       *
       * @param string $url
       *
-      * @return Image
+      * @return ImgProfil
       */
      public function setUrl($url)
      {
@@ -199,7 +199,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
       * Set name
       *
       * @param string $alt
-      * @return Image
+      * @return ImgProfil
       */
      public function setAlt($alt)
      {
@@ -227,7 +227,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
      *
      * @param \DateTime $createdAt
      *
-     * @return Image
+     * @return ImgProfil
      */
     public function setCreatedAt($createdAt)
     {
@@ -251,7 +251,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
      *
      * @param \DateTime $updatedAt
      *
-     * @return Image
+     * @return ImgProfil
      */
     public function setUpdatedAt($updatedAt)
     {
@@ -275,7 +275,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
      *
      * @param \App\Entity\Utilisateurs\User $createdBy
      *
-     * @return Image
+     * @return ImgProfil
      */
     public function setCreatedBy(\App\Entity\Utilisateurs\User $createdBy = null)
     {
@@ -299,7 +299,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
      *
      * @param \App\Entity\Utilisateurs\User $updatedBy
      *
-     * @return Image
+     * @return ImgProfil
      */
     public function setUpdatedBy(\App\Entity\Utilisateurs\User $updatedBy = null)
     {

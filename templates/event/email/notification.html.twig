@@ -1,0 +1,5 @@
+Une reservation au nom de {{ reservation.nomreservation }} pour {{ reservation.inscrits.count }} {% if reservation.inscrits.count > 1 %} personnes {% else %} personne {% endif %} à été réalisée
+pour l'évènement {{ evenement.titre }} le {{ reservation.createdAt|localizeddate("medium", "none", null, null, "cccc d LLLL yyyy") }}.
+
+
+<a href="{{ url('admin_event_index') }}">Voir les reservations</a>

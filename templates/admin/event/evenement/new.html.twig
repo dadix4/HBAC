@@ -1,16 +1,325 @@
-{% extends 'base.html.twig' %}
+{% extends 'layoutAdmin.html.twig' %}
+
+{% block breadcrumb %}
+    <!-- breadcrumb -->
+    <ol class="breadcrumb">
+        <li>Home</li>
+        <li>Dashboard</li>
+        <li>Evènement</li>
+    </ol>
+    <!-- end breadcrumb -->
+{% endblock %}
+
+{% block sousBreadcrumb %}
+    <h1 class="page-title txt-color-blueDark">
+        <i class="fas fa-calendar-alt"></i>
+        Event
+        <span>> Ajouter un évènements</span></h1>
+{% endblock %}
 
 {% block body %}
-    <h1>Evenement creation</h1>
+    <div class="row">
+        <article class="col-sm-12 col-md-12 col-lg-10">
+            <!-- Widget ID (each widget will need unique ID)-->
+            <div class="jarviswidget" id="wid-id-1" data-widget-editbutton="false" data-widget-custombutton="false">
+                <header>
+                    <span class="widget-icon"> <i class="fa fa-edit"></i> </span>
+                    <h2>Créer un évènement</strong> </h2>
 
-    {{ form_start(form) }}
-        {{ form_widget(form) }}
-        <input type="submit" value="Create" />
-    {{ form_end(form) }}
+                </header>
 
-    <ul>
-        <li>
-            <a href="{{ path('admin_event_index') }}">Back to the list</a>
-        </li>
-    </ul>
+                <!-- widget div-->
+                <div>
+
+                    <!-- widget edit box -->
+                    <div class="jarviswidget-editbox">
+                        <!-- This area used as dropdown edit box -->
+
+                    </div>
+                    <!-- end widget edit box -->
+
+                    <!-- widget content -->
+                    <div class="widget-body">
+
+                        {{ form_errors(form) }}
+                        {{ form_start(form, {'action': path('admin_event_new'), 'method': 'POST', 'attr' : {'class' : 'form-horizontal', 'novalidate' : 'novalidate'} }) }}
+                            <fieldset>
+                                <legend><i class="fa fa-calendar" aria-hidden="true"></i> Evènement</legend>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                {{ form_widget(form.titre, {'class':'', 'attr': {'placeholder': "Titre de l'évènement * " }}) }}
+                                                {{ form_errors(form.titre) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                {{ form_widget(form.description, {'class':'', 'attr': {'placeholder': "Description de l'évènement *"}}) }}
+                                                {{ form_errors(form.description) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="far fa-calendar-alt"></i></span>
+                                                    {{ form_widget(form.date, {'class':'', 'attr': {'placeholder': "Date de l'évènement *"}}) }}
+                                                    {{ form_errors(form.date) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i class="far fa-clock"></i></span>
+                                                    {{ form_widget(form.heure, {'class':'', 'attr': {'placeholder': "Date de l'évènement *"}}) }}
+                                                    {{ form_errors(form.heure) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i
+                                                                class="far fa-calendar-times"></i></span>
+                                                    {{ form_widget(form.datelimit, {'class':'', 'attr': {'placeholder': "Date de l'évènement *"}}) }}
+                                                    {{ form_errors(form.datelimit) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                            </fieldset>
+
+                            <fieldset>
+                                <legend><i class="far fa-envelope" aria-hidden="true"></i> Adresse mail de notification
+                                    d'une réservation
+                                </legend>
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <div class="input-group">
+                                                    <span class="input-group-addon"><i
+                                                                class="far fa-envelope"></i></span>
+                                                    {{ form_widget(form.mailnotification, {'class':'', 'attr': {'placeholder': "Adresse mail pour recevoir une notification à chaque inscription * "}}) }}
+                                                    {{ form_errors(form.mailnotification) }}
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend><i class="far fa-check-square" aria-hidden="true"></i> Type de réservation
+                                </legend>
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label class="checkbox-inline">
+                                                    {{ form_errors(form.resagroupe) }}
+                                                    {{ form_widget(form.resagroupe, { 'attr': {'class': 'style-0' } }) }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label class="checkbox-inline">
+                                                    {{ form_errors(form.resaequipe) }}
+                                                    {{ form_widget(form.resaequipe, { 'attr': {'class': 'style-0' } }) }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+
+                            <fieldset>
+                                <legend><i class="far fa-image" aria-hidden="true"></i> Image</legend>
+                                <div class="row">
+                                    <div class="col-sm-12">
+                                        {{ form_errors(form.image) }}
+                                        {{ form_widget(form.image) }}
+                                    </div>
+                                </div>
+
+                            </fieldset>
+
+                            <fieldset>
+                                <legend><i class="far fa-envelope-open" aria-hidden="true"></i>
+                                    Complément d'information lors de l'email de confirmation d'inscription
+                                </legend>
+
+                                <div class="form-group">
+                                    <div class="col-md-12">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                {{ form_widget(form.bodymail, {'class':'', 'attr': {'placeholder': "Complément d'information à transmettre par email"}}) }}
+                                                {{ form_errors(form.bodymail) }}
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </fieldset>
+
+                            <fieldset>
+                                <legend><i class="fas fa-euro-sign"></i> Tarif(s)</legend>
+
+                                <div class="form-group">
+                                    <div class="col-md-4">
+                                        <div class="row">
+                                            <div class="col-sm-12">
+                                                <label class="checkbox-inline">
+                                                    {{ form_errors(form.gratuit) }}
+                                                    {{ form_widget(form.gratuit, { 'attr': {'class': 'style-0' } }) }}
+                                                </label>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="collection" data-prototype="{% spaceless %}
+                                            {% filter escape %}
+                                             {{ include('admin/event/evenement/formtarif.html.twig', { 'tarif': form.tarifs.vars.prototype }) }}
+                                            {% endfilter %} {% endspaceless %}">
+
+                                    <div class="form-group">
+                                        <div class="col-md-12">
+                                            <div class="row">
+                                                <div class="col-sm-12">
+                                                    <a href="" class="add btn bg-color-blue txt-color-white">Ajouter un
+                                                        autre
+                                                        Tarif</a>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                </div>
+
+                            </fieldset>
+
+                            <div class="form-actions">
+                                <div class="row">
+                                    <div class="col-md-12">
+                                        <p><i class="fa fa-info" aria-hidden="true"></i> Les champs marqués d'un * sont
+                                            obligatoires.</p>
+                                    </div>
+                                    <div class="col-md-12">
+                                        <button type="submit" class="btn btn-success">
+                                            Ajouter
+                                        </button>
+                                    </div>
+                                </div>
+                            </div>
+                            {{ form_rest(form) }}
+                            {{ form_end(form) }}
+
+                    </div>
+                </div>
+            </div>
+        </article>
+    </div>
+
+
+
+    <a href="{{ path('admin_event_index') }}" class="btn btn-labeled btn-default">
+  <span class="btn-label">
+    <i class="glyphicon glyphicon-chevron-left"></i>
+  </span>Retour
+    </a>
+
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+            var $container = $('.collection');
+
+            // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+            var index = $container.find(':input').length;
+
+            // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+            $('.add').click(function (e) {
+                addTarif($container);
+
+                e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+                return false;
+            });
+
+            // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+            if (index == 0) {
+                addTarif($container);
+            } else {
+                // S'il existe déjà des catégories, on ajoute un lien de suppression pour chacune d'entre elles
+                $container.children('div').each(function () {
+                    addDeleteLink($(this));
+                });
+            }
+
+            // La fonction qui ajoute un formulaire CategoryType
+            function addTarif($container) {
+                // Dans le contenu de l'attribut « data-prototype », on remplace :
+                // - le texte "__name__label__" qu'il contient par le label du champ
+                // - le texte "__name__" qu'il contient par le numéro du champ
+                var template = $container.attr('data-prototype')
+                                .replace(/__name__label__/g, 'Tarif n°' + (index + 1))
+                                .replace(/__name__/g, index)
+                        ;
+
+                // On crée un objet jquery qui contient ce template
+                var $prototype = $(template);
+
+                // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+                addDeleteLink($prototype);
+
+                // On ajoute le prototype modifié à la fin de la balise <div>
+                $container.append($prototype);
+
+                // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+                index++;
+            }
+
+            // La fonction qui ajoute un lien de suppression d'une catégorie
+            function addDeleteLink($prototype) {
+                // Création du lien
+                var $deleteLink = $('<div class="col-md-3"></div><a class="btn btn-danger" href="#"><i class="fa fa-trash"></i> Supprimer</a></div>');
+
+                // Ajout du lien
+                $prototype.append($deleteLink);
+
+                // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+                $deleteLink.click(function (e) {
+                    $prototype.remove();
+
+                    e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+                    return false;
+                });
+            }
+        });
+    </script>
 {% endblock %}

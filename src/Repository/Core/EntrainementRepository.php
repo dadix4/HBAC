@@ -2,6 +2,8 @@
 
 namespace App\Repository\Core;
 
+use Doctrine\ORM\Tools\Pagination\Paginator;
+
 /**
  * EntrainementRepository
  *
@@ -31,5 +33,15 @@ class EntrainementRepository extends \Doctrine\ORM\EntityRepository
             ->orderBy('j.tri','asc')
             ->addOrderBy('e.horaireDebut','asc');
         return $qb->getQuery()->getResult();
+    }
+
+    public function findUpdate()
+    {
+        $query = $this->createQueryBuilder('e')
+            ->orderBy('e.updatedAt', 'desc')
+            ->setFirstResult(0)
+            ->setMaxResults(1);
+
+        return new Paginator($query);
     }
 }

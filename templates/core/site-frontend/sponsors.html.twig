@@ -1,0 +1,58 @@
+{% extends 'layout.html.twig' %}
+
+{% block titre %}Nos Partenariats| {{ parent() }}{% endblock %}
+
+{% block body %}
+    <div class="row justify-content-center g-mb-60">
+        <div class="col-lg-7">
+            <!-- Heading -->
+            <div class="text-center mb-0">
+                <h2 class="h2 text-uppercase mb-1 g-font-weight-600"><span class="g-color-primary">Merci à nos partenariats</span>
+                </h2>
+                <div class="d-inline-block g-width-60 g-height-1 g-bg-black mb-1"></div>
+            </div>
+            <!-- End Heading -->
+        </div>
+    </div>
+
+    <div class="row g-mb-40 justify-content-center">
+
+        <div class="col-lg-10 g-mb-30">
+            <div class="row">
+                {% for sponsors in allSponsors %}
+                    <!-- Clients -->
+                    <div class="col-md-3 g-mb-50">
+                        {% if sponsors.image %}
+                            <img class="g-width-200 float-right" src="{{ asset(sponsors.image.webPath) }}"
+                                 alt="{{ sponsors.image.alt }}">
+                        {% endif %}
+                    </div>
+                    <div class="col-md-9 g-mb-50">
+                        <h2 class="h4 g-color-black g-font-weight-600">{{ sponsors.nom }}</h2>
+                        <ul class="list-inline g-font-size-13">
+                            <li class="list-inline-item mr-4 mb-0">
+                                <i class="align-middle g-color-primary g-font-size-15 mr-2 icon-hotel-restaurant-235 u-line-icon-pro"></i>
+                                <a class="g-color-gray-dark-v5 g-text-underline--none--hover">
+                                    {{ sponsors.adresse }}, {{ sponsors.codepostal }} {{ sponsors.ville }}
+                                </a>
+                            </li>
+                            <li class="list-inline-item mr-4">
+                                <i class="align-middle g-color-primary g-font-size-15 mr-2 icon-communication-101 u-line-icon-pro"></i>
+                                <a class="g-color-gray-dark-v5 g-color-primary--hover" href="{{ sponsors.web }}">
+                                    {{ sponsors.web }}
+                                </a>
+                            </li>
+                            <li class="list-inline-item">
+                                <i class="align-middle g-color-primary g-font-size-15 mr-2 icon-communication-078 u-line-icon-pro"></i>
+                                <a class="g-color-gray-dark-v5 g-text-underline--none--hover">
+                                    {{ sponsors.tel }}
+                                </a>
+                            </li>
+                        </ul>
+                    </div>
+                    <!-- End Clients -->
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+{% endblock %}

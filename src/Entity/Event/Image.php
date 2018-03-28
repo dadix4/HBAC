@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Entity\Core\Sponsors;
+namespace App\Entity\Event;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
@@ -10,8 +10,8 @@ use Gedmo\Mapping\Annotation as Gedmo;
 /**
  * Media
  *
- * @ORM\Table(name="core_sponsors_image")
- * @ORM\Entity(repositoryClass="App\Repository\Equipe\ImageRepository")
+ * @ORM\Table(name="event_image")
+ * @ORM\Entity(repositoryClass="App\Repository\Event\ImageRepository")
  * @ORM\HasLifecycleCallbacks()
  */
  class Image
@@ -156,7 +156,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
      public function getUploadDir()
      {
          // On retourne le chemin relatif vers l'image pour un navigateur
-         return 'uploads/images/partenariats';
+         return 'uploads/images/event';
      }
 
      public function getWebPath()

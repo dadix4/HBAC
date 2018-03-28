@@ -1,6 +1,11 @@
 <div class="u-block-hover g-pos-rel">
   <figure>
-    <img class="img-fluid w-100 u-block-hover__main--zoom-v1" src="{{ asset('assets/frontend/img/user_mon_compte.jpg')}}" alt="Image User Mon Compte">
+    <img class="img-fluid w-100 u-block-hover__main--zoom-v1"
+            {% if app.user.avatar is not null %}
+              src="{{ asset(app.user.avatar.webPath) }}" alt="{{ app.user.avatar.alt }}"
+            {% else %}
+              src="{{ asset ('assets/frontend/img/user_no_img.png')}}" alt="Image User Mon Compte"
+            {% endif %}
   </figure>
 
   <!-- Figure Caption -->

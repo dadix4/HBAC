@@ -1,0 +1,18 @@
+<ul class="sidebar nav nav-pills flex-column">
+    {% for saison in saisons  %}
+    <li class="sidebar-item">
+        <a class="nav-link sidebar-nav" data-toggle="collapse" href="#item-{{ loop.index }}">{{ saison.slug }}<i class="fas fa-chevron-down g-absolute-centered--y g-right-5"></i></a>
+        <div id="item-{{ loop.index }}" class="collapse">
+            <ul class="nav flex-column ml-3">
+                {% for equipes in saison.equipes %}
+                <li class="nav-item">
+                    <a class="nav-link nav-link-equipe" href="{{ path('view_team', {'id':equipes.id , 'slug':equipes.slug }) }}">
+                        <i class="fas fa-chevron-circle-right g-mr-10"></i> {{ equipes.nomEquipe }}
+                    </a>
+                </li>
+                {% endfor %}
+            </ul>
+        </div>
+    </li>
+    {% endfor %}
+</ul>

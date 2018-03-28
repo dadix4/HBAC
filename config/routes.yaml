@@ -8,6 +8,22 @@ routingBlog:
     resource: "../config/routes/routingBlog.yml"
     prefix: /
 
+routingCore:
+    resource: "../config/routes/routingCore.yml"
+    prefix: /
+
+routingMatch:
+    resource: "../config/routes/routingMatch.yml"
+    prefix: /match
+
+routingBureau:
+    resource: "../config/routes/routingBureau.yml"
+    prefix: /organigramme
+
+routingTeam:
+    resource: "../config/routes/routingTeam.yml"
+    prefix: /equipe
+
 routingProduits:
     resource: "../config/routes/routingProduits.yml"
     prefix: /boutique
@@ -83,3 +99,15 @@ routingAdminMatch:
 routingAdminBureau:
     resource: "../config/routes/admin/core/adminBureau.yml"
     prefix:   /admin/fiche_bureau
+
+routingAdminContact:
+    resource: "../config/routes/admin/core/adminContact.yml"
+    prefix:   /admin/contact
+
+routingAdminSponsors:
+    resource: "../config/routes/admin/core/adminSponsors.yml"
+    prefix:   /admin/sponsors
+
+routingAdminEvent:
+    resource: "../config/routes/admin/event/adminEvent.yml"
+    prefix:   /admin/event

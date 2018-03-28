@@ -1,6 +1,6 @@
 <?php
 
-namespace AppBundle\Entity\Event;
+namespace App\Entity\Event;
 
 use Doctrine\ORM\Mapping as ORM;
 use Gedmo\Mapping\Annotation as Gedmo;
@@ -9,11 +9,28 @@ use Gedmo\Mapping\Annotation as Gedmo;
  * Evenement
  *
  * @ORM\Table(name="event_evenement")
- * @ORM\Entity(repositoryClass="AppBundle\Repository\Event\EvenementRepository")
+ * @ORM\Entity(repositoryClass="App\Repository\Event\EvenementRepository")
  * @ORM\HasLifecycleCallbacks()
  */
 class Evenement
 {
+    /**
+     * @ORM\OneToOne(targetEntity="App\Entity\Event\Image", cascade={"persist", "remove"})
+     * @ORM\JoinColumn(nullable=true))
+     */
+    private $image;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Event\Tarif", cascade={"persist", "remove"} , mappedBy="evenement")
+     * @ORM\JoinColumn(nullable=true))
+     */
+    private $tarifs;
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\Event\Reservation", cascade={"persist", "remove"}, mappedBy="evenement")
+     */
+    private $reservations;
+
     /**
      * @var int
      *
@@ -64,6 +81,13 @@ class Evenement
      * @ORM\Column(name="bodyMail", type="text", nullable=true)
      */
     private $bodyMail;
+
+    /**
+     * @var bool
+     *
+     * @ORM\Column(name="gratuit", type="boolean", nullable=true)
+     */
+    private $gratuit;
 
     /**
      * @var bool
@@ -272,6 +296,30 @@ class Evenement
     }
 
     /**
+     * Set gratuit
+     *
+     * @param boolean $gratuit
+     *
+     * @return Evenement
+     */
+    public function setGratuit($gratuit)
+    {
+        $this->gratuit = $gratuit;
+
+        return $this;
+    }
+
+    /**
+     * Get gratuit
+     *
+     * @return bool
+     */
+    public function getGratuit()
+    {
+        return $this->gratuit;
+    }
+
+    /**
      * Set resaGroupe
      *
      * @param boolean $resaGroupe
@@ -437,6 +485,107 @@ class Evenement
     public function getUpdatedBy()
     {
         return $this->updatedBy;
+    }
+
+    /**
+     * Constructor
+     */
+    public function __construct()
+    {
+        $this->tarifs = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->reservations = new \Doctrine\Common\Collections\ArrayCollection();
+    }
+
+    /**
+     * Set image
+     *
+     * @param \App\Entity\Event\Image $image
+     *
+     * @return Evenement
+     */
+    public function setImage(\App\Entity\Event\Image $image = null)
+    {
+        $this->image = $image;
+
+        return $this;
+    }
+
+    /**
+     * Get image
+     *
+     * @return \App\Entity\Event\Image
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
+    /**
+     * Add tarif
+     *
+     * @param \App\Entity\Event\Tarif $tarif
+     *
+     * @return Evenement
+     */
+    public function addTarif(\App\Entity\Event\Tarif $tarif)
+    {
+        $this->tarifs[] = $tarif;
+        $tarif->setEvenement($this); //Permet de réaliser la liaison onetomany
+        return $this;
+    }
+
+    /**
+     * Remove tarif
+     *
+     * @param \App\Entity\Event\Tarif $tarif
+     */
+    public function removeTarif(\App\Entity\Event\Tarif $tarif)
+    {
+        $this->tarifs->removeElement($tarif);
+    }
+
+    /**
+     * Get tarifs
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getTarifs()
+    {
+        return $this->tarifs;
+    }
+
+    /**
+     * Add reservation
+     *
+     * @param \App\Entity\Event\Reservation $reservation
+     *
+     * @return Evenement
+     */
+    public function addReservation(\App\Entity\Event\Reservation $reservation)
+    {
+        $this->reservations[] = $reservation;
+
+        return $this;
+    }
+
+    /**
+     * Remove reservation
+     *
+     * @param \App\Entity\Event\Reservation $reservation
+     */
+    public function removeReservation(\App\Entity\Event\Reservation $reservation)
+    {
+        $this->reservations->removeElement($reservation);
+    }
+
+    /**
+     * Get reservations
+     *
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getReservations()
+    {
+        return $this->reservations;
     }
 }
 

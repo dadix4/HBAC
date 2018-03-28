@@ -1,0 +1,163 @@
+{% extends 'layout.html.twig' %}
+
+{% block titre %} Evènements | {{ parent() }} {% endblock %}
+
+{% block body %}
+
+    <section class="container g-pt-40 g-pb-40">
+        <div class="row">
+            <div class="col-lg-9 g-mb-60">
+                <div class="mb-4 text-center">
+                    <h2 class="h3 text-uppercase mb-3">Inscription à l'évènement {{ evenement.titre }}</h2>
+                    <div class="d-inline-block g-width-35 g-height-1 g-bg-gray-dark-v5 mb-2"></div>
+                </div>
+                <div class="mb-5">
+                    {{ form_errors(form) }}
+                    {{ form_start(form, {'action': path('event_reservation' , {'id' : evenement.id }), 'method': 'POST', 'attr' : {'class' : 'form-horizontal ajax-contacts form-uil'} }) }}
+
+                    <div class="form-group row g-mb-25">
+                        <div class="col-sm-6">
+                            <div class="input-group g-brd-primary--focus">
+                                <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
+                                    <i class="fa fa-tag"></i>
+                                </div>
+                                {% if evenement.resagroupe == true %}
+                                    {{ form_widget(form.nomReservation, { 'attr': {'placeholder': 'Nom de la réservation'}}) }}
+                                    {{ form_errors(form.nomReservation) }}
+                                {% elseif evenement.resaequipe == true %}
+                                    {{ form_widget(form.nomReservation, { 'attr': {'placeholder': "Nom de l'équipe"}}) }}
+                                    {{ form_errors(form.nomReservation) }}
+                                {% else %}
+                                    {{ form_widget(form.nomReservation, { 'attr': {'placeholder': 'Nom de la réservation'}}) }}
+                                    {{ form_errors(form.nomReservation) }}
+                                {% endif %}
+                            </div>
+                        </div>
+                        <div class="col-sm-6">
+                            <div class="input-group g-brd-primary--focus">
+                                <div class="input-group-addon d-flex align-items-center g-bg-white g-color-gray-light-v1 rounded-0">
+                                    <i class="fa fa-phone"></i>
+                                </div>
+                                {{ form_widget(form.telReservation, { 'attr': {'placeholder': 'Téléphone'}}) }}
+                                {{ form_errors(form.telReservation) }}
+                            </div>
+                        </div>
+                    </div>
+                    <h4 class="h4 g-font-weight-300 g-mb-15"><span class="color-green"><i class="fas fa-users"></i> Liste des participants</span></h4>
+
+                    <div class="collection" data-prototype="{% spaceless %}
+                                            {% filter escape %}
+                                             {{ include('event/evenement/formInscrits.html.twig', { 'inscrit': form.inscrits.vars.prototype }) }}
+                                            {% endfilter %} {% endspaceless %}">
+
+                        <div class="form-group row g-mb-25">
+                            <div class="col-sm-12">
+                                <a href="" class="add btn btn-xs btn-info"><i class="fa fa-user-plus" aria-hidden="true"></i> Ajouter un participant</a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <footer>
+                        <button type="submit" class="btn u-btn-primary g-color-white rounded-0 g-mr-10 g-mb-15">
+                            <i class="fas fa-check"></i> Valider
+                        </button>
+                    </footer>
+                    <!-- /.form-group -->
+                    {{ form_rest(form) }}
+                    {{ form_end(form) }}
+
+                </div>
+
+            </div>
+
+            <div class="col-lg-3 g-mb-30">
+                {% if evenement.image is not null %}
+                <img class="img-fluid g-mb-60" src="{{ asset(evenement.image.webPath) }}" alt="{{ evenement.image.alt }}">
+                {% endif %}
+
+                <div class="tag-box tag-box-v2 padding-10 margin-bottom-40">
+                    <div class="headline">
+                        <h2 class="h4 g-font-weight-300"><i class="fas fa-bars"></i> Tarifs</h2>
+                        <div class="d-inline-block g-width-80 g-height-1 g-bg-gray-dark-v5 mb-4"></div>
+                    </div>
+                    <ul class="ist-unstyled margin-bottom-30">
+                        {% for tarif in evenement.tarifs %}
+                            <li><strong>{{ tarif.titreprix }}:</strong> {{ tarif.prix }}€</li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+{% endblock %}
+
+{% block javascripts %}
+    <script type="text/javascript">
+        $(document).ready(function () {
+            // On récupère la balise <div> en question qui contient l'attribut « data-prototype » qui nous intéresse.
+            var $container = $('.collection');
+
+            // On définit un compteur unique pour nommer les champs qu'on va ajouter dynamiquement
+            var index = $container.find(':input').length;
+
+            // On ajoute un nouveau champ à chaque clic sur le lien d'ajout.
+            $('.add').click(function (e) {
+                addTarif($container);
+
+                e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+                return false;
+            });
+
+            // On ajoute un premier champ automatiquement s'il n'en existe pas déjà un (cas d'une nouvelle annonce par exemple).
+            if (index == 0) {
+                addTarif($container);
+            } else {
+                // S'il existe déjà des catégories, on ajoute un lien de suppression pour chacune d'entre elles
+                $container.children('div').each(function () {
+                    addDeleteLink($(this));
+                });
+            }
+
+            // La fonction qui ajoute un formulaire CategoryType
+            function addTarif($container) {
+                // Dans le contenu de l'attribut « data-prototype », on remplace :
+                // - le texte "__name__label__" qu'il contient par le label du champ
+                // - le texte "__name__" qu'il contient par le numéro du champ
+                var template = $container.attr('data-prototype')
+                                .replace(/__name__label__/g, 'Tarif n°' + (index + 1))
+                                .replace(/__name__/g, index)
+                        ;
+
+                // On crée un objet jquery qui contient ce template
+                var $prototype = $(template);
+
+                // On ajoute au prototype un lien pour pouvoir supprimer la catégorie
+                addDeleteLink($prototype);
+
+                // On ajoute le prototype modifié à la fin de la balise <div>
+                $container.append($prototype);
+
+                // Enfin, on incrémente le compteur pour que le prochain ajout se fasse avec un autre numéro
+                index++;
+            }
+
+            // La fonction qui ajoute un lien de suppression d'une catégorie
+            function addDeleteLink($prototype) {
+                // Création du lien
+                var $deleteLink = $('<div class="col-md-3"><a class="btn btn-danger" href="#"><i class="fa fa-trash"></i> Supprimer</a> </div>');
+
+                // Ajout du lien
+                $prototype.append($deleteLink);
+
+                // Ajout du listener sur le clic du lien pour effectivement supprimer la catégorie
+                $deleteLink.click(function (e) {
+                    $prototype.remove();
+
+                    e.preventDefault(); // évite qu'un # apparaisse dans l'URL
+                    return false;
+                });
+            }
+        });
+    </script>
+{% endblock %}

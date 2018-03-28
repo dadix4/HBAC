@@ -1,0 +1,48 @@
+{% extends 'equipe/layout/layoutTeam.html.twig' %}
+
+{% block titre %} Equipes | {{ parent() }} {% endblock %}
+
+{% block bodyTeam %}
+    <div class="text-center mb-3">
+        <h2 class="h4 text-uppercase mb-1">Toutes nos équipes</h2>
+        <div class="d-inline-block g-width-100 g-height-1 g-bg-black mb-0"></div>
+    </div>
+    <div class="row">
+    {% for equipe in equipes %}
+        <div class="col-lg-3 col-sm-6 g-mb-30">
+            <!-- Figure -->
+            <figure class="g-color-gray-dark-v2">
+                <!-- Figure Image -->
+                <div class="img-equipes g-mb-10">
+            {% if equipe.image %}
+                <img class="w-100" src="{{ asset(equipe.image.webPath) }}" alt="{{  equipe.image.alt }}">
+            {% else %}
+                <img class="w-100 " src="{{ asset('assets/frontend/img/handball_equipe.jpg') }}" alt="pas de photo d'équipe">
+            {% endif %}
+                <!-- End Figure Image -->
+                </div>
+                <!-- Figure Info -->
+                <em class="text-center d-block g-font-style-normal g-font-size-13 text-uppercase g-color-primary g-mb-5">{{ equipe.categorie.categorieEquipe }}</em>
+                <h3 class="h6 g-color-black-light-v3 g-mb-5 ">{{ equipe.saison.nomSaison }}</h3>
+                <p class="g-font-size-13 g-color-gray-dark-v4">{{ equipe.division }}</p>
+                <!-- End Info -->
+
+                <hr class="g-brd-gray-light-v4 g-my-10">
+
+                <!-- Contact Info -->
+                <ul class="list-unstyled g-font-size-12 g-color-gray-dark-v4">
+                    <li class="g-mb-5">
+                        <i class="fas fa-user g-mr-10"></i>
+                        {% for entraineurs in equipe.entraineurs %}{{ entraineurs.prenomNom }}{% if not loop.last %}, {% endif %}{% endfor %}
+                    </li>
+                    <li class="g-mb-5">
+                        <i class="far fa-calendar-alt g-mr-10"></i> {{ equipe.createdAt|date('d-m-Y') }}
+                    </li>
+                </ul>
+                <!-- End Contact Info -->
+            </figure>
+            <!-- End Figure -->
+        </div>
+    {% endfor %}
+    </div>
+{% endblock %}

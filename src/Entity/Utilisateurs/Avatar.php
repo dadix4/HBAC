@@ -16,6 +16,7 @@ use Gedmo\Mapping\Annotation as Gedmo;
  */
  class Avatar
  {
+
      /**
       * @var integer
       *
@@ -317,4 +318,6 @@ use Gedmo\Mapping\Annotation as Gedmo;
     {
         return $this->updatedBy;
     }
+
+
 }

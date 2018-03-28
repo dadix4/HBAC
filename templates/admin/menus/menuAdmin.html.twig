@@ -7,11 +7,14 @@
     <span> <!-- User image size is adjusted inside CSS, it should stay as it -->
 
       <a href="" id="show-shortcut" data-action="toggleShortcut">
+        {% if app.user.avatar is not null %}
+          <img src="{{ asset(app.user.avatar.webPath) }}" alt="me" class="online" />
+        {% else %}
         <img src="{{ asset('assets/backend/img/avatar.png') }}" alt="me" class="online" />
+        {% endif %}
         <span>
           {{app.user.username}}
         </span>
-        <i class="fa fa-angle-down"></i>
       </a>
 
     </span>
@@ -46,8 +49,10 @@
         <ul>
           <li {% if app.request.attributes.get('_route') == 'admin_saison_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_saison_index') }}">Saisons</a></li>
           <li {% if app.request.attributes.get('_route') == 'admin_club_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_club_index') }}">Clubs</a></li>
+          <li {% if app.request.attributes.get('_route') == 'admin_sponsors_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_sponsors_index') }}">Partenariats</a></li>
           <li {% if app.request.attributes.get('_route') == 'admin_salle_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_salle_index') }}">Salles</a></li>
           <li {% if app.request.attributes.get('_route') == 'admin_entrainement_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_entrainement_index') }}">Entrainements</a></li>
+          <li {% if app.request.attributes.get('_route') == 'admin_contact_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_contact_index') }}">Messages</a></li>
         </ul>
       </li>
       <li>
@@ -61,10 +66,10 @@
         </ul>
       </li>
       <li>
-        <a href="#"><i class="fas fa-lg fa-fw fa-address-card"></i> <span class="menu-item-parent"> Organigramme</span></a>
+        <a href="#"><i class="fas fa-lg fa-fw fa-sitemap"></i> <span class="menu-item-parent"> Organigramme</span></a>
         <ul>
           <li {% if app.request.attributes.get('_route') == 'admin_bureau_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_bureau_index') }}">Gestion du Bureau</a></li>
-          <li {% if app.request.attributes.get('_route') == 'admin_import_fichierlicencie' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_import_fichierlicencie') }}">Gestion des fonctions</a></li>
+          <li {% if app.request.attributes.get('_route') == 'admin_fonction_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_fonction_index') }}">Gestion des fonctions</a></li>
         </ul>
       </li>
       <li>
@@ -72,6 +77,18 @@
         <ul>
           <li {% if app.request.attributes.get('_route') == 'admin_core_licencie_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_core_licencie_index') }}">Licenciés</a></li>
           <li {% if app.request.attributes.get('_route') == 'admin_import_fichierlicencie' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_import_fichierlicencie') }}">Import Licenciés</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fas fa-lg fa-fw fa-calendar-alt"></i> <span class="menu-item-parent"> Evènements</span></a>
+        <ul>
+          <li {% if app.request.attributes.get('_route') == 'admin_event_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_event_index') }}">Gestion des Evènements</a></li>
+        </ul>
+      </li>
+      <li>
+        <a href="#"><i class="fas fa-lg fa-fw fa-wrench"></i> <span class="menu-item-parent"> Site</span></a>
+        <ul>
+          <li {% if app.request.attributes.get('_route') == 'admin_user_index' %}class="active"{% else %}{% endif %}><a href="{{ path('admin_user_index') }}">Membres du Site</a></li>
         </ul>
       </li>
     </ul>

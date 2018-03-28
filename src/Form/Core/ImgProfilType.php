@@ -1,13 +1,13 @@
 <?php
 
-namespace App\Form\Core\Sponsors;
+namespace App\Form\Core;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\FileType;
 
-class ImageType extends AbstractType
+class ImgProfilType extends AbstractType
 {
     /**
      * {@inheritdoc}
@@ -24,7 +24,7 @@ class ImageType extends AbstractType
     public function configureOptions(OptionsResolver $resolver)
     {
         $resolver->setDefaults(array(
-            'data_class' => 'App\Entity\Core\Sponsors\Image'
+            'data_class' => 'App\Entity\Core\ImgProfil'
         ));
     }
 
@@ -33,7 +33,7 @@ class ImageType extends AbstractType
      */
     public function getBlockPrefix()
     {
-        return 'app_sponsors_image';
+        return 'app_licencie_image';
     }
 
 
