@@ -1,0 +1,204 @@
+body {
+    font-weight: 400;
+    font-size: 1rem;
+    font-family: "Ubuntu", Helvetica, Arial, sans-serif;
+    line-height: 1.6;
+    color: #555;
+    background-color: #ffffff; }
+
+.u-header__section--light .navbar-nav:not([class*="u-main-nav-v"]) .nav-link, .u-header__section--light--shift.js-header-change-moment .navbar-nav:not([class*="u-main-nav-v"]) .nav-link {
+    color: #3F4752;
+}
+
+.u-header__section--light .navbar-nav:not([class*="u-main-nav-v"]) .nav-link:focus, .u-header__section--light--shift.js-header-change-moment .navbar-nav:not([class*="u-main-nav-v"]) .nav-link:focus {
+    color: #3F4752;
+    font-weight: 600;
+}
+
+.u-header__section--light .navbar-nav:not([class*="u-main-nav-v"]) .nav-link:hover, .u-header__section--light--shift.js-header-change-moment .navbar-nav:not([class*="u-main-nav-v"]) .nav-link:hover {
+    color: #53b02f;
+    font-weight: 800;
+}
+
+
+
+.table td, .table th{
+    padding: .35rem;
+}
+
+.stripe-button-el {
+    color: #fff;
+    background-color: #72c02c;
+    position: relative;
+    transition: .2s ease;
+    cursor: pointer;
+}
+
+.sidebar a:hover {
+    color: #72c02c;
+}
+
+.sidebar-item {
+    border: 1px solid #ddd;
+    position: relative;
+    display: block;
+}
+
+a.sidebar-nav:focus {
+    background: #7F8189;
+    border-radius: 0;
+    color: #FFFFFF;
+}
+
+.nav-link-equipe {
+    font-size: 12px;
+}
+
+.margin-right-5 {
+    margin-right: 5px;
+}
+
+.img-equipes {
+    min-height: 155px;
+}
+
+.table-striped > tbody > tr:nth-child(2n+1) > td, .table-striped > tbody > tr:nth-child(2n+1) > th {
+    background-color: #E5E5E5;
+}
+
+.scores_homepage {
+    background-color: #ffffff;
+    border-top: 1px solid #9EA0A3;
+}
+
+span.monClub{
+    font-weight: bold;
+    font-size: 0.880rem;
+}
+
+span.monClub a{
+    color: #5E5E5E;
+}
+
+span.club {
+    font-size: 0.780rem;
+
+}
+
+.match_homepage{
+    border-bottom: 1px solid rgba(61,66,72,0.15);
+    padding: 5px 0;
+    position: relative;
+    line-height : 0.85;
+
+}
+
+.team_local {
+    width: 44%;
+    text-align: left;
+    padding-left: 18px;
+    padding-right: 0;
+}
+
+.score{
+    width: 12%;
+    font-weight: bold;
+    text-align: center;
+    font-size: 0.750rem;
+    padding-right: 0;
+    padding-left: 0;
+}
+
+span.victoire{
+    color:#00a300;
+    font-size: 0.750rem;
+}
+span.defaite{
+    color:red;
+    font-size: 0.750rem;
+}
+span.nul{
+    color: #009CDE;
+    font-size: 0.750rem;
+}
+
+.team_visiteur{
+    width: 44%;
+    text-align: right;
+    padding-left: 0;
+}
+
+.team_logo_local{
+    width: 20%;
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.team_logo_local img{
+    width: 25px;
+}
+
+.team_logo_visiteur{
+    width: 20%;
+    padding-left: 0;
+    padding-right: 2px;
+}
+
+.team_logo_visiteur img{
+    width: 25px;
+}
+
+
+.team_nom_local{
+    width: 80%;
+    color: #777A7F;
+    text-align: left;
+    padding-left: 2px;
+    padding-right: 15px;
+}
+
+.team_nom_visiteur{
+    width: 80%;
+    color: #777A7F;
+    text-align: right;
+    padding-left: 15px ;
+    padding-right: 2px;
+
+}
+
+.victoire{
+    color: #00a300;
+    font-weight: bold;
+}
+.defaite{
+    color: red;
+    font-weight: bold;
+}
+.nul{
+    color: #009CDE;
+    font-weight: bold;
+}
+
+.info-commission{
+    height: 110px;
+}
+
+.info-bureau {
+    height: 55px;
+}
+
+.block-bureau {
+    margin-right: 15px;
+    margin-left: 15px;
+    background-color: #f2f2f2;
+    border-bottom: 2px solid #ededed ;
+}
+
+.block-bureau:hover {
+    background-color: #ededed;
+    border-bottom: 2px solid #72c02c ;
+}
+
+.float-right {
+    float: right;
+}
