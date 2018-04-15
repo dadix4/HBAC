@@ -1,0 +1,115 @@
+{% extends 'layout.html.twig' %}
+
+{% block titre %} Modifier mon Profil | {{ parent() }} {% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <!-- Profile Sidebar -->
+        <div class="col-lg-3 g-mb-50 g-mb-0--lg">
+            <!-- User Image -->
+            <div class="u-block-hover g-pos-rel">
+                <figure>
+                    {% if licencie.imgProfil %}
+                    <img class="img-fluid w-100 u-block-hover__main--zoom-v1" src="{{ asset(licencie.imgProfil.webPath) }}" alt="Photo profil {{ licencie.prenomNom }}">
+                    {% else %}
+                        <img class="img-fluid w-100 u-block-hover__main--zoom-v1" src="{{ asset ('assets/frontend/img/user_no_img.png')}}" alt="Image Description">
+                    {% endif %}
+                </figure>
+
+                <!-- User Info -->
+                <span class="g-pos-abs g-top-20 g-left-0">
+                  <a class="btn btn-sm u-btn-primary rounded-0" href="#!">{{ licencie.prenomNom }}</a>
+                  <small class="d-block g-bg-black g-color-white g-pa-5">Handball</small>
+                </span>
+                <!-- End User Info -->
+            </div>
+            <!-- User Image -->
+        </div>
+        <!-- End Profile Sidebar -->
+
+        <!-- Profle Content -->
+        <div class="col-lg-9">
+            <!-- Nav tabs -->
+            <ul class="nav nav-justified u-nav-v1-1 u-nav-primary g-brd-bottom--md g-brd-bottom-2 g-brd-primary g-mb-20" role="tablist" data-target="nav-1-1-default-hor-left-underline" data-tabs-mobile-type="slide-up-down" data-btn-classes="btn btn-md btn-block rounded-0 u-btn-outline-primary g-mb-20">
+                <li class="nav-item">
+                    <a class="nav-link g-py-10 active" data-toggle="tab" href="#nav-1-1-default-hor-left-underline--1" role="tab">Edit Profile</a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link g-py-10" data-toggle="tab" href="#nav-1-1-default-hor-left-underline--2" role="tab"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link g-py-10" data-toggle="tab" href="#nav-1-1-default-hor-left-underline--3" role="tab"></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link g-py-10" data-toggle="tab" href="#nav-1-1-default-hor-left-underline--4" role="tab"></a>
+                </li>
+            </ul>
+            <!-- End Nav tabs -->
+
+            <!-- Tab panes -->
+            <div id="nav-1-1-default-hor-left-underline" class="tab-content">
+                <!-- Edit Profile -->
+                <div class="tab-pane fade show active" id="nav-1-1-default-hor-left-underline--1" role="tabpanel" data-parent="#nav-1-1-default-hor-left-underline">
+                    <h2 class="h4 g-font-weight-300">Formulaire permettant de mettre à jour votre licence</h2>
+                    <p>Merci de mettre une adresse mail valide pour recevoir par la suite l'email de fédération de Handball</p>
+
+                    {{ form_errors(form) }}
+                    {{ form_start(form, {'action': path('inscription_maj', {'id':licencie.id , 'prenom':licencie.prenom , 'nom':licencie.nom}), 'method': 'POST', 'attr' : {'class' : 'g-brd-around g-brd-gray-light-v4 g-pa-30 g-mb-30'} }) }}
+                    <div class="form-group row g-mb-25">
+                        <label class="col-sm-3 col-form-label g-mb-10"><i class="far fa-user"></i> {{ form_label(form.prenom) }}</label>
+                        <div class="col-sm-9">
+                            {{ form_widget(form.prenom) }}
+                        </div>
+                    </div>
+                    <div class="form-group row g-mb-25">
+                        <label class="col-sm-3 col-form-label g-mb-10"><i class="far fa-user"></i> {{ form_label(form.nom) }}</label>
+                        <div class="col-sm-9">
+                            {{ form_widget(form.nom) }}
+                        </div>
+                    </div>
+                    <div class="form-group row g-mb-25">
+                        <label class="col-sm-3 col-form-label g-mb-10"><i class="fas fa-birthday-cake"></i> {{ form_label(form.birthday) }}</label>
+                        <div class="col-sm-9">
+                            {{ form_widget(form.birthday) }}
+                        </div>
+                    </div>
+                    <div class="form-group row g-mb-25">
+                        <label class="col-sm-3 col-form-label g-mb-10"><i class="far fa-envelope"></i> {{ form_label(form.mail) }}</label>
+                        <div class="col-sm-9">
+                            {{ form_widget(form.mail) }}
+                        </div>
+                    </div>
+                    <div class="form-group row g-mb-25">
+                        <label class="col-sm-3 col-form-label g-mb-10"><i class="fas fa-phone"></i> {{ form_label(form.tel) }}</label>
+                        <div class="col-sm-9">
+                            {{ form_widget(form.tel) }}
+                        </div>
+                    </div>
+                    <div class="form-group row g-mb-25">
+                        <label class="col-sm-3 col-form-label g-mb-10"><i class="fas fa-mobile-alt"></i> {{ form_label(form.portable) }}</label>
+                        <div class="col-sm-9">
+                            {{ form_widget(form.portable) }}
+                        </div>
+                    </div>
+                    <div class="form-group row g-mb-25">
+                        <label class="col-sm-3 col-form-label g-mb-10"> {{ form_label(form.imgProfil) }}</label>
+                        <div class="col-sm-9">
+                            {{ form_widget(form.imgProfil) }}
+                        </div>
+                    </div>
+                        {{ form_rest(form) }}
+                    <div class="text-sm-right">
+                        <a class="btn u-btn-darkgray rounded-0 g-py-12 g-px-25 g-mr-10" href="#!">Annuler</a>
+                        <button class="btn u-btn-primary rounded-0 g-py-12 g-px-25" type="submit">Valider</button>
+                    </div>
+                    {{ form_end(form) }}
+                </div>
+                <!-- End Edit Profile -->
+            </div>
+            <!-- End Tab panes -->
+        </div>
+        <!-- End Profle Content -->
+    </div>
+
+{% endblock %}
